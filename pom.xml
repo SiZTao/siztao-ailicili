@@ -1,0 +1,182 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <!--
+        @Author :司振涛
+        @Time : 2018-2-27 20:15
+        Maven项目主配置,所有子项目继承该配置
+    -->
+    <groupId>com.siztao</groupId>
+    <artifactId>siztao-ailicili</artifactId>
+    <version>1.0-SNAPSHOT</version>
+    <modules>
+        <module>siztao-config</module>
+        <module>siztao-framework</module>
+        <module>siztao-framework-mybatis</module>
+        <module>siztao-manage</module>
+        <module>siztao-cms</module>
+        <module>siztao-manage-web</module>
+        <module>siztao-cms-web</module>
+    </modules>
+    <packaging>pom</packaging>
+
+    <!--统一依赖版本配置-->
+    <properties>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>          <!--统一编码配置-->
+        <jdk.version>1.8</jdk.version>                                              <!--JDK版本-->
+        <junit.version>4.12</junit.version>
+        <javax.servlet-api.version>3.1.0</javax.servlet-api.version>
+        <javax.servlet.jsp.version>2.3.1</javax.servlet.jsp.version>
+        <jstl.version>1.2</jstl.version>
+        <server.port>8080</server.port>
+    </properties>
+
+    <!--    发布仓库配置    -->
+    <distributionManagement>
+        <!-- 两个ID必须与 setting.xml中的<server><id>nexus-rs</id></server>保持一致-->
+        <repository>
+            <id>releases</id>
+            <name>Nexus Release Repository</name>
+            <url>http://192.168.137.129:8081/nexus/content/repositories/releases/</url>
+        </repository>
+        <snapshotRepository>
+            <id>snapshots</id>
+            <name>Nexus Snapshot Repository</name>
+            <url>http://192.168.137.129:8081/nexus/content/repositories/snapshots/</url>
+        </snapshotRepository>
+    </distributionManagement>
+
+    <!-- 主依赖库配置.只声明不引入依赖-->
+    <dependencyManagement>
+        <dependencies>
+            <!-- 1、JUnit 单元测试 -->
+            <dependency>
+                <groupId>junit</groupId>
+                <artifactId>junit</artifactId>
+                <version>${junit.version}</version>
+            </dependency>
+            <!-- 2、Servlet Api-->
+            <dependency>
+                <groupId>javax.servlet</groupId>
+                <artifactId>javax.servlet-api</artifactId>
+                <version>${javax.servlet-api.version}</version>
+                <scope>provided</scope>
+            </dependency>
+            <dependency>
+                <groupId>javax.servlet.jsp</groupId>
+                <artifactId>javax.servlet.jsp-api</artifactId>
+                <version>${javax.servlet.jsp.version}</version>
+                <scope>provided</scope>
+            </dependency>
+            <dependency>
+                <groupId>javax.servlet</groupId>
+                <artifactId>jstl</artifactId>
+                <version>${jstl.version}</version>
+            </dependency>
+        </dependencies>
+    </dependencyManagement>
+
+
+    <!-- 环境配置,默认使用开发环境-->
+    <profiles>
+        <!-- 默认激活 dev 开发环境 -->
+        <!-- production使用 mvn xxx -Pproduction -->
+        <profile>
+            <!-- 本地开发环境 -->
+            <id>development</id>
+            <properties>
+                <profiles.active>dev</profiles.active>
+            </properties>
+            <activation>
+                <activeByDefault>true</activeByDefault>
+            </activation>
+        </profile>
+        <profile>
+            <!-- 生产环境 -->
+            <id>production</id>
+            <properties>
+                <profiles.active>production</profiles.active>
+            </properties>
+        </profile>
+    </profiles>
+
+
+    <!--构建配置信息-->
+
+    <build>
+        <finalName>${artifactId}-${version}</finalName>
+        <resources>
+            <resource>
+                <directory>src/main/resources</directory>
+            </resource>
+            <resource>
+                <directory>src/main/conf/${profiles.active}</directory>
+            </resource>
+        </resources>
+
+        <plugins>
+            <!-- compiler插件, 设定JDK版本 -->
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <version>3.1</version>
+                <configuration>
+                    <source>${jdk.version}</source>
+                    <target>${jdk.version}</target>
+                    <showWarnings>true</showWarnings>
+                    <encoding>${project.build.sourceEncoding}</encoding>
+                </configuration>
+            </plugin>
+        </plugins>
+        <pluginManagement>
+            <plugins>
+                <!-- jetty插件 -->
+                <plugin>
+                    <groupId>org.eclipse.jetty</groupId>
+                    <artifactId>jetty-maven-plugin</artifactId>
+                    <version>9.4.5.v20170502</version>
+                    <configuration>
+                        <scanIntervalSeconds>0</scanIntervalSeconds>
+                        <httpConnector>
+                            <port>${server.port}</port>
+                        </httpConnector>
+                        <webApp>
+                            <contextPath>/${artifactId}</contextPath>
+                        </webApp>
+                    </configuration>
+                </plugin>
+                <plugin>
+                    <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-resources-plugin</artifactId>
+                    <version>2.6</version>
+                    <configuration>
+                        <skip>true</skip>
+                        <encoding>UTF-8</encoding>
+                    </configuration>
+                </plugin>
+                <plugin>
+                    <groupId>org.zeroturnaround</groupId>
+                    <artifactId>jrebel-maven-plugin</artifactId>
+                    <version>1.1.5</version>
+                    <configuration>
+                        <addResourcesDirToRebelXml>true</addResourcesDirToRebelXml>
+                        <alwaysGenerate>true</alwaysGenerate>
+                        <showGenerated>true</showGenerated>
+                    </configuration>
+                    <executions>
+                        <execution>
+                            <id>generate-rebel-xml</id>
+                            <phase>process-resources</phase>
+                            <goals>
+                                <goal>generate</goal>
+                            </goals>
+                        </execution>
+                    </executions>
+                </plugin>
+            </plugins>
+        </pluginManagement>
+    </build>
+</project>
