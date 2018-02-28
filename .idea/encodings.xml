@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="Encoding">
+    <file url="file://$PROJECT_DIR$" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/siztao-cms" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/siztao-cms-web" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/siztao-cms/siztao-cms-service" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/siztao-cms/siztao-cms-service-api" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/siztao-config" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/siztao-framework" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/siztao-framework-mybatis" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/siztao-manage" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/siztao-manage-web" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/siztao-manage/siztao-manage-app-queue" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/siztao-manage/siztao-manage-service" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/siztao-manage/siztao-manage-service-api" charset="UTF-8" />
+  </component>
+</project>

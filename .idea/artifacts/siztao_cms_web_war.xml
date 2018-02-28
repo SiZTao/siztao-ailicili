@@ -1,0 +1,8 @@
+<component name="ArtifactManager">
+  <artifact type="war" name="siztao-cms-web:war">
+    <output-path>$PROJECT_DIR$/siztao-cms-web/target</output-path>
+    <root id="archive" name="siztao-cms-web-1.0-SNAPSHOT.war">
+      <element id="artifact" artifact-name="siztao-cms-web:war exploded" />
+    </root>
+  </artifact>
+</component>

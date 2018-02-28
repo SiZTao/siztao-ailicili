@@ -30,6 +30,7 @@
         <dependency>
             <groupId>javax.servlet</groupId>
             <artifactId>jstl</artifactId>
+            <scope>provided</scope>
         </dependency>
         <!-- 系统开发核心依赖 -->
         <!-- 3、Spring Framework -->
