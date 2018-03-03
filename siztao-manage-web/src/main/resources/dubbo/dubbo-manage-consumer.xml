@@ -1,0 +1,32 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:dubbo="http://code.alibabatech.com/schema/dubbo"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans
+						http://www.springframework.org/schema/beans/spring-beans.xsd 
+						http://code.alibabatech.com/schema/dubbo 
+						http://code.alibabatech.com/schema/dubbo/dubbo.xsd">
+
+	<dubbo:application name="ailicili-manage-web-boss" />
+	<!-- zookeeper 祖册中心 -->
+	<!-- 使用zookeeper注册中心暴露服务地址 -->
+	<dubbo:registry address="zookeeper://192.168.137.129:2181" ></dubbo:registry>
+	<dubbo:protocol name="dubbo" port="20881" />
+	<dubbo:consumer check="false" />
+
+    <!-- ======================= 声明需要调用的服务接口 【开始】======================= -->
+    <!-- 
+        ·配置简要说明：
+        ·<dubbo:reference>标签中的id，要与接口的名称一致
+        ·<dubbo:reference>标签中的interface，是接口的完全包类名。无论是服务提供者还是服务调用者，标签中都会有interface属性，所以，接口包路径要一致。
+        ·   这里也说明了为什么要将接口单独抽离成一个jar模块，因为dubbo是根据接口包类名来寻找接口服务方的。并且，接口的方法参数、参数类型都要一致。
+     -->
+    
+
+	<!-- 基础服务 -->
+    <dubbo:reference interface="com.siztao.ailicili.service.manage.api.sys.ApplicationService" id="applicationService" timeout="30000" retries="0"  check="false"/>
+
+
+    
+	<!-- ======================= 声明需要调用的服务接口 【结束】======================= -->
+</beans>

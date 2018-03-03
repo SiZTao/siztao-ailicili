@@ -1,0 +1,119 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns:mvc="http://www.springframework.org/schema/mvc"
+	   xmlns="http://www.springframework.org/schema/beans" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	   xmlns:aop="http://www.springframework.org/schema/aop" xmlns:context="http://www.springframework.org/schema/context"
+	   xmlns:jee="http://www.springframework.org/schema/jee" xmlns:lang="http://www.springframework.org/schema/lang"
+	   xmlns:p="http://www.springframework.org/schema/p" xmlns:tx="http://www.springframework.org/schema/tx"
+	   xmlns:task="http://www.springframework.org/schema/task"
+	   xmlns:util="http://www.springframework.org/schema/util"
+	   xmlns:cache="http://www.springframework.org/schema/cache"
+	   xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+                        http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop.xsd
+                        http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd
+                        http://www.springframework.org/schema/jee http://www.springframework.org/schema/jee/spring-jee.xsd
+                        http://www.springframework.org/schema/lang http://www.springframework.org/schema/lang/spring-lang.xsd
+                        http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx.xsd
+                        http://www.springframework.org/schema/task http://www.springframework.org/schema/task/spring-task.xsd
+                        http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util.xsd
+                        http://www.springframework.org/schema/cache http://www.springframework.org/schema/cache/spring-cache.xsd
+                        http://www.springframework.org/schema/mvc
+                        http://www.springframework.org/schema/mvc/spring-mvc-3.2.xsd">
+	<description>spring Configuration</description>
+
+	<!-- 开启controller注解支持 -->
+	<context:component-scan base-package="com.siztao.ailicili.manage.web.controller"
+							use-default-filters="false">
+		<context:include-filter type="annotation"
+								expression="org.springframework.stereotype.Controller" />
+		<context:include-filter type="annotation"
+								expression="org.springframework.web.bind.annotation.ControllerAdvice" />
+	</context:component-scan>
+	<!-- 如果配置了<mvc:annotation-driven />，则RequestMappingHandlerMapping这个bean中配置的自定义拦截器不会生效。 需要使用<mvc:interceptors>配置拦截器才可以。-->
+
+	<!-- 配置属性资源文件 -->
+	<bean id="configProperties" class="org.springframework.beans.factory.config.PropertiesFactoryBean">
+		<property name="locations">
+			<list>
+				<value>classpath*:/properties/*.properties</value>
+			</list>
+		</property>
+	</bean>
+	<bean class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
+		<property name="ignoreResourceNotFound" value="false" />
+		<property name="properties" ref="configProperties" />
+	</bean>
+
+	<!-- freemarker的配置 -->
+	<!-- 模板信息设置 -->
+	<bean id="freemarkerConfig"
+		  class="org.springframework.web.servlet.view.freemarker.FreeMarkerConfigurer">
+		<property name="templateLoaderPath" value="/WEB-INF/pages"/>
+		<property name="defaultEncoding" value="utf-8"/>
+		<property name="freemarkerSettings">
+			<props>
+				<prop key="template_update_delay">0</prop>
+				<prop key="url_escaping_charset">utf-8</prop>
+				<prop key="locale">zh_CN</prop>
+				<prop key="boolean_format">true,false</prop>
+				<prop key="datetime_format">yyyy-MM-dd HH:mm:ss</prop>
+				<prop key="date_format">yyyy-MM-dd</prop>
+				<prop key="time_format">HH:mm:ss</prop>
+				<prop key="number_format">0.######</prop>
+				<prop key="whitespace_stripping">true</prop>
+				<prop key="auto_import"/>
+			</props>
+		</property>
+	</bean>
+
+	<bean id="freemarkerViewResolver" class="org.springframework.web.servlet.view.freemarker.FreeMarkerViewResolver">
+		<property name="prefix" value=""/>
+		<property name="suffix" value=".html"/>
+		<property name="contentType" value="text/html; charset=utf-8"/>
+		<property name="viewClass" value="org.springframework.web.servlet.view.freemarker.FreeMarkerView"/>
+		<property name="exposeSpringMacroHelpers" value="true"/>
+		<property name="exposeRequestAttributes" value="true"/>
+		<property name="exposeSessionAttributes" value="true"/>
+		<property name="cache" value="false"/>
+		<property name="requestContextAttribute" value="request"/>
+	</bean>
+
+	<!-- JSP视图解析器  -->
+	<bean id="viewResolverJsp" class="org.springframework.web.servlet.view.InternalResourceViewResolver">
+		<property name="prefix" value="/WEB-INF/pages/"/>
+		<property name="suffix" value=".jsp"/>
+	</bean>
+
+	<bean class="org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerMapping" />
+	<bean class="org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerAdapter">
+		<property name="messageConverters">
+			<list>
+				<bean class="org.springframework.http.converter.StringHttpMessageConverter">
+					<property name="supportedMediaTypes">
+						<list>
+							<value>text/html; charset=UTF-8</value>
+							<value>application/json;charset=UTF-8</value>
+						</list>
+					</property>
+				</bean>
+				<bean class="org.springframework.http.converter.json.MappingJackson2HttpMessageConverter">
+					<property name="supportedMediaTypes">
+						<list>
+							<value>text/html; charset=UTF-8</value>
+							<value>application/json;charset=UTF-8</value>
+						</list>
+					</property>
+					<property name="objectMapper" >
+						<bean class="org.springframework.http.converter.json.Jackson2ObjectMapperFactoryBean" p:simpleDateFormat="yyyy-MM-dd HH:mm:ss" />
+					</property>
+				</bean>
+			</list>
+		</property>
+	</bean>
+
+	<!-- 当在web.xml 中 DispatcherServlet使用 <url-pattern>/</url-pattern> 映射时，能映射静态资源 -->
+	<mvc:default-servlet-handler />
+	<!-- 静态资源映射-->
+	<mvc:resources location="/static/" mapping="/static/**" />
+
+
+</beans>

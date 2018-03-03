@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:p="http://www.springframework.org/schema/p"
+	xmlns:aop="http://www.springframework.org/schema/aop" xmlns:tx="http://www.springframework.org/schema/tx"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xsi:schemaLocation="http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-4.2.xsd
+		http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.1.xsd
+		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-4.2.xsd
+		http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-4.2.xsd">
+
+	<description>mybatis Configuration</description>
+
+
+
+	<!-- spring和MyBatis完美整合，不需要mybatis的配置映射文件（mybatis-spring项目提供整合类） -->
+	<!-- <bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean"> -->
+	<!-- <property name="dataSource" ref="dataSource" /> -->
+	<!-- <property name="mapperLocations" value="classpath:/mybatis/**/*Mapper.xml"
+		/> -->
+	<!-- </bean> -->
+
+	<!-- MyBatis SqlSessionFactoryBean 配置 -->
+	<!-- 注意：这里使用的是MP的MybatisSqlSessionFactoryBean，而不是Mybatis的，因为MP需要进行相应代理 -->
+	<bean id="sqlSessionFactory"
+		class="com.baomidou.mybatisplus.spring.MybatisSqlSessionFactoryBean">
+		<!-- 配置数据源 -->
+		<property name="dataSource" ref="dataSource" />
+		<!-- 配置Mybatis配置文件 -->
+		<property name="configLocation" value="classpath:mybatis/mybatis-config.xml" />
+		<!-- 配置别名包路径 -->
+		<property name="typeAliasesPackage" value="com.siztao.ailicili.service.manage.entity" />
+		<!-- 配置Mapper扫描路径（IDEA系列编辑器需要特别注意，因为IDEA的设置问题，src中的xml文件是不会被编译的，如果放在src中可能会报错，解决办法详见
+			常用问题-Invalid bound statement (not found) 错误如何解决?） -->
+		<property name="mapperLocations" value="classpath:/mybatis/mapper/*/*.xml" />
+		<!-- 插件配置项 -->
+		<property name="plugins">
+			<array>
+				<!-- 分页插件配置 -->
+				<bean id="paginationInterceptor"
+					class="com.baomidou.mybatisplus.plugins.PaginationInterceptor">
+					<property name="dialectType" value="mysql" />
+				</bean>
+			</array>
+		</property>
+		<!-- 全局配置注入 -->
+		<property name="globalConfig" ref="globalConfig" />
+	</bean>
+
+	<bean id="globalConfig" class="com.baomidou.mybatisplus.entity.GlobalConfiguration">
+		<!-- AUTO->`0`("数据库ID自增") INPUT->`1`(用户输入ID") ID_WORKER->`2`("全局唯一ID")
+			UUID->`3`("全局唯一ID") -->
+		<property name="idType" value="0" />
+		<!-- MYSQL->`mysql` ORACLE->`oracle` DB2->`db2` H2->`h2` HSQL->`hsql` SQLITE->`sqlite`
+			POSTGRE->`postgresql` SQLSERVER2005->`sqlserver2005` SQLSERVER->`sqlserver` -->
+		<!-- Oracle需要添加该项 -->
+		<!-- <property name="dbType" value="oracle" /> -->
+		<!-- 全局表为下划线命名设置 true -->
+		<!-- <property name="dbColumnUnderline" value="true" /> -->
+	</bean>
+
+	<!-- MyBatis 动态实现:DAO接口所在包名，Spring会自动查找其下的类 -->
+	<bean id="mapperScannerConfigurer" class="org.mybatis.spring.mapper.MapperScannerConfigurer">
+		<!-- 对Dao 接口动态实现，需要知道接口在哪 -->
+		<property name="basePackage" value="com.siztao.ailicili.service.manage.dao.*" />
+	</bean>
+
+</beans>
