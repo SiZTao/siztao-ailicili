@@ -16,6 +16,7 @@
 
 	<!-- 引入基础配置 -->
 	<context:annotation-config />
+	<context:component-scan base-package="com.siztao.ailicili.manage.web"></context:component-scan>
 
 	<aop:aspectj-autoproxy/>
 	<!-- 引入配置文件 -->
@@ -30,5 +31,24 @@
 			</list>
 		</property>
 	</bean>
+	<!-- Kaptcha验证码生成器 -->
+	<bean name="producer" class="com.google.code.kaptcha.impl.DefaultKaptcha" scope="singleton">
+		<property name="config">
+			<bean class="com.google.code.kaptcha.util.Config">
+				<constructor-arg>
+					<props>
+						<prop key="kaptcha.border">no</prop>
+						<prop key="kaptcha.textproducer.font.color">black</prop>
+						<prop key="kaptcha.textproducer.char.space">6</prop>
+						<prop key="kaptcha.textproducer.char.length">4</prop>
+						<prop key="kaptcha.textproducer.char.string">123456789</prop>
+					</props>
+				</constructor-arg>
+			</bean>
+		</property>
+	</bean>
+	<import resource="classpath:/spring/spring-shiro.xml"/>
 	<import resource="classpath:/dubbo/dubbo-manage-consumer.xml"/>
+	<import resource="classpath:/spring/spring-redis.xml"/>
+
 </beans>

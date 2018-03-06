@@ -9,7 +9,7 @@ import com.siztao.ailicili.service.manage.entity.sys.UserReRole;
  * </p>
  *
  * @author SiZhenTao
- * @since 2018-03-02
+ * @since 2018-03-05
  */
 public interface UserReRoleService extends IService<UserReRole> {
 	

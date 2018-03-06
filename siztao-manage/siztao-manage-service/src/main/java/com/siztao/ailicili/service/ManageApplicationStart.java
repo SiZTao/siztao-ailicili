@@ -1,7 +1,7 @@
 package com.siztao.ailicili.service;
 
 
-import com.siztao.ailicili.service.util.SpringContextUtil;
+import com.siztao.framework.utils.SpringContextUtil;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.apache.xbean.spring.context.ClassPathXmlApplicationContext;
@@ -18,7 +18,7 @@ public class ManageApplicationStart {
             context.start();
             LOG.info("ManageService Dubbo Service == context start");
         }catch (Exception e){
-            LOG.error("[sizto-manage-service ] == application start error",e);
+            LOG.error("[sio-manage-service ] == application start error",e);
             return;
         }
         synchronized (ManageApplicationStart.class){

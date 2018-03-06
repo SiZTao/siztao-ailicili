@@ -12,5 +12,10 @@
 </head>
 <body>
 ff
+<%
+
+    session.setAttribute("name","顺丰到付 ");
+%>
+<a href="main.jsp">main</a>
 </body>
 </html>

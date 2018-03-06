@@ -10,6 +10,8 @@
 
 	<description>数据源配置</description>
 	<!-- 数据源配置, 使用 BoneCP 数据库连接池 -->
+	<context:property-placeholder location="classpath:/properties/jdbc.properties" ignore-unresolvable="true"/>
+
 	<bean id="dataSource" class="com.alibaba.druid.pool.DruidDataSource"
 		  init-method="init" destroy-method="close">
 		<!-- 数据源驱动类可不写，Druid默认会自动根据URL识别DriverClass -->

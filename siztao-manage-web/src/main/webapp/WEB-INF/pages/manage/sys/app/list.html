@@ -1,10 +1,48 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="zh-cn">
 <head>
-    <meta charset="UTF-8">
-    <title>Application管理</title>
+    <meta charset="utf-8">
+    <title>系统应用管理</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <meta name="renderer" content="webkit">
+    <!--通用样式-->
+    <link rel="stylesheet" href="/static/style/css/backend.css"/>
+    <link rel="stylesheet" href="/static/style/css/skins/_all-skins.css"/>
+    <link rel="stylesheet" href="/static/libs/pace-master/themes/yellow/pace-theme-flash.css">
+    <style type="text/css">
+        html {
+            overflow: hidden;
+        }
+        [v-cloak] {
+            display: none;
+        }
+    </style>
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+    <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
+    <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+    <![endif]-->
+    <script type="text/javascript" src="/static/libs/pace-master/pace.min.js"></script>
+
+
 </head>
-<body>
-Application List
+
+<body class="hold-transition skin-blue sidebar-mini inside-header inside-aside bg-gray-light">
+<div id="Application" v-cloak>
+
+</div>
+
 </body>
+<!-- 引入JS -->
+<script src="/static/style/js/jquery-2.2.4.min.js"></script>
+<script src="/static/style/js/bootstrap.min.js"></script>
+<script src="/static/style/js/vue.min.js"></script>
+
+<!-- BootstrapTable 数据表格 -->
+<script src="/static/libs/bootstrap-table/dist/bootstrap-table.js"></script>
+<script src="/static/libs/bootstrap-table/dist/extensions/mobile/bootstrap-table-mobile.min.js"></script>
+<script src="/static/libs/bootstrap-table/dist/locale/bootstrap-table-zh-CN.js"></script>
+<script src="/appjs/manage/app.js"></script>
+
 </html>

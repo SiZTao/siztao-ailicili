@@ -16,5 +16,12 @@
 	<dubbo:provider/>
 	<!--服务接口-->
 	<dubbo:service interface="com.siztao.ailicili.service.manage.api.sys.ApplicationService" ref="applicationServiceImpl" timeout="30000" retries="0" />
+	<dubbo:service interface="com.siztao.ailicili.service.manage.api.sys.DeptService" ref="deptServiceImpl" timeout="30000" retries="0" />
+	<dubbo:service interface="com.siztao.ailicili.service.manage.api.sys.PermissionService" ref="permissionServiceImpl" timeout="30000" retries="0" />
+	<dubbo:service interface="com.siztao.ailicili.service.manage.api.sys.RoleService" ref="roleServiceImpl" timeout="30000" retries="0" />
+	<dubbo:service interface="com.siztao.ailicili.service.manage.api.sys.UserService" ref="userServiceImpl" timeout="30000" retries="0" />
+	<dubbo:service interface="com.siztao.ailicili.service.manage.api.sys.UserRePermissionService" ref="userRePermissionServiceImpl" timeout="30000" retries="0" />
+	<dubbo:service interface="com.siztao.ailicili.service.manage.api.sys.RoleRePermissionService" ref="roleRePermissionServiceImpl" timeout="30000" retries="0" />
+	<dubbo:service interface="com.siztao.ailicili.service.manage.api.sys.UserReRoleService" ref="userReRoleServiceImpl" timeout="30000" retries="0" />
 
 </beans>

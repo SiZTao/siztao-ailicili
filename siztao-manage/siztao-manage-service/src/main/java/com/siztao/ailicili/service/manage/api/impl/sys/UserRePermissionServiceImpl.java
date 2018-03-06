@@ -13,7 +13,7 @@ import org.springframework.stereotype.Service;
  * </p>
  *
  * @author SiZhenTao
- * @since 2018-03-02
+ * @since 2018-03-05
  */
 @Service
 public class UserRePermissionServiceImpl extends ServiceImpl<UserRePermissionMapper, UserRePermission> implements UserRePermissionService {

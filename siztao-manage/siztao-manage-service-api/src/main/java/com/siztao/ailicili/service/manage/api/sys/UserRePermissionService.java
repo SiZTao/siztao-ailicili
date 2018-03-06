@@ -9,7 +9,7 @@ import com.siztao.ailicili.service.manage.entity.sys.UserRePermission;
  * </p>
  *
  * @author SiZhenTao
- * @since 2018-03-02
+ * @since 2018-03-05
  */
 public interface UserRePermissionService extends IService<UserRePermission> {
 	

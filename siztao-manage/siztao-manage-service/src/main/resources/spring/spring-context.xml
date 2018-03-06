@@ -13,7 +13,7 @@
 	<context:annotation-config />
 
 	<!-- 配置要扫描的包 -->
-	<context:component-scan base-package="com.siztao.ailicili.service.manage" />
+	<context:component-scan base-package="com.siztao" />
 
 	<!-- proxy-target-class默认"false",更改为"ture"使用CGLib动态代理 -->
 	<aop:aspectj-autoproxy proxy-target-class="true" />
@@ -22,11 +22,11 @@
 	<bean id="configProperties" class="org.springframework.beans.factory.config.PropertiesFactoryBean">
 		<property name="locations">
 			<list>
-				<value>classpath:properties/jdbc.properties</value>
-				<value>classpath:properties/dubbo.properties</value>
-				<value>classpath:properties/redis.properties</value>
-				<value>classpath:properties/zookeeper.properties</value>
-				<value>classpath:properties/activemq.properties</value>
+				<value>classpath:/properties/jdbc.properties</value>
+				<value>classpath:/properties/dubbo.properties</value>
+				<value>classpath:/properties/redis.properties</value>
+				<value>classpath:/properties/zookeeper.properties</value>
+				<value>classpath:/properties/activemq.properties</value>
 			</list>
 		</property>
 	</bean>
@@ -35,9 +35,10 @@
 		<property name="ignoreResourceNotFound" value="false" />
 		<property name="properties" ref="configProperties" />
 	</bean>
-	<import resource="classpath:spring/spring-dataSource.xml" />
-	<import resource="classpath:spring/spring-mybatis.xml" />
-	<import resource="classpath:spring/spring-service.xml" />
-	<import resource="classpath:dubbo/dubbo-manage-service.xml" />
+	<import resource="classpath:/spring/spring-dataSource.xml" />
+	<import resource="classpath:/spring/spring-mybatis.xml" />
+	<import resource="classpath:/spring/spring-service.xml" />
+	<import resource="classpath:/spring/spring-redis.xml"/>
+	<import resource="classpath:/dubbo/dubbo-manage-service.xml" />
 
 </beans>

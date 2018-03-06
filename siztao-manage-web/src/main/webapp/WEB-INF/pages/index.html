@@ -16,8 +16,6 @@
             display: none;
         }
     </style>
-
-
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
     <!--[if lt IE 9]>
@@ -50,22 +48,16 @@
             -->
             <div id="nav" class="pull-left" style="width: 1238px;">
                 <ul class="nav nav-tabs nav-addtabs disable-top-badge">
-                    <li role="presentation" value="skin-red" class="system">
-                        <a href="javascript:;">
+                    <!--<li role="presentation" value="skin-red" class="system">-->
+                        <!--<a href="javascript:;">-->
+                            <!--<i class="fa fa-dashboard"></i>-->
+                            <!--<span>权限管理系统</span> <span class="pull-right-container"> <small-->
+                                <!--class="label pull-right bg-blue">hot</small></span></a>-->
+                    <!--</li>-->
+                    <li role="presentation" v-for="app in appList"  >
+                        <a href="#" value={{app.name}} class="system">
                             <i class="fa fa-dashboard"></i>
-                            <span>权限管理系统</span> <span class="pull-right-container"> <small
-                                class="label pull-right bg-blue">hot</small></span></a>
-                    </li>
-                    <li role="presentation" value="skin-green" class="system">
-                        <a href="#">
-                            <i class="fa fa-dashboard"></i>
-                            <span>内容管理系统</span> <span class="pull-right-container"> <small
-                                class="label pull-right bg-blue">hot</small></span></a>
-                    </li>
-                    <li role="presentation" value="skin-green" class="system">
-                        <a href="#">
-                            <i class="fa fa-dashboard"></i>
-                            <span id="_text">内容管理系统</span> <span class="pull-right-container"></span>
+                            <span id="_text">{{app.name}}</span><span class="pull-right-container"></span>
                         </a>
                     </li>
                 </ul>
@@ -455,29 +447,5 @@
 <script src="/static/style/js/app_iframe.js"></script>
 <script src="/static/style/js/common.js"></script>
 
-<script type="text/javascript">
-    $(function(){
-        $(".system").on("click",function(e){
-            var skin = $(this).attr("value")+" hold-transition sidebar-mini fixed";
-            $("body").attr("class",skin);
-        });
-        App.setbasePath("/");
-        App.setGlobalImgPath("static/img/");
-        addTabs({
-            id: '10008',
-            title: '欢迎页',
-            close: false,
-            url: 'welcome',
-            urlType: "relative"
-        });
-        App.fixIframeCotent();
-    });
-    var vm =new Vue({
-        el:'#mainApp',
-        data:{
-            msg:"Hello"
-        }
-    });
-
-</script>
+<script type="text/javascript" src="/appjs/manage/index.js"></script>
 </html>

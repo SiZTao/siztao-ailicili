@@ -2,8 +2,8 @@ package com.siztao.manage.web;
 
 import com.siztao.ailicili.manage.web.controller.sys.ApplicationController;
 import com.siztao.ailicili.service.manage.api.sys.ApplicationService;
-import com.siztao.ailicili.service.manage.entity.sys.Application;
 import com.siztao.manage.base.BaseJunitTest;
+import org.apache.shiro.crypto.hash.Sha256Hash;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -38,6 +38,7 @@ public class ApplicationTest extends BaseJunitTest{
 
     @Test
     public void test()throws Exception{
-
+       String ps=  new Sha256Hash("123456").toHex();
+        System.out.println(ps);
     }
 }

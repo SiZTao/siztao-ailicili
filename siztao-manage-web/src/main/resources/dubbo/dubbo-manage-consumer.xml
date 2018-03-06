@@ -25,6 +25,10 @@
 
 	<!-- 基础服务 -->
     <dubbo:reference interface="com.siztao.ailicili.service.manage.api.sys.ApplicationService" id="applicationService" timeout="30000" retries="0"  check="false"/>
+	<dubbo:reference interface="com.siztao.ailicili.service.manage.api.sys.DeptService" id="deptService" timeout="30000" retries="0"  check="false"/>
+	<dubbo:reference interface="com.siztao.ailicili.service.manage.api.sys.PermissionService" id="permissionService" timeout="30000" retries="0"  check="false"/>
+	<dubbo:reference interface="com.siztao.ailicili.service.manage.api.sys.RoleService" id="roleService" timeout="30000" retries="0"  check="false"/>
+	<dubbo:reference interface="com.siztao.ailicili.service.manage.api.sys.UserService" id="userService" timeout="30000" retries="0"  check="false"/>
 
 
     

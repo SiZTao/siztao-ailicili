@@ -18,8 +18,8 @@
             <artifactId>siztao-manage-service-api</artifactId>
             <version>1.0-SNAPSHOT</version>
         </dependency>
-        <!-- ======================= 引入项目模块 end================================= -->
 
+        <!-- ======================= 引入项目模块 end================================= -->
     </dependencies>
 
     <build>

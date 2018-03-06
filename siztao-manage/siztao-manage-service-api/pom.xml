@@ -20,7 +20,7 @@
         </dependency>
         <dependency>
             <groupId>com.siztao</groupId>
-            <artifactId>siztao-framework-mybatis</artifactId>
+            <artifactId>siztao-framework</artifactId>
             <version>1.0-SNAPSHOT</version>
         </dependency>
     </dependencies>

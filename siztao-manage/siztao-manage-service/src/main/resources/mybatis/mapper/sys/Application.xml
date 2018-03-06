@@ -2,9 +2,6 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.siztao.ailicili.service.manage.dao.sys.ApplicationMapper">
 
-	<!-- 开启二级缓存 -->
-	<cache type="org.mybatis.caches.ehcache.LoggingEhcache"/>
-
 	<!-- 通用查询映射结果 -->
 	<resultMap id="BaseResultMap" type="com.siztao.ailicili.service.manage.entity.sys.Application">
 		<id column="id" property="id" />
@@ -29,5 +26,13 @@
     <sql id="Base_Column_List">
         id, name, code, href, sort, theme, bgimg, title, description, keyword, status, delflag, createtime, createuser, updatetime, updateuser
     </sql>
+	<select id="selectAppListByUID" parameterType="java.lang.Integer" resultType="com.siztao.ailicili.service.manage.entity.sys.Application">
+		SELECT app.* from tab_sys_application app WHERE id in (
+		SELECT p.appid from user_re_role ur
+		LEFT JOIN role_re_permission rp on ur.roleid = rp.roleid
+		LEFT JOIN tab_sys_permission p on  rp.permissionid = p.id
+		where ur.userid=#{userId});
+
+	</select>
 
 </mapper>
