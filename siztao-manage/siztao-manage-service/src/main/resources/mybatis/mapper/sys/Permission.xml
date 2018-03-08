@@ -27,5 +27,28 @@
     <sql id="Base_Column_List">
         id, parentid, parentids, code, name, href, appid, isopen, type, icons, permission, sort, createtime, createuser, updatetime, updateuser, status, delflag
     </sql>
+    <select id="queryListParentId"  resultType="com.siztao.ailicili.service.manage.entity.sys.Permission" parameterType="map">
+		SELECT	m.* FROM  tab_sys_permission m	WHERE	parentid = #{parentId}
+		<if test="appId !=null ">
+			AND appid = #{appId}
+		</if>
+		AND status = 0 ORDER  BY sort ASC
+	</select>
+	<select id="queryNotButtonList" resultType="com.siztao.ailicili.service.manage.entity.sys.Permission">
+		SELECT	p.* FROM tab_sys_permission p WHERE p.type !=2 AND  p.status =0 ORDER  BY p.sort ASC
+	</select>
+
+	<!-- 查询用户权限 -->
+	<select id="queryUserList" resultType="com.siztao.ailicili.service.manage.entity.sys.Permission">
+		SELECT DISTINCT m.* ,(SELECT p.name FROM  tab_sys_permission p WHERE p.id = m.parentid) as parentName
+		FROM  user_re_role ur
+		LEFT JOIN role_re_permission rp on ur.id = rp.roleid
+		LEFT JOIN tab_sys_permission m on rp.permissionid = m.id AND m.status = 0
+		WHERE ur.userid = #{userId} ORDER By m.sort asc
+	</select>
+	<select id="queryMaxIdByParentId" resultType="java.lang.Integer">
+		SELECT max(id) FROM tab_sys_permission WHERE parentid =#{parentId}
+
+	</select>
 
 </mapper>

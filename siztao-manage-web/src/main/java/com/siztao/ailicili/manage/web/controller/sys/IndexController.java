@@ -25,6 +25,16 @@ public class IndexController {
     @Autowired
     private Producer producer;
 
+
+    @RequestMapping("/index")
+    public String   index(){
+        return "index";
+    }
+
+    @RequestMapping("/welcome")
+    public String   welcome(){
+        return "welcome";
+    }
     /**
      *  生成验证码
      * @param response
@@ -46,13 +56,5 @@ public class IndexController {
         LOG.debug("验证码"+text);
         ImageIO.write(image, "jpg", out);
     }
-    @RequestMapping("/index")
-    public String   index(){
-        return "index";
-    }
 
-    @RequestMapping("/welcome")
-    public String   welcome(){
-        return "welcome";
-    }
 }

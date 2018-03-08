@@ -5,6 +5,8 @@ import java.io.Serializable;
 import java.util.Date;
 import com.baomidou.mybatisplus.activerecord.Model;
 import com.baomidou.mybatisplus.annotations.TableName;
+import com.siztao.framework.model.Tree;
+
 import java.io.Serializable;
 
 /**
@@ -16,7 +18,7 @@ import java.io.Serializable;
  * @since 2018-03-02
  */
 @TableName("tab_sys_permission")
-public class Permission extends Model<Permission> {
+public class Permission extends Tree {
 
     private static final long serialVersionUID = 1L;
 
@@ -184,32 +186,5 @@ public class Permission extends Model<Permission> {
 		this.delflag = delflag;
 	}
 
-	@Override
-	protected Serializable pkVal() {
-		return this.id;
-	}
 
-	@Override
-	public String toString() {
-		return "Permission{" +
-			"id=" + id +
-			", parentid=" + parentid +
-			", parentids=" + parentids +
-			", code=" + code +
-			", name=" + name +
-			", href=" + href +
-			", appid=" + appid +
-			", isopen=" + isopen +
-			", type=" + type +
-			", icons=" + icons +
-			", permission=" + permission +
-			", sort=" + sort +
-			", createtime=" + createtime +
-			", createuser=" + createuser +
-			", updatetime=" + updatetime +
-			", updateuser=" + updateuser +
-			", status=" + status +
-			", delflag=" + delflag +
-			"}";
-	}
 }

@@ -36,5 +36,7 @@ public abstract class AbstractController {
     protected User  getUser(){
         return (User) ShiroUtils.getUser();
     }
-
+    protected Integer getUserId(){
+        return getUser().getId();
+    }
 }

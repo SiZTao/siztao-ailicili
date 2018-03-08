@@ -53,4 +53,21 @@ public class ApplicationServiceTest extends BaseTest{
         List<Application>   list = applicationService.selectAppListByUID(0);
         LOG.info("AppList:{}",JSON.toJSON(list));
     }
+    //添加应用
+    @Test
+    public void testAppInsert(){
+
+    }
+    @Test
+    public void testAppEdit(){
+
+    }
+    @Test
+    public void testAppDelete(){
+
+    }
+    @Test
+    public void testAppQuery(){
+
+    }
 }

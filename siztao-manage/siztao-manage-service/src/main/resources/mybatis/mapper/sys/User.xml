@@ -36,4 +36,18 @@
         id, account, password, nickname, type, realname, deptid, sex, birthday, mobile, avator, email, idcard, stuffnu, position, address, weixin, description, weibo, qq, status, delflag, createuser, createtime, updatetime, updateuser
     </sql>
 
+	<!-- 查询用户所有权限-->
+	<select id="queryAllPerms" resultType="java.lang.String">
+	  SELECT p.permission from user_re_role ur
+		LEFT JOIN role_re_permission rp on ur.roleid = rp.roleid
+		LEFT JOIN tab_sys_permission p on rp.permissionid = p.id
+		where ur.userid = #{userId}
+	</select>
+	<select id="queryAllMenuId" resultType="java.lang.Integer">
+		SELECT DISTINCT  rp.permissionid FROM user_re_role ur
+		LEFT JOIN role_re_permission rp on ur.roleid = rp.roleid
+		where ur.userid =#{userId}
+
+	</select>
+
 </mapper>
