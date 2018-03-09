@@ -43,6 +43,14 @@ public class ApplicationController {
     public String page(){
         return APP_VIEW+"/list";
     }
+    @RequestMapping(value = "/addView",method = RequestMethod.GET)
+    public String addView(){
+        return APP_VIEW+"/add";
+    }
+    @RequestMapping(value = "/editView",method = RequestMethod.GET)
+    public String editView(Integer  appId){
+        return APP_VIEW+"/edit";
+    }
 
     @RequestMapping(value = "/main")
     public String main(Model model) {

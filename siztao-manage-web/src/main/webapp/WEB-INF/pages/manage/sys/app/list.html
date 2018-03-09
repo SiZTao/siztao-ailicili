@@ -9,6 +9,7 @@
     <link rel="stylesheet" href="/static/style/css/backend.css"/>
     <link rel="stylesheet" href="/static/style/css/skins/_all-skins.css"/>
     <link rel="stylesheet" href="/static/libs/pace-master/themes/pink/pace-theme-flash.css">
+    <link rel="stylesheet" href="/static/libs/toastr/toastr.min.css">
     <style type="text/css">
         html {
             overflow-x: hidden;
@@ -102,11 +103,10 @@
                             <div class="widget-body no-padding">
 
                                 <div id="toolbar" class="toolbar" style="position: relative;">
-                                    <a href="javascript:;" @click="roleForm = true" class="btn btn-success" title="添加"><i class="fa fa-plus"></i> 添加</a>
+                                    <a href="javascript:;" class="btn btn-success" @click="addView()" title="添加"><i class="fa fa-plus"></i> 添加</a>
                                     <a href="javascript:;" class="btn btn-success btn-edit btn-disabled disabled" title="编辑"><i class="fa fa-pencil"></i> 编辑</a>
-                                    <a class="btn btn-info btn-move dropdown-toggle btn-disabled disabled"><i class="fa fa-arrow-right"></i> 移动</a>
+                                    <!--<a class="btn btn-info btn-move dropdown-toggle btn-disabled disabled"><i class="fa fa-arrow-right"></i> 移动</a>-->
                                     <a href="javascript:;" class="btn btn-danger btn-del btn-disabled disabled" title="删除"><i class="fa fa-trash"></i> 删除</a>
-                                    <a href="javascript:;" class="btn btn-danger btn-import" title="导入" id="btn-import-file" data-url="ajax/upload" data-mimetype="csv,xls,xlsx" data-multiple="false" initialized="true" style="position: relative; z-index: 1;"><i class="fa fa-upload"></i> 导入</a>
                                     <div class="dropdown btn-group ">
                                         <a class="btn btn-primary btn-more dropdown-toggle btn-disabled disabled" data-toggle="dropdown"><i class="fa fa-cog"></i> 更多</a>
                                         <ul class="dropdown-menu text-left" role="menu">
@@ -119,7 +119,7 @@
                                         </ul>
                                     </div>
                                     <div id="html5_1c6m7tdmq8qq1fs6osd14a5d44_container" class="moxie-shim moxie-shim-html5" style="position: absolute; top: 0px; left: 239px; width: 64px; height: 31px; overflow: hidden; z-index: 0;"><input id="html5_1c6m7tdmq8qq1fs6osd14a5d44" type="file" style="font-size: 999px; opacity: 0; position: absolute; top: 0px; left: 0px; width: 100%; height: 100%;" accept=".csv,.xls,.xlsx" tabindex="-1"></div>
-                                    <a class="btn btn-success btn-recyclebin btn-dialog" href="cms/archives/recyclebin" title="回收站"><i class="fa fa-recycle"></i> 回收站</a>
+                                    <!--<a class="btn btn-success btn-recyclebin btn-dialog" href="cms/archives/recyclebin" title="回收站"><i class="fa fa-recycle"></i> 回收站</a>-->
                                 </div>
 
                                 <div class="columns-right pull-right" style="margin-top:10px;margin-left: 3px;">
@@ -149,7 +149,10 @@
 <script src="/static/libs/bootstrap-table/dist/extensions/mobile/bootstrap-table-mobile.min.js"></script>
 <script src="/static/libs/bootstrap-table/dist/locale/bootstrap-table-zh-CN.js"></script>
 
-<script src="/static/libs/toastr/toastr.js"></script>
+<!--提示插件-->
+<script src="/static/libs/toastr/toastr.min.js"></script>
+<script src="/static/libs/layer/layer.js"></script>
+<script src="/static/style/js/common.js"></script>
 <script src="/appjs/manage/app.js"></script>
 
 </html>

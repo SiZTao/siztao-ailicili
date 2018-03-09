@@ -7,7 +7,7 @@ $(function (){
        {field:'code',title:'代码',width:'10%',align:'center',halign:'center'},
        {field:'href',title:'链接',width:'8%',align:'center',halign:'center'},
        {field:'theme',title:'主题',width:'8%',align:'center',halign:'center'},
-       {field:'bgimg',title:'背景图',width:'8%',align:'center',halign:'center'},
+       {field:'bgimg',title:'背景图',width:'8%',align:'center',halign:'center',formatter:bgFormatter},
        {field:'title',title:'标题',width:'10%',align:'center',halign:'center'},
        {field:'descrption',title:'描述',width:'8%',visible:false},
        {field:'keyword',title:'关键字',width:'8%',align:'center',halign:'center'},
@@ -69,25 +69,14 @@ $(function (){
    }
    //背景图
    function bgFormatter(value,row,index) {
-       return   '<img src="+value+">';
+       var _html='<img width="125px" height="25px" src="/static/img/photo2.png">'
+       return  _html;
    }
    //状态格式化
    function statusFormatter(value, row, index) {
         return value==1?'<span class="label label-danger">禁用</span>':'<span class="label label-success">正常</span>';
    }
-    // 获取选中的条目ID集合
-   function selectedids(table) {
-        var options = table.bootstrapTable('getOptions');
-        if (options.templateView) {
-            return $.map($("input[data-id][name='checkbox']:checked"), function (dom) {
-                return $(dom).data("id");
-            });
-        } else {
-            return $.map(table.bootstrapTable('getSelections'), function (row) {
-                return row[options.pk];
-            });
-        }
-   }
+
    //按钮事件
    function actionFormatter(value, row, index) {
         return [
@@ -99,7 +88,19 @@ $(function (){
 
    function queryParams() {
        
-   }
+   }   // 获取选中的条目ID集合
+    function selectedids(table) {
+        var options = table.bootstrapTable('getOptions');
+        if (options.templateView) {
+            return $.map($("input[data-id][name='checkbox']:checked"), function (dom) {
+                return $(dom).data("id");
+            });
+        } else {
+            return $.map(table.bootstrapTable('getSelections'), function (row) {
+                return row[options.pk];
+            });
+        }
+    }
     window.actionEvents = {
         'click .like': function(e, value, row, index) {
             alert('You click like icon, row: ' + JSON.stringify(row));
@@ -115,9 +116,25 @@ $(function (){
         }
     }
 });
+function addView() {
+    openWindow({
+        type: 2,
+        title: '添加应用',
+        shadeClose: true,
+        shade: 0.8,
+        skin: 'layui-layer-molv', //样式类名
+        maxmin: true, //开启最大化最小化按钮
+        area: ['893px', '600px'],
+        content: '/manage/application/addView'
+    });
+
+}
 var application = new Vue({
    el:'#Application',
    data:{
 
-   }
+   },
+    methods:{
+        
+    }
 });

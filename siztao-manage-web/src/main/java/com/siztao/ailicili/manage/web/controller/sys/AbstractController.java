@@ -1,9 +1,11 @@
 package com.siztao.ailicili.manage.web.controller.sys;
 
 import com.siztao.ailicili.service.manage.entity.sys.User;
+import com.siztao.framework.cache.RedisCache;
 import com.siztao.framework.utils.ShiroUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.propertyeditors.CustomDateEditor;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.WebDataBinder;
@@ -26,6 +28,10 @@ import java.util.Date;
  **/
 @Controller
 public abstract class AbstractController {
+    private static Logger LOG = LoggerFactory.getLogger(AbstractController.class);
+
+    @Autowired
+    RedisCache redisCache;
 
     @InitBinder
     public void initBinder(WebDataBinder binder) {

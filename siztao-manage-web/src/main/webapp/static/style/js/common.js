@@ -294,7 +294,6 @@ function getJson(form) {
     var $form = $(form).find('input,textarea,select');
     $.each($form, function (i, item) {
         var $this = $(item);
-
         if ($this.attr("type") == 'radio') {
             o[$this.attr("name")] = $("input[name='" + $this.attr("name") + "']:checked").val();
             return true;

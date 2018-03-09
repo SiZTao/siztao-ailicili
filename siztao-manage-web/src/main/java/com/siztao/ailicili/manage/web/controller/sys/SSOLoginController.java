@@ -36,6 +36,8 @@ import java.io.IOException;
 @Controller
 public class SSOLoginController extends AbstractController {
 
+    private static final String PAGE_VIEW= "manage/sys/dept/";
+
     /**
      * 系统登录
      */
