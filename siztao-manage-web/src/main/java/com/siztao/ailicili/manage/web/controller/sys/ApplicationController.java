@@ -5,6 +5,8 @@ import com.siztao.ailicili.service.manage.api.sys.ApplicationService;
 import com.siztao.ailicili.service.manage.entity.sys.Application;
 import com.siztao.framework.cache.RedisCache;
 import com.siztao.framework.model.AjaxResult;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.propertyeditors.CustomDateEditor;
 import org.springframework.ui.Model;
@@ -30,7 +32,8 @@ import java.util.List;
  */
 @Controller
 @RequestMapping("/manage/application")
-public class ApplicationController {
+public class ApplicationController extends AbstractController{
+    private static Logger LOG = LoggerFactory.getLogger(ApplicationController.class);
 
 
     private static final String APP_VIEW= "manage/sys/app/";
@@ -44,15 +47,19 @@ public class ApplicationController {
     public String page(){
         return APP_VIEW+"/list";
     }
+
     @RequestMapping(value = "/addView",method = RequestMethod.GET)
     public String addView(ModelAndView modelAndView,Model   model){
         model.addAttribute("appId",1);
+        LOG.info("权限管理系统:应用管理AppId{}","addView");
         return APP_VIEW+"/add";
     }
+
     @RequestMapping(value = "/editView",method = RequestMethod.GET)
     @ResponseBody
     public AjaxResult editView(Integer  appId){
-       Application application = applicationService.selectById(appId);
+        LOG.info("权限管理系统:应用管理AppId{}","editView"+appId);
+        Application application = applicationService.selectById(appId);
         return AjaxResult.ok("查询数据").put("app",application);
     }
 

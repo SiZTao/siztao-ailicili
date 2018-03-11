@@ -31,7 +31,6 @@ public abstract class AbstractController {
     private static Logger LOG = LoggerFactory.getLogger(AbstractController.class);
 
 
-
     @InitBinder
     public void initBinder(WebDataBinder binder) {
         SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
