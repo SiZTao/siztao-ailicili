@@ -4,10 +4,13 @@ import java.io.Serializable;
 
 import java.util.Date;
 import com.baomidou.mybatisplus.activerecord.Model;
+import com.baomidou.mybatisplus.annotations.TableField;
+import com.baomidou.mybatisplus.annotations.TableLogic;
 import com.baomidou.mybatisplus.annotations.TableName;
 import com.siztao.framework.model.Tree;
 
 import java.io.Serializable;
+import java.util.List;
 
 /**
  * <p>
@@ -18,7 +21,7 @@ import java.io.Serializable;
  * @since 2018-03-02
  */
 @TableName("tab_sys_permission")
-public class Permission extends Tree {
+public class Permission extends Model<Permission> {
 
     private static final long serialVersionUID = 1L;
 
@@ -40,7 +43,9 @@ public class Permission extends Tree {
 	private Integer updateuser;
 	private String status;
 	private String delflag;
-
+	@TableLogic
+	@TableField(exist = false)
+	private List<?>	list;
 
 	public Integer getId() {
 		return id;
@@ -122,6 +127,14 @@ public class Permission extends Tree {
 		this.icons = icons;
 	}
 
+	public List<?> getList() {
+		return list;
+	}
+
+	public void setList(List<?> list) {
+		this.list = list;
+	}
+
 	public String getPermission() {
 		return permission;
 	}
@@ -187,4 +200,13 @@ public class Permission extends Tree {
 	}
 
 
+	@Override
+	protected Serializable pkVal() {
+		return this.id;
+	}
+
+	@Override
+	public String toString() {
+		return super.toString();
+	}
 }

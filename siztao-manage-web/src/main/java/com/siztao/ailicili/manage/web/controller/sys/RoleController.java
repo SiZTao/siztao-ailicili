@@ -20,7 +20,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 @RequestMapping("/manage/role")
 public class RoleController {
 
-	private static final String PAGE_VIEW= "manage/sys/dept/";
+	private static final String PAGE_VIEW= "manage/sys/role/";
 
 	@Autowired  private UserService userService;
 

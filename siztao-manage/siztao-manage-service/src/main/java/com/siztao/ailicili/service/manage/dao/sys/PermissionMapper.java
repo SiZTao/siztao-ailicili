@@ -38,4 +38,6 @@ public interface PermissionMapper extends BaseMapper<Permission> {
 
     Integer queryMaxIdByParentId(Integer parentId);
 
+
+
 }

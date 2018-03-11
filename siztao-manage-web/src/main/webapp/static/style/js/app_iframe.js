@@ -2294,7 +2294,6 @@ $(function () {
 
                 var pageId = getPageId(findTabElement(rightClickEvent.target));
                 refreshTabById(pageId);
-
             }
         },
         {

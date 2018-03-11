@@ -34,9 +34,6 @@ public class DeptController {
 	@Autowired
     private DeptService deptService;
 
-    @Autowired
-    RedisCache redisCache;
-
     @RequestMapping(method = RequestMethod.GET)
     public String page(){
         return PAGE_VIEW+"/list";
@@ -65,7 +62,6 @@ public class DeptController {
                            @RequestParam(required = false, value = "sort") String sort,
                            @RequestParam(required = false, value = "order") String order){
         List<Dept> list = deptService.selectList(null);
-        redisCache.putListCache("deptList",list);
         return AjaxResult.ok("查询成功").put("rows",list).put("total",list.size());
     }
 

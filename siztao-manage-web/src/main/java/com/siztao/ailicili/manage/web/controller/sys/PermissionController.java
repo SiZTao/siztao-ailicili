@@ -1,6 +1,7 @@
 package com.siztao.ailicili.manage.web.controller.sys;
 
 
+import com.baomidou.mybatisplus.mapper.EntityWrapper;
 import com.siztao.ailicili.service.manage.api.sys.PermissionService;
 import com.siztao.ailicili.service.manage.entity.sys.Permission;
 import com.siztao.framework.constants.GlobalConstants;
@@ -27,7 +28,7 @@ import java.util.List;
 @RequestMapping("/manage/permission")
 public class PermissionController extends AbstractController{
 
-    private static final String PAGE_VIEW= "manage/sys/dept/";
+    private static final String PAGE_VIEW= "manage/sys/permission/";
 
 
     @Autowired
@@ -56,5 +57,13 @@ public class PermissionController extends AbstractController{
         }
         List<Permission>    menuList = permissionService.getUserMenuList(getUserId(),appId);
         return AjaxResult.ok().put("menuList",menuList);
+    }
+    @RequestMapping("/list")
+    @ResponseBody
+    public List<Permission> list(@RequestParam(required = false)Integer appId){
+        if(appId == null){
+            appId = GlobalConstants.APPID;
+        }
+        return permissionService.selectList(new EntityWrapper<Permission>().eq("appid",appId));
     }
 }

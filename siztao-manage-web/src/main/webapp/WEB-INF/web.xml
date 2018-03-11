@@ -4,7 +4,8 @@
          xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-app_3_1.xsd"
          version="3.1">
 
-    <!-- Web容器加载顺序 ServletContext:servletContext接口是Servlet中最大的一个接口，呈现了web应用的Servlet视图。 / context-param /listener /filter/servlet -->
+    <!-- Web容器加载顺序 ServletContext:servletContext接口是Servlet中最大的一个接口，呈现了web应用的Servlet视图。
+     context-param /listener /filter/servlet -->
     <display-name>ailicili-manage-webapp</display-name>   <!-- Web应用名称：提供GUI工具可能会用来标记这个特定的Web应用的一个名称 -->
 
 
@@ -13,7 +14,7 @@
     <!-- 通过ContextLoaderListener的父类ContextLoader的第120行发现CONFIG_LOCATION_PARAM固定为contextConfigLocation -->
     <context-param>                                                 <!-- Sping应用上下文参数：声明应用范围内的初始化参数。 context-param元素声明应用范围内的初始化参数。 -->
         <param-name>contextConfigLocation</param-name>              <!-- 环境配置位置  -->
-        <param-value>classpath:/spring/spring-context*.xml</param-value>
+        <param-value>classpath*:spring/spring-context*.xml</param-value>
     </context-param>
 
     <!-- 2.实例化Spring容器 -->

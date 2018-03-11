@@ -5,7 +5,31 @@
     "status": 1,
     "name": "系统管理",
     "permissionValue": "open:system:get"
-  },
+  },  {
+  "id": 10,
+  "pid": 1,
+  "status": 1,
+  "name": "权限管理",
+  "permissionValue": "open:system:get"
+}, {
+  "id": 11,
+  "pid": 1,
+  "status": 1,
+  "name": "机构管理",
+  "permissionValue": "open:system:get"
+}, {
+  "id": 12,
+  "pid": 1,
+  "status": 1,
+  "name": "角色管理",
+  "permissionValue": "open:system:get"
+}, {
+  "id": 13,
+  "pid": 1,
+  "status": 1,
+  "name": "用户管理",
+  "permissionValue": "open:system:get"
+},
   {
     "id": 2,
     "pid": 0,

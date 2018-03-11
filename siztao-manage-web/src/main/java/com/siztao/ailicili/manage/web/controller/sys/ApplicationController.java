@@ -12,9 +12,11 @@ import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.*;
 
 import org.springframework.stereotype.Controller;
+import org.springframework.web.servlet.ModelAndView;
 import redis.clients.jedis.Jedis;
 
 import java.text.SimpleDateFormat;
+import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
 
@@ -35,8 +37,7 @@ public class ApplicationController {
 
     @Autowired
     private ApplicationService  applicationService;
-    @Autowired
-    RedisCache  redisCache;
+
 
 
     @RequestMapping(method = RequestMethod.GET)
@@ -44,12 +45,15 @@ public class ApplicationController {
         return APP_VIEW+"/list";
     }
     @RequestMapping(value = "/addView",method = RequestMethod.GET)
-    public String addView(){
+    public String addView(ModelAndView modelAndView,Model   model){
+        model.addAttribute("appId",1);
         return APP_VIEW+"/add";
     }
     @RequestMapping(value = "/editView",method = RequestMethod.GET)
-    public String editView(Integer  appId){
-        return APP_VIEW+"/edit";
+    @ResponseBody
+    public AjaxResult editView(Integer  appId){
+       Application application = applicationService.selectById(appId);
+        return AjaxResult.ok("查询数据").put("app",application);
     }
 
     @RequestMapping(value = "/main")
@@ -67,7 +71,6 @@ public class ApplicationController {
                            @RequestParam(required = false, value = "sort") String sort,
                            @RequestParam(required = false, value = "order") String order){
         List<Application>   list = applicationService.selectList(null);
-        redisCache.putListCache("applist",list);
         return AjaxResult.ok("查询成功").put("rows",list).put("total",list.size());
     }
 
@@ -76,22 +79,28 @@ public class ApplicationController {
      * @param application
      * @return
      */
-    @RequestMapping(value = "/insert",method = RequestMethod.POST)
+    @RequestMapping(value = "/saveOrUpdate",method = RequestMethod.POST)
     @ResponseBody
-    public AjaxResult insert(Application   application){
-        applicationService.insert(application);
-        return AjaxResult.ok("添加成功");
+    public AjaxResult insert(@RequestBody Application   application){
+        if (application.getId()==null){
+            applicationService.insert(application);
+            return AjaxResult.ok("添加成功");
+        }else {
+            applicationService.updateById(application);
+            return AjaxResult.ok("更新成功");
+        }
+
     }
 
 
     /**
      * 删除应用数据
-     * @param ids
      * @return
      */
     @RequestMapping(value = "/delete",method = RequestMethod.POST)
     @ResponseBody
-    public AjaxResult delete(List<Integer>  ids){
+    public AjaxResult delete(@RequestParam("appId") Integer appId){
+        boolean flag = applicationService.deleteById(appId);
         return AjaxResult.ok("删除成功");
     }
 

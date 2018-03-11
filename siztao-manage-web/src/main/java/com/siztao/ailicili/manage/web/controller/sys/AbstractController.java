@@ -30,8 +30,7 @@ import java.util.Date;
 public abstract class AbstractController {
     private static Logger LOG = LoggerFactory.getLogger(AbstractController.class);
 
-    @Autowired
-    RedisCache redisCache;
+
 
     @InitBinder
     public void initBinder(WebDataBinder binder) {

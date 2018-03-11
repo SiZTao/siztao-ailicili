@@ -29,4 +29,10 @@ public class PermissionServiceTest  extends BaseTest {
     public void testQueryMenu(){
         LOG.info("AppList:{}", JSON.toJSON( permissionService.getUserMenuList(0,null)));
     }
+
+    @Test
+    public void testList(){
+        LOG.info("AppList:{}", JSON.toJSON(permissionService.selectList(null)));
+
+    }
 }

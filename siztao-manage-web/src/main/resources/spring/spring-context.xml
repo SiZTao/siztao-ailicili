@@ -49,6 +49,6 @@
 	</bean>
 	<import resource="classpath:/spring/spring-shiro.xml"/>
 	<import resource="classpath:/dubbo/dubbo-manage-consumer.xml"/>
-	<import resource="classpath:/spring/spring-redis.xml"/>
+	<import resource="classpath*:/spring/spring-redis.xml"/>
 
 </beans>

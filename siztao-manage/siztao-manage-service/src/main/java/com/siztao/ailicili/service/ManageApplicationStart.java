@@ -4,7 +4,7 @@ package com.siztao.ailicili.service;
 import com.siztao.framework.utils.SpringContextUtil;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-import org.apache.xbean.spring.context.ClassPathXmlApplicationContext;
+import org.springframework.context.support.ClassPathXmlApplicationContext;
 
 public class ManageApplicationStart {
     private static final Log LOG = LogFactory.getLog(ManageApplicationStart.class);

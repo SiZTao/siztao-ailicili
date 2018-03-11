@@ -35,12 +35,13 @@ public class AjaxResult extends HashMap<String,Object>{
 	}
 
 	public static AjaxResult error(String msg){
+
 		return  error(500,msg);
 
 	}
 	public static AjaxResult error(int code,String msg){
 		AjaxResult result = new AjaxResult();
-		result.msg = msg;
+		result.put("msg",msg);
 		result.put("code",code);
 		return  result;
 	}
@@ -48,13 +49,14 @@ public class AjaxResult extends HashMap<String,Object>{
 		AjaxResult result = new AjaxResult();
 		result.success = true;
 		result.put("code",200);
+		result.put("msg","操作成功");
 		return result;
 	}
 
 	public static AjaxResult ok(String msg){
 		AjaxResult result = new AjaxResult();
-		result.msg = msg;
 		result.success = true;
+		result.put("msg",msg);
 		result.put("code",200);
 		return result;
 	}

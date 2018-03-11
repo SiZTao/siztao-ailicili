@@ -23,7 +23,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 @RequestMapping("/manage/user")
 public class UserController extends AbstractController{
 
-    private static final String PAGE_VIEW= "manage/sys/dept/";
+    private static final String PAGE_VIEW= "manage/sys/user/";
 
     @Autowired
     private ApplicationService  applicationService;

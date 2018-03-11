@@ -28,7 +28,9 @@
         id, parentid, parentids, code, name, href, appid, isopen, type, icons, permission, sort, createtime, createuser, updatetime, updateuser, status, delflag
     </sql>
     <select id="queryListParentId"  resultType="com.siztao.ailicili.service.manage.entity.sys.Permission" parameterType="map">
-		SELECT	m.* FROM  tab_sys_permission m	WHERE	parentid = #{parentId}
+		SELECT
+		<include refid="Base_Column_List"/>
+		FROM  tab_sys_permission m	WHERE	parentid = #{parentId}
 		<if test="appId !=null ">
 			AND appid = #{appId}
 		</if>

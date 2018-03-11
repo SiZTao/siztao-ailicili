@@ -41,15 +41,15 @@ window.openWindow = function (options) {
     let globalParams = {
         skin: 'layui-layer-molv',//皮肤
         title: '标题',//标题
-        type: 1,//打开窗口的类型 1：html里的div内容 2：iframe方式，页面的路径
+        type: 2,//打开窗口的类型 1：html里的div内容 2：iframe方式，页面的路径
         closeBtn: 1, //关闭按钮的形状 0、1
         anim: -1,
         isOutAnim: false,
         shadeClose: false,
         area: ['90%', '95%'],
         content: '',
-        btn: false, //按钮
-        top: false //窗口弹出是否在iframe上层
+        btn: true, //按钮
+        top: true //窗口弹出是否在iframe上层
     };
     globalParams = $.extend(globalParams, options);
     if (globalParams.top) {
@@ -58,7 +58,6 @@ window.openWindow = function (options) {
         layer.open(globalParams);
     }
 };
-
 //获取选中的数据
 function getSelectedRowData(gridId) {
     var id = getSelectedRow(gridId);

@@ -40,7 +40,7 @@
 
         <!--核心依赖-->
         <!-- Spring版本号 -->
-        <spring.version>4.2.8.RELEASE</spring.version>
+        <spring.version>4.3.4.RELEASE</spring.version>
         <aspectjrt.version>1.8.0</aspectjrt.version>
         <!-- Activiti 版本号-->
         <activiti.version>5.22.0</activiti.version>
@@ -48,7 +48,7 @@
         <solr.version>6.5.1</solr.version>
 
         <!-- ActiviteMQ 消息队列-->
-        <activeMQ.version>5.13.2</activeMQ.version>
+
         <!-- FastDFS 文件系统-->
         <fastdfs.version>1.24</fastdfs.version>
 
@@ -59,7 +59,7 @@
         <!-- redis  -->
         <jedis.version>2.9.0</jedis.version>
         <spring-data-redis.version>1.8.10.RELEASE</spring-data-redis.version>
-       <spring-session-data-redis.version>1.3.0.RELEASE</spring-session-data-redis.version>
+        <spring-session-data-redis.version>1.3.0.RELEASE</spring-session-data-redis.version>
         <redisson.version>3.5.5</redisson.version>
 
         <!-- ehcache 缓存 -->
@@ -100,7 +100,7 @@
         <jsoup.version>1.9.2</jsoup.version>
 
         <!-- 视图模板 -->
-        <freemarker.version>2.3.16</freemarker.version>
+        <freemarker.version>2.3.23</freemarker.version>
         <velocity.version>1.7</velocity.version>
         <beetl.version>2.7.23</beetl.version>
         <!-- 布局管理 -->
@@ -454,11 +454,7 @@
                 <version>2.6.31</version>
             </dependency>
             <!-- 11、消息队列-->
-            <dependency>
-                <groupId>org.apache.activemq</groupId>
-                <artifactId>activemq-all</artifactId>
-                <version>${activeMQ.version}</version>
-            </dependency>
+
             <!-- 12、-->
             <dependency>
                 <groupId>io.netty</groupId>
@@ -467,16 +463,16 @@
             </dependency>
             <!-- 13、API 文档-->
             <!-- swagger2 -->
-            <dependency>
-                <groupId>io.springfox</groupId>
-                <artifactId>springfox-swagger2</artifactId>
-                <version>${swagger2.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>io.springfox</groupId>
-                <artifactId>springfox-swagger-ui</artifactId>
-                <version>${swagger2.version}</version>
-            </dependency>
+            <!--<dependency>-->
+                <!--<groupId>io.springfox</groupId>-->
+                <!--<artifactId>springfox-swagger2</artifactId>-->
+                <!--<version>${swagger2.version}</version>-->
+            <!--</dependency>-->
+            <!--<dependency>-->
+                <!--<groupId>io.springfox</groupId>-->
+                <!--<artifactId>springfox-swagger-ui</artifactId>-->
+                <!--<version>${swagger2.version}</version>-->
+            <!--</dependency>-->
 
             <!-- 视图模板-->
             <dependency>
