@@ -32,7 +32,15 @@ public class Role extends Model<Role> {
 	private Integer updateuser;
 	private String status;
 	private String delflag;
+	private String description;
 
+	public String getDescription() {
+		return description;
+	}
+
+	public void setDescription(String description) {
+		this.description = description;
+	}
 
 	public Integer getId() {
 		return id;

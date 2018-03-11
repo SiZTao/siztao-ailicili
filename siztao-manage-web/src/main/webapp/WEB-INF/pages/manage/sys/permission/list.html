@@ -9,11 +9,12 @@
     <link rel="stylesheet" href="/static/libs/pace-master/themes/pink/pace-theme-flash.css">
     <link rel="stylesheet" href="/static/libs/toastr/toastr.min.css">
     <style type="text/css">
-        html {
-            overflow-x: hidden;
-        }
+
         [v-cloak] {
             display: none;
+        }
+        ::-webkit-scrollbar{
+            display:none;
         }
         .container-fluid {
             padding-right: 0px;
@@ -29,145 +30,97 @@
     <script type="text/javascript" src="/static/libs/pace-master/pace.min.js"></script>
 </head>
 <body class="hold-transition skin-blue sidebar-mini inside-header inside-aside">
-
-<section class="content-header hide">
-    <h1>
-        控制台<small>Control panel</small>
-    </h1>
-</section>
-<!-- RIBBON -->
-<div id="ribbon">
-    <ol class="breadcrumb pull-left">
-        <li><a href="dashboard" class="addtabsit"><i class="fa fa-dashboard"></i> 控制台</a></li>
-    </ol>
-    <ol class="breadcrumb pull-right">
-        <li><a href="javascript:;" data-url="/admin/cms.archives/cms">系统管理</a></li>
-        <li><a href="javascript:;" data-url="/admin/cms/archives">权限管理</a></li>
-    </ol>
-</div>
-<section>
-    <div class="content container-fluid">
-        <div class="panel panel-default panel-intro">
-            <div class="panel-heading"><div class="panel-lead"><em>系统权限管理</em>
-            采用RBAC思想构建的权限管理功能,将系统功能抽象成资源,实现细粒度的权限控制
-            </div></div>
-            <div class="panel-body">
-                <div id="myTabContent" class="tab-content">
-                    <div class="tab-pane fade active in" id="one">
-                        <div class="widget-body no-padding">
-                            <div id="toolbar" class="toolbar">
-                                <a href="javascript:;" class="btn btn-primary btn-refresh" title="刷新" ><i class="fa fa-refresh"></i> </a>
-                                <a href="javascript:;" class="btn btn-success btn-add" title="添加" ><i class="fa fa-plus"></i> 添加</a>
-                                <a href="javascript:;" class="btn btn-success btn-edit btn-disabled " title="编辑"><i class="fa fa-pencil"></i> 编辑</a>
-                                <a href="javascript:;" class="btn btn-danger btn-import" title="导入" id="btn-import-file" data-url="ajax/upload" data-mimetype="csv,xls,xlsx" data-multiple="false" initialized="true" style="position: relative; z-index: 1;"><i class="fa fa-upload"></i> 导入</a>
-                                <a href="javascript:;" class="btn btn-danger btn-del btn-disabled disabled" title="删除" ><i class="fa fa-trash"></i> 删除</a>
-                                <div class="dropdown btn-group ">
-                                    <a class="btn btn-primary btn-more dropdown-toggle  " data-toggle="dropdown"><i class="fa fa-cog"></i> 更多</a>
-                                    <ul class="dropdown-menu text-left" role="menu">
-                                        <li><a class="btn btn-link btn-multi" href="javascript:;" data-params="status=normal"><i class="fa fa-eye"></i> 权限管理系统</a></li>
-                                        <li><a class="btn btn-link btn-multi" href="javascript:;" data-params="status=hidden"><i class="fa fa-eye-slash"></i> 内容管理系统</a></li>
-                                    </ul>
+<div id="Permission" v-cloak>
+    <section class="content-header hide">
+        <h1>
+            控制台<small>Control panel</small>
+        </h1>
+    </section>
+    <!-- RIBBON -->
+    <div id="ribbon">
+        <ol class="breadcrumb pull-left">
+            <li><a href="dashboard" class="addtabsit"><i class="fa fa-dashboard"></i> 控制台</a></li>
+        </ol>
+        <ol class="breadcrumb pull-right">
+            <li><a href="javascript:;" data-url="/admin/cms.archives/cms">系统管理</a></li>
+            <li><a href="javascript:;" data-url="/admin/cms/archives">权限管理</a></li>
+        </ol>
+    </div>
+    <section>
+        <div class="content container-fluid">
+            <div class="panel panel-default panel-intro">
+                <div class="panel-heading"><div class="panel-lead"><em>系统权限管理</em>
+                    采用RBAC思想构建的权限管理功能,将系统功能抽象成资源,实现细粒度的权限控制
+                </div></div>
+                <div class="panel-body">
+                    <div id="myTabContent" class="tab-content">
+                        <div class="tab-pane fade active in" id="one">
+                            <div class="widget-body no-padding">
+                                <div id="toolbar" class="toolbar">
+                                    <a href="javascript:;" class="btn btn-primary btn-refresh" title="刷新" ><i class="fa fa-refresh"></i> </a>
+                                    <a href="javascript:;" class="btn btn-success btn-add" @click="addAction" title="添加" ><i class="fa fa-plus"></i> 添加</a>
+                                    <a href="javascript:;" class="btn btn-success btn-edit btn-disabled " title="编辑"><i class="fa fa-pencil"></i> 编辑</a>
+                                    <a href="javascript:;" class="btn btn-danger btn-import" title="导入" id="btn-import-file" data-url="ajax/upload" data-mimetype="csv,xls,xlsx" data-multiple="false" initialized="true" style="position: relative; z-index: 1;"><i class="fa fa-upload"></i> 导入</a>
+                                    <a href="javascript:;" class="btn btn-danger btn-del btn-disabled disabled" title="删除" ><i class="fa fa-trash"></i> 删除</a>
+                                    <div class="dropdown btn-group ">
+                                        <a class="btn btn-primary btn-more dropdown-toggle  " data-toggle="dropdown"><i class="fa fa-cog"></i> 更多</a>
+                                        <ul class="dropdown-menu text-left" role="menu">
+                                            <li><a class="btn btn-link btn-multi" href="javascript:;" data-params="status=normal"><i class="fa fa-eye"></i> 权限管理系统</a></li>
+                                            <li><a class="btn btn-link btn-multi" href="javascript:;" data-params="status=hidden"><i class="fa fa-eye-slash"></i> 内容管理系统</a></li>
+                                        </ul>
+                                    </div>
                                 </div>
+
+                                <table id="treeGrid">
+
+                                </table>
                             </div>
-
-                            <table id="table">
-
-                            </table>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
+    </section>
+
+    <div id="add-form" hidden>
+        <form :model="permission" class="form-horizontal" data-toggle="validator" role="form" method="post" action="#">
+            <div class="form-group">
+                <label  class="control-label col-xs-12 col-sm-2"></label>
+                <div class="col-xs-12 col-sm-8">
+                    <input type="hidden" id="c-id" v-model="permission.id" value="permission.id">
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="c-name" class="control-label col-xs-12 col-sm-2">权限名称:</label>
+                <div class="col-xs-12 col-sm-8">
+                    <input id="c-name" data-rule="required" class="form-control" v-model="permission.name" value="permission.name" name="name" type="text"  placeholder="请输入应用名称" >
+                </div>
+            </div>
+
+        </form>
     </div>
-</section>
+
+</div>
 </body>
 <!-- 引入JS -->
 <script src="/static/style/js/jquery-2.2.4.min.js"></script>
 <script src="/static/style/js/bootstrap.min.js"></script>
 <script src="/static/style/js/vue.min.js"></script>
+<script src="/static/style/js/vue-validator.min.js"></script>
 
 <!-- BootstrapTable 数据表格 -->
 <script src="/static/libs/bootstrap-table/dist/bootstrap-table.js"></script>
 <script src="/static/libs/jquery-treegrid/bootstrap-table.js"></script>
+
 <script src="/static/libs/bootstrap-table/dist/extensions/treegrid/bootstrap-table-treegrid.js"></script>
 <script src="/static/libs/bootstrap-table/dist/locale/bootstrap-table-zh-CN.js"></script>
 <script src="/static/libs/jquery-treegrid/jquery.treegrid.min.js"></script>
-<script type="text/javascript">
-    var $table = $('#table');
-    $(function() {
-        var colModel= [
-            {field: 'ck', checkbox: true},
-            {field:'id',title:'ID',visible:false},
-            {field: 'name', title: '权限名称',width:'10%',align:'center',halign:'center'},
-            {field: 'parentid', title: '所属上级',width:'10%',align:'center',halign:'center'},
-            {field: 'code', title: '编码',width:'10%',align:'center',halign:'center'},
-            {field: 'permission', title: '权限值',width:'10%',align: 'center',halign:'center'},
-            {field: 'href', title: '链接',width:'10%',align:'center',halign:'center'},
-            {field: 'type', title: '类型',width:'10%',align:'center',halign:'center'},
-            {field: 'icons', title: '图标',width:'10%',align:'center',halign:'center'},
-            {field: 'status', title: '状态', width:'10%',align: 'center',halign:'center',formatter: 'statusFormatter'},
-            {field: 'updatetime', title: '更新时间',width:'10%',align:'center',halign:'center'},
-            {field: 'updateuser', title: '更新人',width:'10%',align:'center',halign:'center'}
-        ];
-        $table.bootstrapTable({
-            url: '/manage/permission/list',
-            height: 560,
-            striped: true,
-            sidePagination: 'server',
-            idField: 'id',
-            search: true,
-            searchOnEnterKey: true,
-            showRefresh: true,
-            singleSelect  : true,           // 单选checkbox
-            showToggle: true,
-            showColumns: true,
-            clickToSelect: true,
-            minimumCountColumns: 2,
-            showPaginationSwitch: true,
-            toolbar: '#toolbar',
-            classes: 'table table-hover  table-striped table-condensed table-bordered',
-            columns: colModel,
-            treeShowField: 'name',
-            parentIdField: 'parentid',
-            onLoadSuccess: function(data) {
-                console.log('load');
-                // jquery.treegrid.js
-                $table.treegrid({
-                    initialState: 'collapsed',
-                    treeColumn: 1,
-                    expanderExpandedClass: 'glyphicon glyphicon-minus',
-                    expanderCollapsedClass: 'glyphicon glyphicon-plus',
-                    onChange: function() {
-                        $table.bootstrapTable('resetWidth');
-                    }
-                });
-            }
-            // bootstrap-table-treetreegrid.js 插件配置
-        });
-    });
 
-
-    // 格式化类型
-    function typeFormatter(value, row, index) {
-        if (value === '0') {
-            return '菜单';
-        }
-        if (value === '1') {
-            return '功能';
-        }
-        if (value === '2') {
-            return '按钮';
-        }
-        return '-';
-    }
-
-    // 格式化状态
-    function statusFormatter(value, row, index) {
-        if (value === "0") {
-            return '<span class="label label-success">正常</span>';
-        } else {
-            return '<span class="label label-default">锁定</span>';
-        }
-    }
-</script>
+<!--提示插件-->
+<script src="/static/libs/toastr/toastr.min.js"></script>
+<script src="/static/libs/layer/layer.js"></script>
+<script src="/static/style/js/common.js"></script>
+<script src="/static/style/js/app.js"></script>
+<script src="/static/style/js/app_iframe.js"></script>
+<script src="/appjs/manage/permission/permission.js"></script>
 </html>

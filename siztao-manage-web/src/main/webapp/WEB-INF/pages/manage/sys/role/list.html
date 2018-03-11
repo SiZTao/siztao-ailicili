@@ -99,172 +99,47 @@
             </div>
         </div>
     </section>
-
     <div id="add-form" hidden>
-        <form ref="formValidate" :rules="ruleValidate" :model="application"  class="form-horizontal" data-toggle="validator"  role="form"  method="POST" action="#">
+        <form ref="formValidate" :rules="ruleValidate" :model="role"  class="form-horizontal" data-toggle="validator"  role="form"  method="POST" action="#">
             <div class="form-group">
                 <label  class="control-label col-xs-12 col-sm-2"></label>
                 <div class="col-xs-12 col-sm-8">
-                    <input type="hidden" id="c-id" v-model="application.id" value="application.id">
+                    <input type="hidden" id="c-id" v-model="role.id" value="role.id">
                 </div>
             </div>
             <div class="form-group">
-                <label for="c-name" class="control-label col-xs-12 col-sm-2">应用名称:</label>
+                <label for="c-name" class="control-label col-xs-12 col-sm-2">角色名称:</label>
                 <div class="col-xs-12 col-sm-8">
-                    <input id="c-name" data-rule="required" class="form-control" v-model="application.name" value="application.name" name="name" type="text"  placeholder="请输入应用名称" >
+                    <input id="c-name" data-rule="required" class="form-control" v-model="role.name" value="role.name" name="name" type="text"  placeholder="请输入应用名称" >
                 </div>
             </div>
             <div class="form-group">
-                <label for="c-name" class="control-label col-xs-12 col-sm-2">标题:</label>
+                <label for="c-name" class="control-label col-xs-12 col-sm-2">角色代码:</label>
                 <div class="col-xs-12 col-sm-8">
-                    <input id="c-name" data-rule="required" class="form-control" v-model="application.title" value="application.title" name="title" type="text"  placeholder="请输入应用名称" >
+                    <input id="c-name" data-rule="required" class="form-control" v-model="role.code" value="role.code" name="code" type="text"  placeholder="请输入应用名称" >
                 </div>
             </div>
             <div class="form-group">
-                <label for="c-code" class="control-label col-xs-12 col-sm-2">应用代码:</label>
+                <label for="c-code" class="control-label col-xs-12 col-sm-2">所属机构:</label>
                 <div class="col-xs-12 col-sm-8">
-                    <input id="c-code" data-rule="required"  placeholder="请输入应用代码" class="form-control" v-model="application.code"  errormsg="名称不能为空" name="code" type="text" value="">
-                </div>
-                <div class="Validform_checktip"></div>
-            </div>
-            <div class="form-group">
-                <label for="c-href" class="control-label col-xs-12 col-sm-2">应用链接:</label>
-                <div class="col-xs-12 col-sm-8">
-                    <input id="c-href" data-rule="required"   placeholder="请输入应用链接" class="form-control"  v-model="application.href"name="href" type="text" value="">
+                    <input id="c-code" data-rule="required"  placeholder="选择所属机构" class="form-control" v-model="role.deptid"  name="deptid" type="text" value="role.deptid">
                 </div>
                 <div class="Validform_checktip"></div>
             </div>
             <div class="form-group">
-                <label for="c-icon" class="control-label col-xs-12 col-sm-2">应用图标:</label>
+                <label for="c-href" class="control-label col-xs-12 col-sm-2">类型:</label>
                 <div class="col-xs-12 col-sm-8">
-                    <input id="c-icon" data-rule="required" class="form-control"  placeholder="点击选择图标" v-model="application.icon" name="icon" type="text" value="">
-                </div>
-            </div>
-            <div class="form-group">
-                <label for="c-theme" class="control-label col-xs-12 col-sm-2">主题:</label>
-                <div class="col-xs-12 col-sm-8">
-                    <input id="c-theme" data-rule="required" class="form-control"  placeholder="输入主题" v-model="application.theme" name="theme" type="text" value="">
+                    <input id="c-href" data-rule="required"   placeholder="请输入应用链接" class="form-control"  v-model="role.type"name="type" type="text" value="role.type">
                 </div>
                 <div class="Validform_checktip"></div>
             </div>
             <div class="form-group">
-                <label for="c-description" class="control-label col-xs-12 col-sm-2">应用简介:</label>
+                <label for="c-description" class="control-label col-xs-12 col-sm-2">角色简介:</label>
                 <div class="col-xs-12 col-sm-8">
-                    <textarea id="c-description" class="form-control"  v-model="application.description"   placeholder="请输入系统简介" name="description"></textarea>
-                </div>
-            </div>
-            <div class="form-group">
-                <label for="c-image" class="control-label col-xs-12 col-sm-2">背景图片:</label>
-                <div class="col-xs-12 col-sm-8">
-                    <div class="input-group">
-                        <input id="c-image" class="form-control" size="50"  v-model="application.bgimg" name="row[image]" type="text" value="">
-                        <div class="input-group-addon no-border no-padding">
-                            <span><button type="button" id="plupload-image" class="btn btn-danger plupload" data-input-id="c-image" data-mimetype="image/gif,image/jpeg,image/png,image/jpg,image/bmp" data-multiple="false" data-preview-id="p-image"><i class="fa fa-upload"></i>上传</button></span>
-                            <span><button type="button" id="fachoose-image" class="btn btn-primary fachoose" data-input-id="c-image" data-mimetype="image/*" data-multiple="false"><i class="fa fa-list"></i>选择图片</button></span>
-                        </div>
-                        <span class="msg-box n-right"></span>
-                    </div>
-                    <ul class="row list-inline plupload-preview" id="p-image"></ul>
-                </div>
-            </div>
-            <div class="form-group">
-                <label for="c-keywords" class="control-label col-xs-12 col-sm-2">关键字:</label>
-                <div class="col-xs-12 col-sm-8">
-                    <input id="c-keywords" class="form-control" v-model="application.keyword" name="row[keywords]" type="text" value="">
+                    <textarea id="c-description" class="form-control"  v-model="role.description"  value="role.description"  placeholder="请输入角色简介" name="description"></textarea>
                 </div>
             </div>
 
-            <div class="form-group">
-                <label for="c-status" class="control-label col-xs-12 col-sm-2">状态:</label>
-                <div class="col-xs-12 col-sm-8">
-                    <label for="row[status]-normal"><input id="row[status]-normal"  name="row[status]" type="radio" value="normal" checked=""> 正常</label>
-                    <label for="row[status]-hidden"><input id="row[status]-hidden" name="row[status]" type="radio" value="hidden"> 隐藏</label>
-                </div>
-            </div>
-        </form>
-    </div>
-
-    <div id="add-form" hidden>
-        <form ref="formValidate" :rules="ruleValidate" :model="application"  class="form-horizontal" data-toggle="validator"  role="form"  method="POST" action="#">
-            <div class="form-group">
-                <label  class="control-label col-xs-12 col-sm-2"></label>
-                <div class="col-xs-12 col-sm-8">
-                    <input type="hidden" id="c-id" v-model="application.id" value="application.id">
-                </div>
-            </div>
-            <div class="form-group">
-                <label for="c-name" class="control-label col-xs-12 col-sm-2">应用名称:</label>
-                <div class="col-xs-12 col-sm-8">
-                    <input id="c-name" data-rule="required" class="form-control" v-model="application.name" value="application.name" name="name" type="text"  placeholder="请输入应用名称" >
-                </div>
-            </div>
-            <div class="form-group">
-                <label for="c-name" class="control-label col-xs-12 col-sm-2">标题:</label>
-                <div class="col-xs-12 col-sm-8">
-                    <input id="c-name" data-rule="required" class="form-control" v-model="application.title" value="application.title" name="title" type="text"  placeholder="请输入应用名称" >
-                </div>
-            </div>
-            <div class="form-group">
-                <label for="c-code" class="control-label col-xs-12 col-sm-2">应用代码:</label>
-                <div class="col-xs-12 col-sm-8">
-                    <input id="c-code" data-rule="required"  placeholder="请输入应用代码" class="form-control" v-model="application.code"  errormsg="名称不能为空" name="code" type="text" value="">
-                </div>
-                <div class="Validform_checktip"></div>
-            </div>
-            <div class="form-group">
-                <label for="c-href" class="control-label col-xs-12 col-sm-2">应用链接:</label>
-                <div class="col-xs-12 col-sm-8">
-                    <input id="c-href" data-rule="required"   placeholder="请输入应用链接" class="form-control"  v-model="application.href"name="href" type="text" value="">
-                </div>
-                <div class="Validform_checktip"></div>
-            </div>
-            <div class="form-group">
-                <label for="c-icon" class="control-label col-xs-12 col-sm-2">应用图标:</label>
-                <div class="col-xs-12 col-sm-8">
-                    <input id="c-icon" data-rule="required" class="form-control"  placeholder="点击选择图标" v-model="application.icon" name="icon" type="text" value="">
-                </div>
-            </div>
-            <div class="form-group">
-                <label for="c-theme" class="control-label col-xs-12 col-sm-2">主题:</label>
-                <div class="col-xs-12 col-sm-8">
-                    <input id="c-theme" data-rule="required" class="form-control"  placeholder="输入主题" v-model="application.theme" name="theme" type="text" value="">
-                </div>
-                <div class="Validform_checktip"></div>
-            </div>
-            <div class="form-group">
-                <label for="c-description" class="control-label col-xs-12 col-sm-2">应用简介:</label>
-                <div class="col-xs-12 col-sm-8">
-                    <textarea id="c-description" class="form-control"  v-model="application.description"   placeholder="请输入系统简介" name="description"></textarea>
-                </div>
-            </div>
-            <div class="form-group">
-                <label for="c-image" class="control-label col-xs-12 col-sm-2">背景图片:</label>
-                <div class="col-xs-12 col-sm-8">
-                    <div class="input-group">
-                        <input id="c-image" class="form-control" size="50"  v-model="application.bgimg" name="row[image]" type="text" value="">
-                        <div class="input-group-addon no-border no-padding">
-                            <span><button type="button" id="plupload-image" class="btn btn-danger plupload" data-input-id="c-image" data-mimetype="image/gif,image/jpeg,image/png,image/jpg,image/bmp" data-multiple="false" data-preview-id="p-image"><i class="fa fa-upload"></i>上传</button></span>
-                            <span><button type="button" id="fachoose-image" class="btn btn-primary fachoose" data-input-id="c-image" data-mimetype="image/*" data-multiple="false"><i class="fa fa-list"></i>选择图片</button></span>
-                        </div>
-                        <span class="msg-box n-right"></span>
-                    </div>
-                    <ul class="row list-inline plupload-preview" id="p-image"></ul>
-                </div>
-            </div>
-            <div class="form-group">
-                <label for="c-keywords" class="control-label col-xs-12 col-sm-2">关键字:</label>
-                <div class="col-xs-12 col-sm-8">
-                    <input id="c-keywords" class="form-control" v-model="application.keyword" name="row[keywords]" type="text" value="">
-                </div>
-            </div>
-
-            <div class="form-group">
-                <label for="c-status" class="control-label col-xs-12 col-sm-2">状态:</label>
-                <div class="col-xs-12 col-sm-8">
-                    <label for="row[status]-normal"><input id="row[status]-normal"  name="row[status]" type="radio" value="normal" checked=""> 正常</label>
-                    <label for="row[status]-hidden"><input id="row[status]-hidden" name="row[status]" type="radio" value="hidden"> 隐藏</label>
-                </div>
-            </div>
         </form>
     </div>
 </div>

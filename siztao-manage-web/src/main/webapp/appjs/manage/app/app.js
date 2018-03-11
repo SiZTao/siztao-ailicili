@@ -1,6 +1,6 @@
 $(function (){
     var colModel = [
-        {field:'state',checkbox:true},
+        {field:'state',width:'2%',checkbox:true},
         {title:'序号',width:'2%',align:'center',formatter:idFormatter},
         {field:'id',title:'ID',visible:false},
         {field:'name',title:'名称',width:'8%',align:'center',halign:'center'},
@@ -11,7 +11,7 @@ $(function (){
         {field:'title',title:'标题',width:'10%',align:'center',halign:'center'},
         {field:'descrption',title:'描述',width:'8%',visible:false},
         {field:'keyword',title:'关键字',width:'8%',align:'center',halign:'center'},
-        {field:'status',title:'状态',width:'8%',align:'center',halign:'center',formatter:statusFormatter},
+        {field:'status',title:'状态',width:'5%',align:'center',halign:'center',formatter:statusFormatter},
         {field:'createtime',title:'创建时间',width:'10%',visible:false},
         {field:'createuser',title:'创建人',width:'8%',visible:false},
         {field:'updatetime',title:'修改时间',width:'10%',align:'center',halign:'center'},
@@ -22,7 +22,7 @@ $(function (){
     var listUrl="/manage/application/list";
     dataTables.bootstrapTable({
         url:listUrl,                         //请求地址
-        height: window.height,              //高度
+        height: 560,              //高度
         striped: true,                       //是否显示行间隔色
         search: false,                        //是否显示快速搜索,客户端实现
         searchOnEnterKey: false,              //设置为 true时，按回车触发搜索方法，否则自动触发搜索方法

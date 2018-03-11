@@ -43,9 +43,19 @@ public class Permission extends Model<Permission> {
 	private Integer updateuser;
 	private String status;
 	private String delflag;
+	private String description;
+
 	@TableLogic
 	@TableField(exist = false)
 	private List<?>	list;
+
+	public String getDescription() {
+		return description;
+	}
+
+	public void setDescription(String description) {
+		this.description = description;
+	}
 
 	public Integer getId() {
 		return id;
