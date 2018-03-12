@@ -35,12 +35,10 @@ import java.util.List;
 public class ApplicationController extends AbstractController{
     private static Logger LOG = LoggerFactory.getLogger(ApplicationController.class);
 
-
     private static final String APP_VIEW= "manage/sys/app/";
 
     @Autowired
     private ApplicationService  applicationService;
-
 
 
     @RequestMapping(method = RequestMethod.GET)
@@ -61,12 +59,6 @@ public class ApplicationController extends AbstractController{
         LOG.info("权限管理系统:应用管理AppId{}","editView"+appId);
         Application application = applicationService.selectById(appId);
         return AjaxResult.ok("查询数据").put("app",application);
-    }
-
-    @RequestMapping(value = "/main")
-    public String main(Model model) {
-        model.addAttribute("user","admin");
-        return "index";
     }
 
 
@@ -111,16 +103,6 @@ public class ApplicationController extends AbstractController{
         return AjaxResult.ok("删除成功");
     }
 
-    /**
-     * 更新应用数据
-     * @param application
-     * @return
-     */
-    @RequestMapping(value = "/update",method = RequestMethod.POST)
-    @ResponseBody
-    public AjaxResult update(Application   application){
-        return AjaxResult.ok("添加成功");
-    }
 
     /**
      * 查询数据

@@ -9,6 +9,7 @@
 		<result column="deptid" property="deptid" />
 		<result column="type" property="type" />
 		<result column="sort" property="sort" />
+		<result column="description" property="description" />
 		<result column="createtime" property="createtime" />
 		<result column="createuser" property="createuser" />
 		<result column="updatetime" property="updatetime" />
@@ -19,7 +20,7 @@
 
     <!-- 通用查询结果列 -->
     <sql id="Base_Column_List">
-        id, name, code, deptid, type, sort, createtime, createuser, updatetime, updateuser, status, delflag
+        id, name, code, deptid, type, sort, createtime, createuser, updatetime, updateuser,description, status, delflag
     </sql>
 
 </mapper>

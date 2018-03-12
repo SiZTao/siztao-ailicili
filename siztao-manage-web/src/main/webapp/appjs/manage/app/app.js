@@ -20,6 +20,7 @@ $(function (){
     ];
     var dataTables = $("#Table");
     var listUrl="/manage/application/list";
+
     dataTables.bootstrapTable({
         url:listUrl,                         //请求地址
         height: 560,              //高度
@@ -59,45 +60,15 @@ $(function (){
         $('[data-toggle="popover"]').popover();
     });
     dataTables.on('check.bs.table uncheck.bs.table check-all.bs.table uncheck-all.bs.table fa.event.check', function () {
-        var ids = 	selectedids(dataTables);
+        var ids = 	$("#Table").bootstrapTable('getSelections');
+        console.log(ids)
         $(".btn-disabled").toggleClass("disabled",!ids.length);
     });
-    //序号格式化
-    function idFormatter(value, row, index) {
-        return  index+1;
-    }
-    //背景图
-    function bgFormatter(value,row,index) {
-        var _html='<img width="125px" height="25px" src="/static/img/photo2.png">'
-        return  _html;
-    }
-    //状态格式化
-    function statusFormatter(value, row, index) {
-        return value==1?'<span class="label label-danger">禁用</span>':'<span class="label label-success">正常</span>';
-    }
-    //按钮事件
-    function actionFormatter(value, row, index) {
-        return [
-            '<a href="javascript:;" class="btn btn-xs btn-primary btn-dragsort like" title="Like" data-table-id="table" data-field-index="13" data-row-index="0" data-button-index="0"><i class="fa fa-arrows"></i></a>',
-            '<a href="javascript:;" class="btn btn-xs btn-success btn-dragsort edit ml10" title="Edit" data-table-id="table" data-field-index="13" data-row-index="0" data-button-index="0"><i class="fa fa-pencil"></i></a>',
-            '<a href="javascript:;" class="btn btn-xs btn-danger btn-dragsort remove ml10" title="Remove" data-table-id="table" data-field-index="13" data-row-index="0" data-button-index="0"><i class="fa fa-trash"></i></a>'
-        ].join('');
-    }
+
     function queryParams() {
 
-    }   // 获取选中的条目ID集合
-    function selectedids(table) {
-        var options = table.bootstrapTable('getSelections');
-        if (options.templateView) {
-            return $.map($("input[data-id][name='checkbox']:checked"), function (dom) {
-                return $(dom).data("id");
-            });
-        } else {
-            return $.map(table.bootstrapTable('getSelections'), function (row) {
-                return row[options.pk];
-            });
-        }
     }
+    // 获取选中的条目ID集合
     window.actionEvents = {
         'click .like': function(e, value, row, index) {
             alert('You click like icon, row: ' + JSON.stringify(row));
@@ -143,17 +114,7 @@ $(function (){
             });
         }
     }
-    $("#refresh").on('click',function () {
-        dataTables.bootstrapTable('refresh');
-    });
-    function refreshTable() {
-        dataTables.bootstrapTable('refresh');
-    }
-    dataTables.on('check.bs.table uncheck.bs.table check-all.bs.table uncheck-all.bs.table fa.event.check', function () {
-        var ids = 	dataTables.bootstrapTable('getSelections');
-        console.log(ids)
-        $(".btn-disabled").toggleClass("disabled",!ids.length);
-    });
+
 });
 
 let vm = new Vue({

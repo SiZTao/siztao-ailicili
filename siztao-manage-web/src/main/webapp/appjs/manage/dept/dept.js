@@ -3,17 +3,20 @@ $(function (){
         {field:'state',width:'2%',checkbox:true},
         {title:'序号',width:'2%',align:'center',formatter:idFormatter},
         {field:'id',title:'ID',visible:false},
-        {field:'name',title:'名称',width:'8%',align:'center',halign:'center'},
-        {field:'code',title:'代码',width:'10%',align:'center',halign:'center'},
-        {field:'title',title:'标题',width:'10%',align:'center',halign:'center'},
-        {field:'descrption',title:'描述',width:'8%',visible:false},
+        {field:'name',title:'机构名称',width:'8%',align:'center',halign:'center'},
+        {field:'parentid',title:'上级机构',width:'10%',align:'center',halign:'center'},
+        {field:'sysmark',title:'机构标志',width:'10%',align:'center',halign:'center'},
+        {field:'type',title:'机构类型',width:'10%',align:'center',halign:'center'},
+        {field:'descrption',title:'描述',align:'center',halign:'center'},
         {field:'status',title:'状态',width:'5%',align:'center',halign:'center',formatter:statusFormatter},
         {field:'updatetime',title:'修改时间',width:'10%',align:'center',halign:'center'},
         {field:'updateuser',title:'修改人',width:'8%',align:'center',halign:'center'},
         {field: 'action', title: '操作',width:'8%', halign: 'center',width:'8%', align: 'center', formatter: actionFormatter, events: 'actionEvents', clickToSelect: false}
     ];
+
     var dataTables = $("#Table");
-    var listUrl="/manage/application/list";
+    var listUrl="/manage/dept/list";
+
     dataTables.bootstrapTable({
         url:listUrl,                         //请求地址
         height: 560,              //高度
@@ -53,9 +56,11 @@ $(function (){
         $('[data-toggle="popover"]').popover();
     });
     dataTables.on('check.bs.table uncheck.bs.table check-all.bs.table uncheck-all.bs.table fa.event.check', function () {
-        var ids = 	selectedids(dataTables);
+        var ids = 	$("#Table").bootstrapTable('getSelections');
+        console.log(ids)
         $(".btn-disabled").toggleClass("disabled",!ids.length);
     });
+
     //序号格式化
     function idFormatter(value, row, index) {
         return  index+1;
@@ -80,25 +85,14 @@ $(function (){
     function queryParams() {
 
     }   // 获取选中的条目ID集合
-    function selectedids(table) {
-        var options = table.bootstrapTable('getSelections');
-        if (options.templateView) {
-            return $.map($("input[data-id][name='checkbox']:checked"), function (dom) {
-                return $(dom).data("id");
-            });
-        } else {
-            return $.map(table.bootstrapTable('getSelections'), function (row) {
-                return row[options.pk];
-            });
-        }
-    }
+
     window.actionEvents = {
         'click .like': function(e, value, row, index) {
             alert('You click like icon, row: ' + JSON.stringify(row));
             console.log(value, row, index);
         },
         'click .edit': function(e, value, row, index) {
-            let url="/manage/application/editView?appId="+row.id;
+            let url="/manage/dept/editView?deptId="+row.id;
             $.ajax({
                 type : "GET",
                 url :url,
@@ -106,7 +100,7 @@ $(function (){
                 dataType : 'json',
                 success : function(result) {
                     if(result.code==200){
-                        vm.application = result.app;
+                        vm.dept = result.dept;
                         vm.addAction();
                     }else {
                         toastr.error(result.msg);
@@ -116,7 +110,7 @@ $(function (){
         },
         'click .remove': function(e, value, row, index) {
             //删除单条数据
-            let url="/manage/application/delete?appId="+row.id;
+            let url="/manage/dept/delete?deptId="+row.id;
             confirm('确定要删除选中的记录？', function () {
                 $.ajax({
                     type : "post",
@@ -127,7 +121,7 @@ $(function (){
                     success : function(result) {
                         if(result.code==200){
                             alert('操作成功', function (index) {
-                                refreshTable();
+
                             });
                         }else {
                             toastr.error(result.msg);
@@ -137,24 +131,15 @@ $(function (){
             });
         }
     }
-    $("#refresh").on('click',function () {
-        dataTables.bootstrapTable('refresh');
-    });
-    function refreshTable() {
-        dataTables.bootstrapTable('refresh');
-    }
-    dataTables.on('check.bs.table uncheck.bs.table check-all.bs.table uncheck-all.bs.table fa.event.check', function () {
-        var ids = 	dataTables.bootstrapTable('getSelections');
-        console.log(ids)
-        $(".btn-disabled").toggleClass("disabled",!ids.length);
-    });
+
 });
 
 let vm = new Vue({
     el:'#Dept',
     data:{
         queryShow:true,
-        application:{},
+        dept:{},
+        deptTree:"",
         showForm:true,
         queryParams:{
             name:''
@@ -166,16 +151,40 @@ let vm = new Vue({
         },
     },
     methods:{
+        Init:function () {
+        },
+        getDeptTree:function(){
+            let setting = {
+                data: {
+                    simpleData: {
+                        enable: true
+                    }
+                }
+            };
+            let url ="/manage/dept/tree";
+            $.ajax({
+                type : "get",
+                url :url,
+                contentType : "application/json",
+                dataType : 'json',
+                success:function (result) {
+                    this.deptTree = result;
+                    $.fn.zTree.init($("#treeDemo"), setting,  result );
+                }
+            });
+        },
+        getDeptList(){
+
+        },
         saveOrUpdate:function (event) {
-            //  this.validform(JSON.stringify(vm.application));
-            console.log(JSON.stringify(vm.application));
-            var url="/manage/application/saveOrUpdate";
+            console.log(JSON.stringify(vm.dept));
+            var url="/manage/dept/saveOrUpdate";
             $.ajax({
                 type : "post",
                 url :url,
                 contentType : "application/json",
                 dataType : 'json',
-                data : JSON.stringify(vm.application),
+                data : JSON.stringify(vm.dept),
                 success : function(result) {
                     if(result.code==200){
                         toastr.success(result.msg);
@@ -219,7 +228,7 @@ let vm = new Vue({
                     location.reload();
                 });
             }else {
-                let url="/manage/application/editView?appId="+rows[0].id;
+                let url="/manage/dept/editView?deptId="+rows[0].id;
                 $.ajax({
                     type : "GET",
                     url :url,
@@ -227,7 +236,7 @@ let vm = new Vue({
                     dataType : 'json',
                     success : function(result) {
                         if(result.code==200){
-                            vm.application = result.app;
+                            vm.dept = result.dept;
                             vm.addAction();
                         }else {
                             toastr.error(result.msg);
@@ -255,7 +264,11 @@ let vm = new Vue({
         validform:function () {
 
         }
+    },
+    created:function () {
+       this.getDeptTree();
     }
+
 });
 
 

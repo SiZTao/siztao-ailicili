@@ -1,5 +1,5 @@
 $(function () {
-    var $table = $('#treeGrid');
+    var dataTables = $('#treeGrid');
     $(function() {
         var colModel= [
             {field: 'ck',width:'2%', checkbox: true},
@@ -16,7 +16,7 @@ $(function () {
             {field: 'updateuser', title: '更新人',width:'10%',align:'center',halign:'center'},
             {field: 'action', title: '操作',width:'8%', halign: 'center',width:'8%', align: 'center', formatter: actionFormatter, events: 'actionEvents', clickToSelect: false}
         ];
-        $table.bootstrapTable({
+        dataTables.bootstrapTable({
             url: '/manage/permission/list',
             height: 560,
             striped: true,
@@ -39,7 +39,7 @@ $(function () {
             onLoadSuccess: function(data) {
                 console.log('load');
                 // jquery.treegrid.js
-                $table.treegrid({
+                dataTables.treegrid({
                     initialState: 'collapsed',
                     treeColumn: 1,
                     expanderExpandedClass: 'glyphicon glyphicon-minus',
@@ -82,6 +82,11 @@ $(function () {
             return '<span class="label label-default">锁定</span>';
         }
     }
+    dataTables.on('check.bs.table uncheck.bs.table check-all.bs.table uncheck-all.bs.table fa.event.check', function () {
+        var ids = 	dataTables.bootstrapTable('getSelections');
+        console.log(ids)
+        $(".btn-disabled").toggleClass("disabled",!ids.length);
+    });
 });
 
 let vm = new Vue({

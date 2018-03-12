@@ -2,6 +2,9 @@ package com.siztao.ailicili.service.manage.api.sys;
 
 import com.baomidou.mybatisplus.service.IService;
 import com.siztao.ailicili.service.manage.entity.sys.Dept;
+import com.siztao.framework.model.ZtreeVo;
+
+import java.util.List;
 
 /**
  * <p>
@@ -12,5 +15,7 @@ import com.siztao.ailicili.service.manage.entity.sys.Dept;
  * @since 2018-03-02
  */
 public interface DeptService extends IService<Dept> {
-	
+
+    //机构Tree
+    List<ZtreeVo>   selectAllDeptWithZtre(boolean isShowTopParent,List<Dept> vos);
 }

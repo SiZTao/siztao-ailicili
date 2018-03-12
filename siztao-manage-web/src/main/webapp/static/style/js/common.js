@@ -58,13 +58,13 @@ window.openWindow = function (options) {
         layer.open(globalParams);
     }
 };
-//获取选中的数据
+//jqGrid获取选中的数据
 function getSelectedRowData(gridId) {
     var id = getSelectedRow(gridId);
     return $(gridId).jqGrid('getRowData', id);
 }
 
-//选择一条记录
+//jqGrid选择一条记录
 function getSelectedRow(gridId) {
     var grid = $(gridId);
     var rowKey = grid.getGridParam("selrow");
@@ -82,7 +82,7 @@ function getSelectedRow(gridId) {
     return selectedIDs[0];
 };
 
-//选择多条记录
+//jqGrid选择多条记录
 function getSelectedRows(gridId) {
     var grid = $(gridId);
     var rowKey = grid.getGridParam("selrow");
@@ -93,6 +93,28 @@ function getSelectedRows(gridId) {
     return grid.getGridParam("selarrrow");
 };
 
+//BootStraptTable 格式化
+//序号格式化
+function idFormatter(value, row, index) {
+    return  index+1;
+}
+//背景图
+function bgFormatter(value,row,index) {
+    var _html='<img width="125px" height="25px" src="/static/img/photo2.png">'
+    return  _html;
+}
+//状态格式化
+function statusFormatter(value, row, index) {
+    return value==1?'<span class="label label-danger">禁用</span>':'<span class="label label-success">正常</span>';
+}
+//按钮事件
+function actionFormatter(value, row, index) {
+    return [
+        '<a href="javascript:;" class="btn btn-xs btn-primary btn-dragsort like" title="Like" data-table-id="table" data-field-index="13" data-row-index="0" data-button-index="0"><i class="fa fa-arrows"></i></a>',
+        '<a href="javascript:;" class="btn btn-xs btn-success btn-dragsort edit ml10" title="Edit" data-table-id="table" data-field-index="13" data-row-index="0" data-button-index="0"><i class="fa fa-pencil"></i></a>',
+        '<a href="javascript:;" class="btn btn-xs btn-danger btn-dragsort remove ml10" title="Remove" data-table-id="table" data-field-index="13" data-row-index="0" data-button-index="0"><i class="fa fa-trash"></i></a>'
+    ].join('');
+}
 /**
  * 预览图片
  * @param url

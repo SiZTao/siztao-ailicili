@@ -54,9 +54,11 @@ $(function (){
         $('[data-toggle="popover"]').popover();
     });
     dataTables.on('check.bs.table uncheck.bs.table check-all.bs.table uncheck-all.bs.table fa.event.check', function () {
-        var ids = 	selectedids(dataTables);
+        var ids = 	$("#Table").bootstrapTable('getSelections');
+        console.log(ids)
         $(".btn-disabled").toggleClass("disabled",!ids.length);
     });
+
     //序号格式化
     function idFormatter(value, row, index) {
         return  index+1;
@@ -81,25 +83,13 @@ $(function (){
     function queryParams() {
 
     }   // 获取选中的条目ID集合
-    function selectedids(table) {
-        var options = table.bootstrapTable('getSelections');
-        if (options.templateView) {
-            return $.map($("input[data-id][name='checkbox']:checked"), function (dom) {
-                return $(dom).data("id");
-            });
-        } else {
-            return $.map(table.bootstrapTable('getSelections'), function (row) {
-                return row[options.pk];
-            });
-        }
-    }
     window.actionEvents = {
         'click .like': function(e, value, row, index) {
             alert('You click like icon, row: ' + JSON.stringify(row));
             console.log(value, row, index);
         },
         'click .edit': function(e, value, row, index) {
-            let url="/manage/application/editView?appId="+row.id;
+            let url="/manage/role/editView?roleId="+row.id;
             $.ajax({
                 type : "GET",
                 url :url,
@@ -117,7 +107,7 @@ $(function (){
         },
         'click .remove': function(e, value, row, index) {
             //删除单条数据
-            let url="/manage/application/delete?appId="+row.id;
+            let url="/manage/role/delete?roleId="+row.id;
             confirm('确定要删除选中的记录？', function () {
                 $.ajax({
                     type : "post",
@@ -138,17 +128,8 @@ $(function (){
             });
         }
     }
-    $("#refresh").on('click',function () {
-        dataTables.bootstrapTable('refresh');
-    });
-    function refreshTable() {
-        dataTables.bootstrapTable('refresh');
-    }
-    dataTables.on('check.bs.table uncheck.bs.table check-all.bs.table uncheck-all.bs.table fa.event.check', function () {
-        var ids = 	dataTables.bootstrapTable('getSelections');
-        console.log(ids)
-        $(".btn-disabled").toggleClass("disabled",!ids.length);
-    });
+
+
 });
 
 let vm = new Vue({
