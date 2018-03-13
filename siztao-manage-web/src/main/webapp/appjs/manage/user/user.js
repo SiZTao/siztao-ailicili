@@ -103,7 +103,7 @@ $(function (){
             console.log(value, row, index);
         },
         'click .edit': function(e, value, row, index) {
-            let url="/manage/application/editView?appId="+row.id;
+            let url="/manage/user/editView?userId="+row.id;
             $.ajax({
                 type : "GET",
                 url :url,
@@ -111,7 +111,7 @@ $(function (){
                 dataType : 'json',
                 success : function(result) {
                     if(result.code==200){
-                        vm.application = result.app;
+                        vm.user = result.user;
                         vm.addAction();
                     }else {
                         toastr.error(result.msg);
@@ -121,7 +121,7 @@ $(function (){
         },
         'click .remove': function(e, value, row, index) {
             //删除单条数据
-            let url="/manage/application/delete?appId="+row.id;
+            let url="/manage/user/delete?userId="+row.id;
             confirm('确定要删除选中的记录？', function () {
                 $.ajax({
                     type : "post",
@@ -159,8 +159,9 @@ let vm = new Vue({
     el:'#User',
     data:{
         queryShow:true,
-        application:{},
+        user:{},
         showForm:true,
+        deptTree:"",
         queryParams:{
             name:''
         },
@@ -171,10 +172,29 @@ let vm = new Vue({
         },
     },
     methods:{
+        getDeptTree:function(){
+            let setting = {
+                data: {
+                    simpleData: {
+                        enable: true
+                    }
+                }
+            };
+            let url ="/manage/dept/tree";
+            $.ajax({
+                type : "get",
+                url :url,
+                dataType: 'json',
+                contentType:'application/json;charset=UTF-8',
+                success:function (result) {
+                    this.deptTree = result;
+                    $.fn.zTree.init($("#treeDemo"), setting,  result );
+                }
+            });
+        },
         saveOrUpdate:function (event) {
-            //  this.validform(JSON.stringify(vm.application));
             console.log(JSON.stringify(vm.application));
-            var url="/manage/application/saveOrUpdate";
+            var url="/manage/user/saveOrUpdate";
             $.ajax({
                 type : "post",
                 url :url,
@@ -224,7 +244,7 @@ let vm = new Vue({
                     location.reload();
                 });
             }else {
-                let url="/manage/application/editView?appId="+rows[0].id;
+                let url="/manage/user/editView?userId="+rows[0].id;
                 $.ajax({
                     type : "GET",
                     url :url,
@@ -232,7 +252,7 @@ let vm = new Vue({
                     dataType : 'json',
                     success : function(result) {
                         if(result.code==200){
-                            vm.application = result.app;
+                            vm.user = result.user;
                             vm.addAction();
                         }else {
                             toastr.error(result.msg);
@@ -260,6 +280,9 @@ let vm = new Vue({
         validform:function () {
 
         }
+    },
+    created:function () {
+        this.getDeptTree();
     }
 });
 

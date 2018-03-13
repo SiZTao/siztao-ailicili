@@ -7,12 +7,9 @@ import com.siztao.ailicili.service.manage.entity.sys.Application;
 import com.siztao.ailicili.service.manage.entity.sys.Role;
 import com.siztao.framework.model.AjaxResult;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
 
 import java.util.List;
 
@@ -36,15 +33,13 @@ public class RoleController {
 	public String page(){
 		return PAGE_VIEW+"/list";
 	}
-	@RequestMapping(value = "/addView",method = RequestMethod.GET)
-	public String addView(){
-		return PAGE_VIEW+"/add";
-	}
-	@RequestMapping(value = "/editView",method = RequestMethod.GET)
-	public String editView(Integer  appId){
-		return PAGE_VIEW+"/edit";
-	}
 
+	@RequestMapping(value = "/editView",method = RequestMethod.GET)
+	@ResponseBody
+	public AjaxResult editView(@RequestParam("roleId") Integer  roleId){
+		Role role = roleService.selectById(roleId);
+		return AjaxResult.ok("查询数据").put("role",role);
+	}
 	@RequestMapping(value = "/list",method = RequestMethod.GET)
 	@ResponseBody
 	public AjaxResult list(@RequestParam(required = false, defaultValue = "0", value = "offset") int offset,
@@ -54,5 +49,24 @@ public class RoleController {
 						   @RequestParam(required = false, value = "order") String order){
 		List<Role>   list = roleService.selectList(null);
 		return AjaxResult.ok("查询成功").put("rows",list).put("total",list.size());
+	}
+
+
+	/**
+	 * 添加应用数据
+	 * @param
+	 * @return
+	 */
+	@RequestMapping(value = "/saveOrUpdate",method = RequestMethod.POST)
+	@ResponseBody
+	public AjaxResult insert(@RequestBody Role   role){
+		if (role.getId()==null){
+			roleService.insert(role);
+			return AjaxResult.ok("添加成功");
+		}else {
+			roleService.updateById(role);
+			return AjaxResult.ok("更新成功");
+		}
+
 	}
 }

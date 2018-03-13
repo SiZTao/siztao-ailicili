@@ -93,11 +93,11 @@ $(function (){
             $.ajax({
                 type : "GET",
                 url :url,
-                contentType : "application/json",
-                dataType : 'json',
+                dataType: 'json',
+                contentType:'application/json;charset=UTF-8',
                 success : function(result) {
                     if(result.code==200){
-                        vm.application = result.app;
+                        vm.role = result.role;
                         vm.addAction();
                     }else {
                         toastr.error(result.msg);
@@ -112,9 +112,9 @@ $(function (){
                 $.ajax({
                     type : "post",
                     url :url,
-                    contentType : "application/json",
+                    dataType: 'json',
+                    contentType:'application/json;charset=UTF-8',
                     skin: 'layui-layer-molv',//皮肤
-                    dataType : 'json',
                     success : function(result) {
                         if(result.code==200){
                             alert('操作成功', function (index) {
@@ -149,15 +149,14 @@ let vm = new Vue({
     },
     methods:{
         saveOrUpdate:function (event) {
-            //  this.validform(JSON.stringify(vm.application));
-            console.log(JSON.stringify(vm.application));
-            var url="/manage/application/saveOrUpdate";
+            console.log(JSON.stringify(vm.role));
+            var url="/manage/role/saveOrUpdate";
             $.ajax({
                 type : "post",
                 url :url,
                 contentType : "application/json",
                 dataType : 'json',
-                data : JSON.stringify(vm.application),
+                data : JSON.stringify(vm.role),
                 success : function(result) {
                     if(result.code==200){
                         toastr.success(result.msg);
@@ -201,15 +200,15 @@ let vm = new Vue({
                     location.reload();
                 });
             }else {
-                let url="/manage/application/editView?appId="+rows[0].id;
+                let url="/manage/role/editView?roleId="+rows[0].id;
                 $.ajax({
                     type : "GET",
                     url :url,
-                    contentType : "application/json",
-                    dataType : 'json',
+                    dataType: 'json',
+                    contentType:'application/json;charset=UTF-8',
                     success : function(result) {
                         if(result.code==200){
-                            vm.application = result.app;
+                            vm.role = result.role;
                             vm.addAction();
                         }else {
                             toastr.error(result.msg);

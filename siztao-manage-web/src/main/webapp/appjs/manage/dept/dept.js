@@ -96,8 +96,8 @@ $(function (){
             $.ajax({
                 type : "GET",
                 url :url,
-                contentType : "application/json",
-                dataType : 'json',
+                dataType: 'json',
+                contentType:'application/json;charset=UTF-8',
                 success : function(result) {
                     if(result.code==200){
                         vm.dept = result.dept;
@@ -115,9 +115,9 @@ $(function (){
                 $.ajax({
                     type : "post",
                     url :url,
-                    contentType : "application/json",
+                    dataType: 'json',
+                    contentType:'application/json;charset=UTF-8',
                     skin: 'layui-layer-molv',//皮肤
-                    dataType : 'json',
                     success : function(result) {
                         if(result.code==200){
                             alert('操作成功', function (index) {
@@ -165,8 +165,8 @@ let vm = new Vue({
             $.ajax({
                 type : "get",
                 url :url,
-                contentType : "application/json",
-                dataType : 'json',
+                dataType: 'json',
+                contentType:'application/json;charset=UTF-8',
                 success:function (result) {
                     this.deptTree = result;
                     $.fn.zTree.init($("#treeDemo"), setting,  result );
@@ -182,8 +182,8 @@ let vm = new Vue({
             $.ajax({
                 type : "post",
                 url :url,
-                contentType : "application/json",
-                dataType : 'json',
+                dataType: 'json',
+                contentType:'application/json;charset=UTF-8',
                 data : JSON.stringify(vm.dept),
                 success : function(result) {
                     if(result.code==200){
@@ -232,8 +232,8 @@ let vm = new Vue({
                 $.ajax({
                     type : "GET",
                     url :url,
-                    contentType : "application/json",
-                    dataType : 'json',
+                    dataType: 'json',
+                    contentType:'application/json;charset=UTF-8',
                     success : function(result) {
                         if(result.code==200){
                             vm.dept = result.dept;

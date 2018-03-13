@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <parent>
+        <artifactId>siztao-queue</artifactId>
+        <groupId>com.siztao</groupId>
+        <version>1.0-SNAPSHOT</version>
+    </parent>
+    <modelVersion>4.0.0</modelVersion>
+
+    <artifactId>siztao-queue-service</artifactId>
+
+
+    <build>
+        <!-- 设置主资源目录 -->
+        <resources>
+            <resource>
+                <directory>${project.basedir}/assembly/${env}/conf</directory>
+            </resource>
+        </resources>
+
+        <!-- 打包名称使用包名+版本号 -->
+        <finalName>${project.description}-${env}-${project.version}</finalName>
+        <plugins>
+            <!--将pom中所有的依赖全部打包进一个jar包中-->
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-assembly-plugin</artifactId>
+                <version>${plugin.assembly.version}</version>
+                <configuration>
+                    <descriptors>
+                        <descriptor>${project.basedir}/assembly/assembly.xml</descriptor>
+                    </descriptors>
+                </configuration>
+                <executions>
+                    <execution>
+                        <id>make-assembly</id>
+                        <phase>package</phase>
+                        <goals>
+                            <goal>single</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+            <!--jar打包过滤配置文件-->
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-jar-plugin</artifactId>
+                <version>${plugin.jar.version}</version>
+                <configuration>
+                    <excludes>
+                        <exclude>**/*.properties</exclude>
+                        <exclude>**/*.xml</exclude>
+                        <exclude>*.properties</exclude>
+                        <exclude>*.xml</exclude>
+                    </excludes>
+                </configuration>
+            </plugin>
+
+
+        </plugins>
+    </build>
+</project>

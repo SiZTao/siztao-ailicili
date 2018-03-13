@@ -7,12 +7,9 @@ import com.siztao.ailicili.service.manage.entity.sys.Role;
 import com.siztao.ailicili.service.manage.entity.sys.User;
 import com.siztao.framework.model.AjaxResult;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
 
 import java.util.List;
 
@@ -39,14 +36,6 @@ public class UserController extends AbstractController{
     public String page(){
         return PAGE_VIEW+"/list";
     }
-    @RequestMapping(value = "/addView",method = RequestMethod.GET)
-    public String addView(){
-        return PAGE_VIEW+"/add";
-    }
-    @RequestMapping(value = "/editView",method = RequestMethod.GET)
-    public String editView(Integer  appId){
-        return PAGE_VIEW+"/edit";
-    }
 
 	@RequestMapping("/applist")
     @ResponseBody
@@ -55,6 +44,29 @@ public class UserController extends AbstractController{
 	    return AjaxResult.ok().put("appList",applicationService.selectAppListByUID(userid));
     }
 
+    /**
+     * 添加应用数据
+     * @param
+     * @return
+     */
+    @RequestMapping(value = "/saveOrUpdate",method = RequestMethod.POST)
+    @ResponseBody
+    public AjaxResult insert(@RequestBody User   user){
+        if (user.getId()==null){
+            userService.insert(user);
+            return AjaxResult.ok("添加成功");
+        }else {
+            userService.updateById(user);
+            return AjaxResult.ok("更新成功");
+        }
+
+    }
+    @RequestMapping(value = "/editView",method = RequestMethod.GET)
+    @ResponseBody
+    public AjaxResult editView(@RequestParam("userId") Integer  userId){
+        User user = userService.selectById(userId);
+        return AjaxResult.ok("查询数据").put("user",user);
+    }
     @RequestMapping(value = "/list",method = RequestMethod.GET)
     @ResponseBody
     public AjaxResult list(@RequestParam(required = false, defaultValue = "0", value = "offset") int offset,

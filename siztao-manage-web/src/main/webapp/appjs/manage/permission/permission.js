@@ -45,7 +45,7 @@ $(function () {
                     expanderExpandedClass: 'glyphicon glyphicon-minus',
                     expanderCollapsedClass: 'glyphicon glyphicon-plus',
                     onChange: function() {
-                        $table.bootstrapTable('resetWidth');
+                        dataTables.bootstrapTable('resetWidth');
                     }
                 });
             }
@@ -74,6 +74,52 @@ $(function () {
             '<a href="javascript:;" class="btn btn-xs btn-danger btn-dragsort remove ml10" title="Remove" data-table-id="table" data-field-index="13" data-row-index="0" data-button-index="0"><i class="fa fa-trash"></i></a>'
         ].join('');
     }
+    // 获取选中的条目ID集合
+    window.actionEvents = {
+        'click .like': function(e, value, row, index) {
+            alert(JSON.stringify(row));
+            console.log(value, row, index);
+        },
+        'click .edit': function(e, value, row, index) {
+            let url="/manage/permission/editView?permissionId="+row.id;
+            $.ajax({
+                type : "GET",
+                url :url,
+                dataType: 'json',
+                contentType:'application/json;charset=UTF-8',
+                success : function(result) {
+                    if(result.code==200){
+                        vm.permission = result.permission;
+                        vm.addAction();
+                    }else {
+                        toastr.error(result.msg);
+                    }
+                }
+            });
+        },
+        'click .remove': function(e, value, row, index) {
+            //删除单条数据
+            let url="/manage/permission/delete?permissionId="+row.id;
+            confirm('确定要删除选中的记录？', function () {
+                $.ajax({
+                    type : "POST",
+                    url :url,
+                    dataType: 'json',
+                    contentType:'application/json;charset=UTF-8',
+                    skin: 'layui-layer-molv',//皮肤
+                    success : function(result) {
+                        if(result.code==200){
+                            alert('操作成功', function (index) {
+                                refreshTable();
+                            });
+                        }else {
+                            toastr.error(result.msg);
+                        }
+                    }
+                });
+            });
+        }
+    }
     // 格式化状态
     function statusFormatter(value, row, index) {
         if (value === "0") {
@@ -100,8 +146,8 @@ let vm = new Vue({
             $.ajax({
                 type:"post",
                 url:url,
-                contentType:"application/json",
-                dataType:"json",
+                dataType: 'json',
+                contentType:'application/json;charset=UTF-8',
                 data:JSON.stringify(vm.permission),
                 success:function (result) {
 
@@ -133,6 +179,29 @@ let vm = new Vue({
             });
         },
         editAction:function () {
+            var rows =  $("#treeGrid").bootstrapTable('getSelections');
+            if(rows.length!=1){
+                confirm('请选择一条记录？', function () {
+                    layer.closeAll();
+                    location.reload();
+                });
+            }else {
+                let url="/manage/permission/editView?permissionId="+rows[0].id;
+                $.ajax({
+                    type : "GET",
+                    url :url,
+                    dataType: 'json',
+                    contentType:'application/json;charset=UTF-8',
+                    success : function(result) {
+                        if(result.code==200){
+                            vm.permission = result.permission;
+                            vm.addAction();
+                        }else {
+                            toastr.error(result.msg);
+                        }
+                    }
+                });
+            }
         },
         delAction:function (event) {
         },
