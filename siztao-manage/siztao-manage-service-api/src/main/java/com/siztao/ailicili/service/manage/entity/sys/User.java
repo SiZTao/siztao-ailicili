@@ -42,11 +42,19 @@ public class User extends Model<User> {
 	private String qq;
 	private String status;
 	private String delflag;
-	private Date createuser;
-	private Integer createtime;
+	private Date createtime ;
+	private Integer createuser;
 	private Date updatetime;
 	private Integer updateuser;
+	private Integer	sort;
 
+	public Integer getSort() {
+		return sort;
+	}
+
+	public void setSort(Integer sort) {
+		this.sort = sort;
+	}
 
 	public Integer getId() {
 		return id;
@@ -224,20 +232,20 @@ public class User extends Model<User> {
 		this.delflag = delflag;
 	}
 
-	public Date getCreateuser() {
-		return createuser;
-	}
-
-	public void setCreateuser(Date createuser) {
-		this.createuser = createuser;
-	}
-
-	public Integer getCreatetime() {
+	public Date getCreatetime() {
 		return createtime;
 	}
 
-	public void setCreatetime(Integer createtime) {
+	public void setCreatetime(Date createtime) {
 		this.createtime = createtime;
+	}
+
+	public Integer getCreateuser() {
+		return createuser;
+	}
+
+	public void setCreateuser(Integer createuser) {
+		this.createuser = createuser;
 	}
 
 	public Date getUpdatetime() {

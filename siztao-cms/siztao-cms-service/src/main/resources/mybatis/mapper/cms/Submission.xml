@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.siztao.ailicili.service.manage.dao.cms.SubmissionMapper">
+
+	<!-- 通用查询映射结果 -->
+	<resultMap id="BaseResultMap" type="com.siztao.ailicili.service.manage.entity.cms.Submission">
+		<id column="id" property="id" />
+		<result column="href" property="href" />
+		<result column="title" property="title" />
+		<result column="categoryid" property="categoryid" />
+		<result column="menuid" property="menuid" />
+		<result column="template" property="template" />
+		<result column="author" property="author" />
+		<result column="fromurl" property="fromurl" />
+		<result column="image" property="image" />
+		<result column="keywords" property="keywords" />
+		<result column="description" property="description" />
+		<result column="type" property="type" />
+		<result column="allowcomments" property="allowcomments" />
+		<result column="content" property="content" />
+		<result column="memberid" property="memberid" />
+		<result column="readnumber" property="readnumber" />
+		<result column="collectnumber" property="collectnumber" />
+		<result column="hitenum" property="hitenum" />
+		<result column="pushnum" property="pushnum" />
+		<result column="scored" property="scored" />
+		<result column="createtime" property="createtime" />
+		<result column="sort" property="sort" />
+		<result column="updatetime" property="updatetime" />
+		<result column="style" property="style" />
+		<result column="status" property="status" />
+		<result column="tags" property="tags" />
+		<result column="createuser" property="createuser" />
+		<result column="updateuser" property="updateuser" />
+		<result column="publictime" property="publictime" />
+	</resultMap>
+
+    <!-- 通用查询结果列 -->
+    <sql id="Base_Column_List">
+        id, href, title, categoryid, menuid, template, author, fromurl, image, keywords, description, type, allowcomments, content, memberid, readnumber, collectnumber, hitenum, pushnum, scored, createtime, sort, updatetime, style, status, tags, createuser, updateuser, publictime
+    </sql>
+
+</mapper>

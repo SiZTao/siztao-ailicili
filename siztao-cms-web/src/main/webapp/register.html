@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="UTF-8">
+	<title>哔哩哔哩弹幕视频网 - ( ゜- ゜)つロ 乾杯~ - bilibili</title>
+	<link rel="shortcut icon" href="imgs/favicon.ico">
+	<link rel="stylesheet" href="css/login.css">
+</head>
+<body>
+	<div class="z_top_container">
+		<div class="z_top">
+			<div class="z_top_nav">
+				<ul>
+					<li class="home" title="主站"><a href="index.html"><span>主站</span></a></li>
+					<li class="hbili"><a href="#" title="画友">画友</a></li>
+					<li class="b-gc"><a href="game.html">游戏中心</a></li>
+					<li class="live"><a href="#" title="直播">直播</a></li>
+					<li class="b-zb"><a href="ambitus.html" title="周边">周边</a></li>
+					<li class="b-ml"><a href="bml.html" title="BML">BML <em class="new"></em></a></li>
+				</ul>
+			</div>
+
+			<div class="uns_box">
+				<ul class="menu">
+					<li class="login"><a href="register.html">注册</a></li>
+					<li><span></span></li>
+					<li class="register"><a href="login.html">登陆</a></li>
+					<li class="submission"><a class="i-link" href="#">投&nbsp;稿</a></li>
+				</ul>
+			</div>
+
+			<div class="nav-search">
+				<div class="nav_searchform">
+					<input type="text" class="nav-search-keyword" placeholder="搜索">
+					<button type="submit" class="nav-search-submit"></button>
+				</div>
+			</div>
+
+		</div>
+	</div>
+
+	<div class="top_bg">
+		<div class="top"></div>
+	</div>
+
+	<div class="foot_content">
+		<div class="zcdl_content">
+
+			<div class="lin">
+				<div class="tit">
+					<img src="imgs/login/t1.png" alt="登陆1">
+				</div>
+			</div>
+			
+			<div class="center_title">
+				<form>
+					<div class="rename">
+						<input type="text" class="rename-t" placeholder="昵称（例：哔哩哔哩）">
+						<span class="re-tishi"></span>
+					</div>
+					<div class="repw">
+						<input type="password" class="repws" placeholder="密码（6-16个字母，区分大小写）">
+						<span class="re-tishi"></span>
+					</div>
+					<div class="rephone">
+						<select name="country_code" id="country_code">
+              				<option value="1" code="86">中国大陆</option>
+              				<option value="2" code="853">澳门特区</option>
+              				<option value="3" code="886">台湾</option>
+              				<option value="4" code="1">美国</option>
+              				<option value="5" code="852">香港</option>
+              				<option value="6" code="32">比利时</option>
+              				<option value="7" code="61">澳大利亚</option>
+              				<option value="8" code="33">法国</option>
+              				<option value="9" code="1">加拿大</option>
+              				<option value="10" code="81">日本</option>
+              				<option value="11" code="65">新加坡</option>
+              				<option value="13" code="60">马来西亚</option>
+              				<option value="12" code="82">韩国</option>         
+          				</select>
+						<input type="text" class="rephone-t" placeholder="填写常用手机号">
+						<a href="#" class="rephone_a">用邮箱注册></a>
+						<span class="re-tishi1"></span>
+					</div>
+					<div class="rephone1">
+						<input type="text" placeholder="手机验证码" id="rephone1_text">
+						<a href="#" class="rephone1_a">点击获取</a>
+						<span class="re-tishi"></span>
+						<label>
+							<input type="checkbox" id="rephone1_acx" onclick="rephoneacx()">
+							我已同意
+							<a href="#">《哔哩哔哩弹幕用户使用协议》</a>
+							和
+							<a href="#">《哔哩哔哩弹幕社区规范》</a>
+						</label>
+					</div>
+					<div class="next_step">
+						<!-- <input type="submit" value="注册" id="next_step_sut" disabled="value"> -->
+
+						<a href="#" id="next_step_sut">注册</a>
+
+						<input type="submit" value="注册" id="next_step_sut1" disabled="value">
+						<span>
+							<a href="#">已有账号，直接登录></a>
+						</span>	
+					</div>
+				</form>
+			</div>
+			
+		</div>
+	</div>
+
+	<div class="footer">
+		<div class="footer-wrp">
+			<div class="footer-cnt">
+				<ul class="boston-postcards">
+					<li class="bilibili">
+						<span class="tips">Bilibili</span>
+						<span class="cards"><a href="#">关于我们</a></span>
+						<span class="cards"><a href="#">友情链接</a></span>
+						<a href="#"><img src="imgs/login/b-taobao.png" alt="淘宝"></a>
+						<span class="cards"><a href="#">联系我们</a></span>
+						<span class="cards"><a href="#">加入我们</a></span>
+					</li>
+					<li class="help">
+						<span class="tips">帮助</span>
+						<span class="cards"><a href="#">帮助中心</a></span>
+						<span class="cards"><a href="#">补档认领处</a></span>
+						<span class="cards"><a href="#">资源免责声明</a></span>
+						<span class="cards"><a href="#">侵权申诉</a></span>
+						<span class="cards"><a href="#">建议/BUG</a></span>
+					</li>
+					<li class="transfer">
+						<span class="tips">传送门</span>
+						<span class="cards"><a href="#">高级弹幕</a></span>
+						<span class="cards"><a href="#">名人堂</a></span>
+						<span class="cards"><a href="#">活动专题页</a></span>
+						<span class="cards"><a href="#">资讯</a></span>
+						<span class="cards"><a href="#">壁纸站</a></span>
+						<span class="cards"><a href="#">分院帽计划</a></span>
+						<span class="cards"><a href="#">活动中心</a></span>
+					</li>
+				</ul>
+				
+				<div class="partner">
+					<div class="partner-banner"></div>
+					<div class="block-left">
+						<p>广播电视节目制作经营许可证：（沪）字第1248号</p>
+						<p>网络文化经营许可证：沪网文[2013]0480-056号</p>
+						<p>信息网络传播视听节目许可证：0910417</p>
+					</div>
+					<div class="block-left2">
+						<p>互联网ICP备案：沪ICP备13002172号-3</p>
+						<p>沪ICP证：沪B2-20100043</p>
+					</div>
+
+					<div class="block-right">
+						<a href="#" class="phone">
+							<div>
+								<span>手机下载</span>
+							</div>
+						</a>
+					
+						<a href="#" class="weibo">
+							<div>
+								<span>新浪微博</span>
+							</div>
+						</a>
+					
+						<a href="#" class="weixin">
+							<div>
+								<span>官方微信</span>
+							</div>
+						</a>
+					
+				</div>
+				</div>
+
+			</div>
+		</div>
+	</div>
+<script src="js/jquery-2.2.3.min.js"></script>
+<script src="js/login.js"></script>
+</body>
+</html>

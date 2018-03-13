@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.siztao.ailicili.service.manage.dao.cms.CommentMapper">
+
+	<!-- 通用查询映射结果 -->
+	<resultMap id="BaseResultMap" type="com.siztao.ailicili.service.manage.entity.cms.Comment">
+		<id column="id" property="id" />
+		<result column="outid" property="outid" />
+		<result column="parentid" property="parentid" />
+		<result column="type" property="type" />
+		<result column="membername" property="membername" />
+		<result column="email" property="email" />
+		<result column="website" property="website" />
+		<result column="content" property="content" />
+		<result column="IP" property="ip" />
+		<result column="UserAgent" property="UserAgent" />
+		<result column="status" property="status" />
+		<result column="sort" property="sort" />
+		<result column="popnum" property="popnum" />
+		<result column="pushnum" property="pushnum" />
+	</resultMap>
+
+    <!-- 通用查询结果列 -->
+    <sql id="Base_Column_List">
+        id, outid, parentid, type, membername, email, website, content, IP AS ip, UserAgent, status, sort, popnum, pushnum
+    </sql>
+
+</mapper>

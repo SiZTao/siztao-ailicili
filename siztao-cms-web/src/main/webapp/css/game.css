@@ -1,0 +1,451 @@
+/*全局的一些css样式*/
+body{
+	margin: 0px;
+	padding: 0px;
+	font-family: "Microsoft YaHei",Arial,Helvetica,sans-serif;
+	overflow: auto;
+}
+ul{
+	margin: 0px;
+	padding: 0px;
+	list-style-type: none;
+}
+a{
+	text-decoration: none;
+	color: #000;
+}
+:-ms-input-placeholder{color: #a5a5a5;}
+::-webkit-input-placeholder{color: #a5a5a5;}
+
+/*顶部*/
+.z_top_container{
+	width: 100%;
+	height: 42px;
+	box-shadow: rgba(0,0,0,0.1) 0 1px 2px;
+}
+.z_top{
+	width: 980px;
+	height: 42px;
+	margin: 0 auto;
+}
+/*顶部左侧ul样式*/
+.z_top_nav{
+	margin-left: -15px;
+}
+.z_top_nav li{
+	float: left;
+	font-size: 13px;
+	line-height: 42px;
+	padding: 0 15px;
+}
+.z_top_nav a:hover{
+	color: #00a1d6;
+}
+/*主站前面的小电视*/
+.home span{
+	display: block;
+	padding-left: 20px;
+	background: url(../imgs/icons.png) no-repeat -920px -74px;
+}
+/*顶部右侧ul div*/
+.uns_box{
+	float: right;
+	width: 349px;
+	height: 42px;
+}
+/*头像*/
+.avatar{
+	position: absolute;
+	padding: 0 15px 0 20px;
+}
+.avatar1{
+	width: 36px;
+	height: 36px;
+	border-radius:50%;
+	margin: 3px -7px -13px -5px;
+}
+.avatarti{
+	width: 24px;
+	height: 42px;
+}
+.menu li{
+	float: left;
+	font-size: 13px;
+	line-height: 42px;
+	padding: 0 15px;
+}
+/*投稿样式 和鼠标放上去的变化*/
+.submission{
+	padding: 0 0 0 15px;
+}
+.i-link{
+	display: block;
+	width: 58px;
+	height: 48px;
+	text-align: center;
+	color: #fff;
+	margin: 0 -15px -15px -15px;
+	background: url(../imgs/top/b-post.png);
+	z-index: 11;
+	position: relative;
+}
+.i-link:hover{
+	background: url(../imgs/top/b-post-hover.png);
+}
+/*搜索*/
+.nav-search{
+	float: right;
+	margin-right: 20px;
+	margin-top: 5px;
+}
+.nav_searchform{
+	position: relative;
+	width: 120px;
+	height: 30px;
+    border-radius: 16px;
+    border: 1px solid #ccd0d7;
+    transition: .2s;
+}
+.nav_searchform:hover{
+	width: 190px;
+	border: 1px solid #99a2aa;
+}
+.nav-search-keyword{
+	width: 70px;
+	position: relative;
+	top: 3px;
+	left: 7px;
+	border: 0;
+	outline:none;  /*点击后轮廓线不显示*/
+}
+.nav-search-submit{
+	width: 30px;
+    height: 32px;
+    background: url(../imgs/icons.png) -786px -721px;
+    min-width: 0;
+    margin: 0;
+    padding: 0;
+    border: 0;
+    cursor:pointer;
+    float: right;
+}
+.nav-search-submit:hover{
+	background: url(../imgs/icons.png) -723px -721px;
+}
+
+/*轮换图*/
+.header{
+	width: 100%;
+	height: 790px;
+}
+.slideshow{
+	width: 100%;
+	height: 710px;
+	position: relative;
+	overflow: hidden;
+}
+.carousel li a img{
+	/*width: 100%;*/
+	position: absolute;
+	margin-left: -1000px;
+	left: 50%;
+}
+.slides-pagination{
+	position: absolute;
+	z-index: 1;
+	display: block;
+	width: 195px;
+	height: 38px;
+	background-color: rgba(0,0,0,0.4);
+	border-radius: 19px;
+	margin-left: -505px;
+	bottom: 75px;
+    left: 50%;
+}
+.slides-pagination li{
+	float: left;
+	width: 22px;
+	height: 22px;
+	border-radius: 50%;
+	background: #fff;
+	margin: 8px 0 0 14px;
+	cursor: pointer;
+}
+.slides-pagination li a{
+	float: left;
+	width: 18px;
+	height: 18px;
+	border-radius: 50%;
+	background: #2CBDF0;
+	margin: 2px;
+}
+.mainmenu{
+	width: 100%;
+	height: 110px;
+	margin-top: -30px;
+	z-index: 1;
+	margin-bottom: 30px;
+    position: relative;
+	background: url(../imgs/game/mainmenu-bg.jpg) center 30px no-repeat;
+}
+.grid{
+	display: block;
+	width: 1000px;
+	height: 110px;
+	margin: 0 auto;
+}
+.grid li{
+	float: left;
+	width: 200px;
+	height: 110px;
+	background: url(../imgs/game/mainmenu-a.jpg);
+}
+.grid li a{
+	float: left;
+	width: 200px;
+	height: 110px;
+}
+.yxzx{background: url(../imgs/game/mainmenu-li.png) -1px 0px no-repeat}
+.yxlb{background: url(../imgs/game/mainmenu-li.png) -201px 0px no-repeat}
+.jlcx{background: url(../imgs/game/mainmenu-li.png) -401px 0px no-repeat}
+.lbzx{background: url(../imgs/game/mainmenu-li.png) -601px 0px no-repeat}
+.yxlt{background: url(../imgs/game/mainmenu-li.png) -801px 0px no-repeat}
+
+.yxzx:hover{background: url(../imgs/game/mainmenu-li.png)-1px -110px no-repeat}
+.yxlb:hover{background: url(../imgs/game/mainmenu-li.png)-201px -110px no-repeat}
+.jlcx:hover{background: url(../imgs/game/mainmenu-li.png)-401px -110px no-repeat}
+.lbzx:hover{background: url(../imgs/game/mainmenu-li.png)-601px -110px no-repeat}
+.yxlt:hover{background: url(../imgs/game/mainmenu-li.png)-801px -110px no-repeat}
+.mainly{
+	width: 100%;
+	height: 955px;
+}
+.m-clearfix{
+	width: 1000px;
+	height: 347px;
+	margin: 0 auto;
+	margin-bottom: 30px;
+    border-bottom: 2px solid #E1E1E1;
+    position: relative;
+    background-color: #FFF;
+}
+.banner-slideshow{
+	width: 700px;
+	height: 345px;
+	float: left;
+}
+.banner-carousel li img{
+	position: absolute;
+	width: 700px;
+	height: 345px;
+}
+.slides-pagination1{
+	width: 700px;
+    height: 40px;
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    text-align: right;
+    overflow: hidden;
+    background: url(../imgs/game/png.png) repeat;
+}
+.slides-pagination1 li{
+	position: relative;
+	float: left;
+	left: 550px;
+	width: 18px;
+	height: 18px;
+	border-radius: 50%;
+	background: #fff;
+	margin: 11px 11px 0 0;
+	cursor: pointer;
+}
+.slides-pagination1 li a{
+	position: absolute;
+	left: -1px;
+	top: -1px;
+	width: 18px;
+	height: 18px;
+	border-radius: 50%;
+	background: #2CBDF0;;
+	border: 2px solid #fff;
+}
+.banner-text{
+	float: left;
+	width: 300px;
+	height: 345px;
+}
+.banner-text{
+	width: 240px;
+	height: 345px;
+	margin-left: 30px;
+}
+.banner-text div h3{
+	margin-bottom: 15px;
+    padding: 20px 0 10px;
+    border-bottom: 2px solid #2CBDF0;
+    font-size: 20px;
+    font-weight: 700;
+    color: #707070;
+    word-break: break-word;
+}
+.banner-text div p{
+	height: 168px;
+    font-size: 16px;
+    line-height: 28px;
+    color: #707070;
+    overflow: hidden;
+    word-break: break-word;
+}
+.banner-text div a{
+	padding: 10px 30px;
+    border: 2px solid #CBCBCB;
+    border-radius: 25px;
+    position: absolute;
+    bottom: 35px;
+    right: 10px;
+    display: inline-block;
+    font-size: 18px;
+    color: #757575;
+}
+.banner-text div a:hover{
+	border: 2px solid #2CBDF0;
+	color: #2CBDF0;
+}
+
+.game{
+	width: 998px;
+	height: 295px;
+	margin: 0 auto;
+	border: 1px solid #D2D2D2;
+	margin-bottom: 70px;
+}
+.mgame,.wgame,.kgame{
+	float: left;
+	width: 209px;
+	height: 295px;
+	border-right: 1px solid #D2D2D2;
+}
+.rgame{
+	float: left;
+	width: 317px;
+	height: 295px;
+	border-right: 1px solid #D2D2D2;
+}
+.game-more{
+	width: 1em;
+    min-height: 295px;
+    padding: 0 17px;
+    float: right;
+    font-size: 16px;
+    color: #F0F0F0;
+    cursor: pointer;
+    background-color: #2CBDF0;
+}
+.game-more strong{
+	display: table-cell;
+    font-weight: normal;
+    vertical-align: middle;
+    padding-top: 70px;
+}
+.game h4{
+	font-size: 16px;
+    font-weight: normal;
+    line-height: 35px;
+    color: #333;
+    vertical-align: middle;
+    background-color: #F0F0F0;
+    margin: 0;
+    padding: 0;
+    list-style-type: none;
+}
+.game h4 span{
+	margin-right: 5px;
+    border-left: 5px solid #2CBDF0;
+}
+.game div ul{padding: 5px 12px;}
+.clearfix1{
+	font-size: 13px;
+    line-height: 25px;
+    color: #707070;
+}
+.clearfix1:hover{
+	color: #2CBDF0;
+	text-decoration: underline;
+}
+.clearfix{
+    font-size: 14px;
+    color: #F0882C;
+}
+.icon-new{
+	width: 12px;
+    height: 12px;
+    margin-top: 7px;
+    margin-left: 5px;
+    display: inline-block;
+    vertical-align: top;
+    background: url(../imgs/game/icon.png) -24px -24px no-repeat;
+}
+.rgame ul li{
+	float: left;
+	width: 144px;
+}
+.rgame .icon-new{background-position: -4px -24px;}
+.kgame .clearfix1{color: #000}
+.grid1{
+	width: 100%;
+	height: 221px;
+	margin: 0 auto;
+	background: rgba(249, 249, 249, 1);
+}
+.nav-notice{
+	margin-top: 25px;
+	width: 1000px;
+	height: 186px;
+	margin: 0 auto;
+}
+.nav-notice ul{
+	display: block;
+	width: 1000px;
+	height: 100px;
+}
+.nav-notice li{
+	width: 150px;
+    border: 1px solid #CBCBCB;
+    border-radius: 10px;
+    float: left;
+    margin-right: 14px;
+    background-color: #F0F0F0;
+    overflow: hidden;
+}
+.nav-notice li a{
+	display: block;
+    font-size: 20px;
+    line-height: 90px;
+    text-align: center;
+    color: #333;
+}
+.nav-notice p{
+	margin-top: 15px;
+    padding: 10px 0 35px;
+    border-top: 1px solid #CBCBCB;
+    font-size: 14px;
+    line-height: 25px;
+    text-align: right;
+    color: #808080;
+}
+.nav-notice li a:hover{
+	color: #fff;
+	background-color: #2CBDF0;
+}
+.footer{
+	width: 100%;
+	height: 140px;
+}
+.footer-box{
+	padding-top: 30px;
+	width: 1000px;
+	height: 110px;
+	margin: 0 auto;
+	background: url(../imgs/game/di.png);
+}

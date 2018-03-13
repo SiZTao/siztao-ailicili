@@ -138,9 +138,32 @@ $(function () {
 let vm = new Vue({
     el:'#Permission',
     data:{
-        permission:{}
+        permission:{},
+        title:null,
+        appList:[]
     },
     methods:{
+        select:function () {
+            openWindow({
+                type: 2,
+                title: '选取图标',
+                area: ['1030px', '500px'],
+                content: ['icon.html'],
+                btn: false
+            });
+        },
+        getAppList:function () {
+            Ajax.request({
+                url:'/manage/user/applist',
+                dataType: "json",
+                successCallback:function (data) {
+                    vm.appList = data.appList;
+                }
+            })
+        },
+        getMenu:function (permissionId) {
+            //加载菜单树
+        },
         saveOrUpdate:function (event){
             let url ="/manage/permission/saveOrUpdate";
             $.ajax({
@@ -150,11 +173,39 @@ let vm = new Vue({
                 contentType:'application/json;charset=UTF-8',
                 data:JSON.stringify(vm.permission),
                 success:function (result) {
+                    if(result.code==200){
+                        toastr.success(result.msg);
+                        setTimeout("layer.closeAll()","1000");
+                        location.reload();
+                    }else {
+                        toastr.error(result.msg);
+                    }
+                }
+            });
+        },
+        menuTree:function () {
+            openWindow({
+                title: "选择菜单",
+                area: ['300px', '450px'],
+                content: jQuery("#menuLayer"),
+                btn: ['确定', '取消'],
+                btn1: function (index) {
+                    // var node = ztree.getSelectedNodes();
+                    // //选择上级菜单
+                    // vm.menu.parentId = node[0].menuId;
+                    // vm.menu.parentName = node[0].name;
 
+                    layer.close(index);
                 }
             });
         },
         addAction:function () {
+            var rows =  $("#treeGrid").bootstrapTable('getSelections');
+            var parentid = 0;
+            if(rows[0].len()!=0){
+                parentid = rows[0].id;
+            }
+            vm.permission={parentid:parentid,type:1,status:0};
             layer.open({
                 type: 1,
                 title: '编辑权限信息', //不显示标题
@@ -204,8 +255,22 @@ let vm = new Vue({
             }
         },
         delAction:function (event) {
+            var rows =  $("#Table").bootstrapTable('getSelections');
+            console.log(rows);
+            if(rows.length==0){
+                confirm('至少选择一条记录？', function () {
+
+                });
+            }else {
+                confirm('确认要删除所选记录么？', function () {
+
+                });
+            }
         },
         reload:function (event) {
+            
+        },
+        query:function () {
             
         }
     }

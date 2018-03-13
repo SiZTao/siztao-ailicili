@@ -77,9 +77,9 @@ public class MpGenerator {
         // 策略配置
         StrategyConfig strategy = new StrategyConfig();
         // strategy.setCapitalMode(true);// 全局大写命名 ORACLE 注意
-        strategy.setTablePrefix(new String[] { "tab_sys_"});// 此处可以修改为您的表前缀
+        strategy.setTablePrefix(new String[] { "tab_cms_"});// 此处可以修改为您的表前缀
         strategy.setNaming(NamingStrategy.underline_to_camel);// 表名生成策略
-        strategy.setInclude(new String[] { "role_re_permission","tab_sys_permission","user_re_permission","user_re_role" }); // 需要生成的表
+        strategy.setInclude(new String[] { "tab_cms_cmodel"}); // 需要生成的表
         // strategy.setExclude(new String[]{"test"}); // 排除生成的表
         // 自定义实体父类
         // strategy.setSuperEntityClass("com.baomidou.demo.TestEntity");
@@ -104,7 +104,7 @@ public class MpGenerator {
         // 包配置
         PackageConfig pc = new PackageConfig();
         pc.setParent("com.siztao.ailicili.service");
-        pc.setModuleName("manage");
+        pc.setModuleName("cms");
         mpg.setPackageInfo(pc);
 
         // 注入自定义配置，可以在 VM 中使用 cfg.abc 【可无】

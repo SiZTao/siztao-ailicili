@@ -29,11 +29,12 @@
 		<result column="createtime" property="createtime" />
 		<result column="updatetime" property="updatetime" />
 		<result column="updateuser" property="updateuser" />
+		<result column="sort" property="sort"/>
 	</resultMap>
 
     <!-- 通用查询结果列 -->
     <sql id="Base_Column_List">
-        id, account, password, nickname, type, realname, deptid, sex, birthday, mobile, avator, email, idcard, stuffnu, position, address, weixin, description, weibo, qq, status, delflag, createuser, createtime, updatetime, updateuser
+        id, account, password, nickname, type, realname, deptid, sex, birthday, mobile, avator, email, idcard, stuffnu, position, address, weixin, description, weibo, qq, status, delflag, createuser, createtime, updatetime, updateuser,sort
     </sql>
 
 	<!-- 查询用户所有权限-->

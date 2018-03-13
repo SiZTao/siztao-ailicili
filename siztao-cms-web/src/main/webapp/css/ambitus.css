@@ -1,0 +1,50 @@
+/*全局的一些css样式*/
+body{
+	margin: 0px;
+	padding: 0px;
+	font-family: "Microsoft YaHei",Arial,Helvetica,sans-serif;
+	overflow: auto;
+}
+ul{
+	margin: 0px;
+	padding: 0px;
+	list-style-type: none;
+}
+a{
+	text-decoration: none;
+}
+.left img{
+	float: left;
+}
+/*顶部*/
+.zb-top{
+	width: 100%;
+	height: 168px;
+	background: url(../imgs/zb/top/a0.jpg) no-repeat;
+}
+.zb-top ul{
+	display: block;
+	width: 952px;
+	height: 168px;
+	margin: 0 auto;
+}
+.zb-top li{
+	float: left;
+}
+/*中间*/
+.zb-content{
+	width: 950px;
+	height: 100%;
+	margin: 0 auto;
+}
+.commodity li{
+	margin-top: -4px;
+}
+.commodity_box li{
+	margin-left: 8.4px;
+}
+.commodity_box img{
+	margin-top: -10px;
+	z-index: 10px;
+	margin-left: 8.4px;
+}

@@ -193,14 +193,14 @@ let vm = new Vue({
             });
         },
         saveOrUpdate:function (event) {
-            console.log(JSON.stringify(vm.application));
+            console.log(JSON.stringify(vm.user));
             var url="/manage/user/saveOrUpdate";
             $.ajax({
                 type : "post",
                 url :url,
                 contentType : "application/json",
                 dataType : 'json',
-                data : JSON.stringify(vm.application),
+                data : JSON.stringify(vm.user),
                 success : function(result) {
                     if(result.code==200){
                         toastr.success(result.msg);

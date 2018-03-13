@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+    <meta charset="UTF-8">
+    <title>上传</title>
+    <link rel="stylesheet" href="/static/iview.css"/>
+    <script src="/static/vue.min.js"></script>
+    <script src="/static/iview.min.js"></script>
+</head>
+<body>
+
+<div id="app">
+    <upload
+            multiple
+            action="/upload"
+            type="drag"
+            :on-success="handleSuccess">
+        <i-button type="ghost" icon="ios-cloud-upload-outline">Upload files</i-button>
+    </upload>
+    <div v-model="fileList">
+
+    </div>
+    <h1>上传</h1>
+    <form id="uploadForm" method="post" enctype="multipart/form-data">
+        <img id="allUrl"/>
+        <input type="file" id="file" name="file" style="display: none;">
+        <input type="text" id="fileName">
+        <input type="button" id="selectFile" value="选择文件">
+        <input type="button" id="upload" value="上传">
+    </form>
+</div>
+</body>
+<script src="/js/jquery-3.2.1/jquery-3.2.1.js"></script>
+<script src="/js/upload.js"></script>
+<script>
+    let vm = new Vue({
+        el:'#app',
+        data:{
+            fileList:""
+        },
+        methods:{
+            handleSuccess:function (data) {
+                vm.fileList+=JSON.stringify(data);
+                console.log(vm.fileList);
+            }
+        }
+    });
+</script>
+</html>

@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.siztao.ailicili.service.manage.dao.cms.CategoryMapper">
+
+	<!-- 通用查询映射结果 -->
+	<resultMap id="BaseResultMap" type="com.siztao.ailicili.service.manage.entity.cms.Category">
+		<id column="id" property="id" />
+		<result column="name" property="name" />
+		<result column="icons" property="icons" />
+		<result column="type" property="type" />
+		<result column="style" property="style" />
+		<result column="isshow" property="isshow" />
+		<result column="status" property="status" />
+		<result column="createtime" property="createtime" />
+		<result column="updatetime" property="updatetime" />
+		<result column="createuser" property="createuser" />
+		<result column="updateuser" property="updateuser" />
+		<result column="menuid" property="menuid" />
+		<result column="alias" property="alias" />
+		<result column="sort" property="sort" />
+		<result column="description" property="description" />
+		<result column="parentid" property="parentid" />
+		<result column="imgbg" property="imgbg" />
+		<result column="keywords" property="keywords" />
+		<result column="templatec" property="templatec" />
+		<result column="templatel" property="templatel" />
+		<result column="templated" property="templated" />
+		<result column="pagesize" property="pagesize" />
+		<result column="model" property="model" />
+		<result column="href" property="href" />
+	</resultMap>
+
+    <!-- 通用查询结果列 -->
+    <sql id="Base_Column_List">
+        id, name, icons, type, style, isshow, status, createtime, updatetime, createuser, updateuser, menuid, alias, sort, description, parentid, imgbg, keywords, templatec, templatel, templated, pagesize, model, href
+    </sql>
+
+</mapper>

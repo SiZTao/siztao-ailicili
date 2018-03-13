@@ -11,5 +11,11 @@
     <packaging>jar</packaging>
     <artifactId>siztao-cms-service</artifactId>
 
-
+    <dependencies>
+        <dependency>
+            <groupId>com.siztao</groupId>
+            <artifactId>siztao-cms-service-api</artifactId>
+            <version>1.0-SNAPSHOT</version>
+        </dependency>
+    </dependencies>
 </project>

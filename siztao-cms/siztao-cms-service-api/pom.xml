@@ -12,4 +12,17 @@
     <artifactId>siztao-cms-service-api</artifactId>
 
 
+    <!-- 导入MyBatis 工程依赖-->
+    <dependencies>
+        <dependency>
+            <groupId>com.siztao</groupId>
+            <artifactId>siztao-config</artifactId>
+            <version>1.0-SNAPSHOT</version>
+        </dependency>
+        <dependency>
+            <groupId>com.siztao</groupId>
+            <artifactId>siztao-framework</artifactId>
+            <version>1.0-SNAPSHOT</version>
+        </dependency>
+    </dependencies>
 </project>

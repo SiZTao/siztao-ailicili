@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.siztao.ailicili.service.manage.dao.cms.SiteMapper">
+
+	<!-- 通用查询映射结果 -->
+	<resultMap id="BaseResultMap" type="com.siztao.ailicili.service.manage.entity.cms.Site">
+		<id column="id" property="id" />
+		<result column="logo" property="logo" />
+		<result column="name" property="name" />
+		<result column="parentid" property="parentid" />
+		<result column="href" property="href" />
+		<result column="title" property="title" />
+		<result column="content" property="content" />
+		<result column="about" property="about" />
+		<result column="copyright" property="copyright" />
+		<result column="status" property="status" />
+		<result column="createtime" property="createtime" />
+		<result column="createuser" property="createuser" />
+		<result column="updatetime" property="updatetime" />
+		<result column="updateuser" property="updateuser" />
+		<result column="order" property="order" />
+		<result column="ismaster" property="ismaster" />
+		<result column="delflag" property="delflag" />
+	</resultMap>
+
+    <!-- 通用查询结果列 -->
+    <sql id="Base_Column_List">
+        id, logo, name, parentid, href, title, content, about, copyright, status, createtime, createuser, updatetime, updateuser, order, ismaster, delflag
+    </sql>
+
+</mapper>

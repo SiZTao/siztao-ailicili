@@ -22,6 +22,8 @@
         <module>siztao-manage-web</module>
         <module>siztao-cms-web</module>
         <module>siztao-queue</module>
+        <module>siztao-vms</module>
+        <module>siztao-cms-admin</module>
     </modules>
 
     <!--统一依赖版本配置-->
@@ -160,6 +162,7 @@
             <url>http://192.168.137.129:8081/nexus/content/repositories/snapshots/</url>
         </snapshotRepository>
     </distributionManagement>
+
     <!--    发布仓库配置    -->
     <!--<distributionManagement>-->
         <!--&lt;!&ndash; 两个ID必须与 setting.xml中的<server><id>nexus-rs</id></server>保持一致&ndash;&gt;-->
@@ -547,6 +550,11 @@
                 <groupId>org.sitemesh</groupId>
                 <artifactId>sitemesh</artifactId>
                 <version>${sitemesh.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.csource</groupId>
+                <artifactId>fastdfs</artifactId>
+                <version>1.24</version>
             </dependency>
             <!-- 工具包-->
             <dependency>
