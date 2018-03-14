@@ -10,6 +10,8 @@
     <modelVersion>4.0.0</modelVersion>
     <packaging>war</packaging>
     <artifactId>siztao-cms-web</artifactId>
+
+
     <dependencies>
         <!-- servlet API -->
         <dependency>
@@ -25,16 +27,7 @@
         </dependency>
     </dependencies>
     <build>
-        <resources>
-            <resource>
-                <directory>src/main/resources</directory>
-            </resource>
-            <resource>
-                <directory>src/main/conf/${profiles.active}</directory>
-            </resource>
-        </resources>
         <plugins>
-
             <!-- jetty插件 -->
             <plugin>
                 <groupId>org.eclipse.jetty</groupId>

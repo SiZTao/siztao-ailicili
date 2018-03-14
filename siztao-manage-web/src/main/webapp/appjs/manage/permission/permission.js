@@ -1,4 +1,12 @@
 $(function () {
+    $(".select2").select2();
+    //Datemask dd/mm/yyyy
+    $("#datemask").inputmask("dd/mm/yyyy", {"placeholder": "dd/mm/yyyy"});
+    //Datemask2 mm/dd/yyyy
+    $("#datemask2").inputmask("mm/dd/yyyy", {"placeholder": "mm/dd/yyyy"});
+    //Money Euro
+    $("[data-mask]").inputmask();
+
     var dataTables = $('#treeGrid');
     $(function() {
         var colModel= [
@@ -37,7 +45,6 @@ $(function () {
             treeShowField: 'name',
             parentIdField: 'parentid',
             onLoadSuccess: function(data) {
-                console.log('load');
                 // jquery.treegrid.js
                 dataTables.treegrid({
                     initialState: 'collapsed',
@@ -143,7 +150,7 @@ let vm = new Vue({
         appList:[]
     },
     methods:{
-        select:function () {
+        selectIcon:function () {
             openWindow({
                 type: 2,
                 title: '选取图标',
@@ -153,13 +160,16 @@ let vm = new Vue({
             });
         },
         getAppList:function () {
-            Ajax.request({
-                url:'/manage/user/applist',
+            //获取应用数据
+            $.ajax({
+                type: "GET",
+                url:"/manage/user/applist",
                 dataType: "json",
-                successCallback:function (data) {
+                success: function(data){
                     vm.appList = data.appList;
+                    console.log(vm.appList);
                 }
-            })
+            });
         },
         getMenu:function (permissionId) {
             //加载菜单树
@@ -194,7 +204,6 @@ let vm = new Vue({
                     // //选择上级菜单
                     // vm.menu.parentId = node[0].menuId;
                     // vm.menu.parentName = node[0].name;
-
                     layer.close(index);
                 }
             });
@@ -205,7 +214,7 @@ let vm = new Vue({
             if(rows.length!=0){
                 parentid = rows[0].id;
             }
-            vm.permission={parentid:parentid,type:1,status:0};
+            vm.getAppList();
             layer.open({
                 type: 1,
                 title: '编辑权限信息', //不显示标题
@@ -246,6 +255,7 @@ let vm = new Vue({
                     success : function(result) {
                         if(result.code==200){
                             vm.permission = result.permission;
+                            console.log("edit:"+vm.permission);
                             vm.addAction();
                         }else {
                             toastr.error(result.msg);
@@ -263,7 +273,23 @@ let vm = new Vue({
                 });
             }else {
                 confirm('确认要删除所选记录么？', function () {
-
+                    let url="/manage/permission/delete";
+                    let params="";
+                    $.ajax({
+                        type : "GET",
+                        url :url,
+                        dataType: 'json',
+                        contentType:'application/json;charset=UTF-8',
+                        success : function(result) {
+                            if(result.code==200){
+                                vm.permission = result.permission;
+                                console.log("edit:"+vm.permission);
+                                vm.addAction();
+                            }else {
+                                toastr.error(result.msg);
+                            }
+                        }
+                    });
                 });
             }
         },
@@ -273,5 +299,12 @@ let vm = new Vue({
         query:function () {
             
         }
+    },
+    created:function () {
+
+    },
+    updated:function (event) {
+        console.log(vm.permission);
     }
+
 });

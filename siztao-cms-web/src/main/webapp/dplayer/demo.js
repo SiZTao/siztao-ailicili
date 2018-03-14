@@ -29,51 +29,51 @@ function initPlayers () {
         },
         danmaku: {
             id: '9E2E3368B56CDBB4',
-            api: 'https://api.prprpr.me/dplayer/'
+            api: '/send/api'
         }
     });
 
-    // dp2
-    window.dp2 = new DPlayer({
-        container: document.getElementById('dplayer2'),
-        preload: 'none',
-        autoplay: false,
-        theme: '#FADFA3',
-        loop: true,
-        screenshot: true,
-        hotkey: true,
-        logo: 'https://moeplayer.b0.upaiyun.com/dplayer/DPlayer.png',
-        volume: 0.2,
-        mutex: true,
-        video: {
-            url: 'https://moeplayer.b0.upaiyun.com/dplayer/hikarunara.mp4',
-            pic: 'https://moeplayer.b0.upaiyun.com/dplayer/hikarunara.png',
-            thumbnails: 'https://moeplayer.b0.upaiyun.com/dplayer/hikarunara_thumbnails.jpg',
-            type: 'auto'
-        },
-        subtitle: {
-            url: 'https://moeplayer.b0.upaiyun.com/dplayer/hikarunara.vtt',
-            type: 'webvtt',
-            fontSize: '25px',
-            bottom: '10%',
-            color: '#b7daff'
-        },
-        danmaku: {
-            id: '9E2E3368B56CDBB4',
-            api: 'https://api.prprpr.me/dplayer/',
-            token: 'tokendemo',
-            maximum: 3000,
-            user: 'DIYgod',
-            bottom: '15%',
-            unlimited: true
-        },
-        contextmenu: [
-            {
-                text: 'custom contextmenu',
-                link: 'https://github.com/MoePlayer/DPlayer'
-            }
-        ]
-    });
+    // // dp2
+    // window.dp2 = new DPlayer({
+    //     container: document.getElementById('dplayer2'),
+    //     preload: 'none',
+    //     autoplay: false,
+    //     theme: '#FADFA3',
+    //     loop: true,
+    //     screenshot: true,
+    //     hotkey: true,
+    //     logo: 'https://moeplayer.b0.upaiyun.com/dplayer/DPlayer.png',
+    //     volume: 0.2,
+    //     mutex: true,
+    //     video: {
+    //         url: 'https://moeplayer.b0.upaiyun.com/dplayer/hikarunara.mp4',
+    //         pic: 'https://moeplayer.b0.upaiyun.com/dplayer/hikarunara.png',
+    //         thumbnails: 'https://moeplayer.b0.upaiyun.com/dplayer/hikarunara_thumbnails.jpg',
+    //         type: 'auto'
+    //     },
+    //     subtitle: {
+    //         url: 'https://moeplayer.b0.upaiyun.com/dplayer/hikarunara.vtt',
+    //         type: 'webvtt',
+    //         fontSize: '25px',
+    //         bottom: '10%',
+    //         color: '#b7daff'
+    //     },
+    //     danmaku: {
+    //         id: '9E2E3368B56CDBB4',
+    //         api: 'https://api.prprpr.me/dplayer/',
+    //         token: 'tokendemo',
+    //         maximum: 3000,
+    //         user: 'DIYgod',
+    //         bottom: '15%',
+    //         unlimited: true
+    //     },
+    //     contextmenu: [
+    //         {
+    //             text: 'custom contextmenu',
+    //             link: 'https://github.com/MoePlayer/DPlayer'
+    //         }
+    //     ]
+    // });
 
     const events = [
         'abort', 'canplay', 'canplaythrough', 'durationchange', 'emptied', 'ended', 'error',
@@ -156,26 +156,26 @@ function initPlayers () {
     //     }
     // });
 
-    // window.dp6 = new DPlayer({
-    //     container: document.getElementById('dplayer6'),
-    //     preload: 'none',
-    //     live: true,
-    //     danmaku: true,
-    //     apiBackend: {
-    //         read: function (endpoint, callback) {
-    //             console.log('假装 WebSocket 连接成功');
-    //             callback();
-    //         },
-    //         send: function (endpoint, danmakuData, callback) {
-    //             console.log('假装通过 WebSocket 发送数据', danmakuData);
-    //             callback();
-    //         }
-    //     },
-    //     video: {
-    //         url: 'https://moeplayer.b0.upaiyun.com/dplayer/hls/hikarunara.m3u8',
-    //         type: 'hls'
-    //     }
-    // });
+    window.dp6 = new DPlayer({
+        container: document.getElementById('dplayer6'),
+        preload: 'none',
+        live: true,
+        danmaku: true,
+        apiBackend: {
+            read: function (endpoint, callback) {
+                console.log('假装 WebSocket 连接成功');
+                callback();
+            },
+            send: function (endpoint, danmakuData, callback) {
+                console.log('假装通过 WebSocket 发送数据', danmakuData);
+                callback();
+            }
+        },
+        video: {
+            url: 'https://moeplayer.b0.upaiyun.com/dplayer/hls/hikarunara.m3u8',
+            type: 'hls'
+        }
+    });
 
     // window.dp10 = new DPlayer({
     //     container: document.getElementById('dplayer10'),

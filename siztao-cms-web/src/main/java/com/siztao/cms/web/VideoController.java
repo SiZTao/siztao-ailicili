@@ -1,9 +1,7 @@
 package com.siztao.cms.web;
 
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.Map;
 
@@ -32,10 +30,28 @@ public class VideoController {
 
         return "vplay";
     }
-    @RequestMapping("/send")
+    @RequestMapping(value = "/send/api",method = RequestMethod.GET)
     @ResponseBody
-    public String send(Map<String,Object> map){
+    public String send(@RequestParam("id")String id){
 
         return "success";
+    }
+    @RequestMapping(value = "/send/api",method = RequestMethod.POST)
+    @ResponseBody
+    public String save(@RequestBody Map<String,String> map, @RequestParam("id")String id){
+
+        return "success";
+    }
+    class Danmuku{
+        private String _id;
+        private String  author;
+        private String time;
+        private String text;
+        private String color;
+        private String type;
+        private String ip;
+        private String referer;
+        private Integer _v;
+        private String player;
     }
 }

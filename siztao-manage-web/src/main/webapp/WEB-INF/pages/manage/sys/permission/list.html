@@ -2,12 +2,14 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>权限管理</title>
     <!--通用样式-->
     <link rel="stylesheet" href="/static/style/css/backend.css"/>
     <link rel="stylesheet" href="/static/style/css/skins/_all-skins.css"/>
     <link rel="stylesheet" href="/static/libs/pace-master/themes/pink/pace-theme-flash.css">
-    <link rel="stylesheet" href="/static/libs/toastr/toastr.min.css">
+    <link rel="stylesheet" href="/static/libs/toastr/toastr.min.css"/>
+
     <style type="text/css">
 
         [v-cloak] {
@@ -56,13 +58,13 @@
                 </div></div>
                 <div class="panel-body">
                     <div id="myTabContent" class="tab-content">
-                        <div class="tab-pane fade active in" id="one">
+                        <div class="tab-pane fade active in" >
                             <div class="widget-body no-padding">
                                 <div id="toolbar" class="toolbar">
                                     <a href="javascript:;" class="btn btn-success btn-add" @click="addAction" title="添加" ><i class="fa fa-plus"></i> 添加</a>
                                     <a href="javascript:;" class="btn btn-success btn-edit btn-disabled disabled" @click="editAction"  title="编辑"><i class="fa fa-pencil"></i> 编辑</a>
                                     <a href="javascript:;" class="btn btn-danger btn-import" title="导入" id="btn-import-file" data-url="ajax/upload" data-mimetype="csv,xls,xlsx" data-multiple="false" initialized="true" style="position: relative; z-index: 1;"><i class="fa fa-upload"></i> 导入</a>
-                                    <a href="javascript:;" class="btn btn-danger btn-del btn-disabled disabled" title="删除" ><i class="fa fa-trash"></i> 删除</a>
+                                    <a href="javascript:;" class="btn btn-danger btn-del btn-disabled disabled" @click="delAction"  title="删除" ><i class="fa fa-trash"></i> 删除</a>
                                     <div class="dropdown btn-group ">
                                         <a class="btn btn-primary btn-more dropdown-toggle  " data-toggle="dropdown"><i class="fa fa-cog"></i> 更多</a>
                                         <ul class="dropdown-menu text-left" role="menu">
@@ -83,8 +85,10 @@
         </div>
     </section>
 
+
+    <!-- 权限信息表单 -->
     <div id="add-form" hidden>
-        <form :model="permission" class="form-horizontal" data-toggle="validator" role="form" method="post" action="#">
+        <form :model="permission" class="form-horizontal" data-toggle="validator" role="form" method="post" action="#" :label-width="20">
             <div class="form-group">
                 <label  class="control-label col-xs-12 col-sm-2"></label>
                 <div class="col-xs-12 col-sm-8">
@@ -92,17 +96,23 @@
                 </div>
             </div>
             <div class="form-group">
-                <label for="c-name" class="control-label col-xs-12 col-sm-2">权限类型:</label>
-                <div class="col-xs-12 col-sm-8">
-                    <input id="c-name" data-rule="required" class="form-control" v-model="permission.type" value="permission.type" name="type" type="text"  placeholder="选择权限类型" >
+                <label for="appid" class="control-label col-xs-12 col-sm-2">所属系统:</label>
+                <div  id="appid" class="col-xs-12 col-sm-8"  prop="permission.appid">
+                    <select class="form-control" style="width: 100%;" v-model="permission.appid" filterable>
+                        <option v-for="app in appList" :value="app.id" :key="app.id">{{app.name}}</option>
+                    </select>
                 </div>
             </div>
+
             <div class="form-group">
-                <label for="c-name" class="control-label col-xs-12 col-sm-2">所属系统:</label>
-                <div class="col-xs-12 col-sm-8">
-                    <input id="c-name" data-rule="required" class="form-control" v-model="permission.appid" value="permission.appid" name="appid" type="text"  placeholder="请选择所属系统" >
+                <label class="control-label col-xs-12 col-sm-2">类型:</label>
+                <div class="col-xs-12 col-sm-8"  prop="type">
+                    <input type="radio" id="one"   value="0"  v-model="permission.type">菜单
+                    <input type="radio" id="two"   value="1"  v-model="permission.type">功能
+                    <input type="radio" id="three" value="2"  v-model="permission.type">按钮
                 </div>
             </div>
+
             <div class="form-group">
                 <label for="c-name" class="control-label col-xs-12 col-sm-2">权限名称:</label>
                 <div class="col-xs-12 col-sm-8">
@@ -110,52 +120,68 @@
                 </div>
             </div>
             <div class="form-group">
-                <label for="c-name" class="control-label col-xs-12 col-sm-2">权限代码:</label>
+                <label for="c-name" class="control-label col-xs-12 col-sm-2">上级权限:</label>
+                <div class="col-xs-12 col-sm-8" v-if="permission.type == 2" prop="parentid">
+                    <input data-rule="required" class="form-control" v-model="permission.parentid" @click="menuTree"  value="permission.parentid" name="parentid" type="text" readonly="readonly" placeholder="请输入上级权限" >
+                </div>
+                <div class="col-xs-12 col-sm-8" v-if="permission.type != 2" prop="parentid">
+                    <input data-rule="required" class="form-control" v-model="permission.parentid" @click="menuTree"  value="permission.parentid" name="parentid" type="text" readonly="readonly" placeholder="请输入上级权限" >
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="c-code" class="control-label col-xs-12 col-sm-2">权限代码:</label>
                 <div class="col-xs-12 col-sm-8">
-                    <input id="c-name" data-rule="required" class="form-control" v-model="permission.code" value="permission.code" name="code" type="text"  placeholder="请输入权限代码" >
+                    <input id="c-code" data-rule="required" class="form-control" v-model="permission.code" value="permission.code" name="code" type="text"  placeholder="请输入权限代码" >
                 </div>
             </div>
 
             <div class="form-group">
-                <label for="c-name" class="control-label col-xs-12 col-sm-2">权限链接:</label>
+                <label for="c-href" class="control-label col-xs-12 col-sm-2">权限链接:</label>
                 <div class="col-xs-12 col-sm-8">
-                    <input id="c-name" data-rule="required" class="form-control" v-model="permission.href" value="permission.href" name="href" type="text"  placeholder="请输入权限链接" >
+                    <input id="c-href" data-rule="required" class="form-control" v-model="permission.href" value="permission.href" name="href" type="text"  placeholder="请输入权限链接" >
                 </div>
             </div>
             <div class="form-group">
-                <label for="c-name" class="control-label col-xs-12 col-sm-2">权限值:</label>
+                <label for="c-permission" class="control-label col-xs-12 col-sm-2">权限值:</label>
                 <div class="col-xs-12 col-sm-8">
-                    <input id="c-name" data-rule="required" class="form-control" v-model="permission.permission" value="permission.permission" name="name" type="permission"  placeholder="请输入权限值 如 manage:sys:add" >
+                    <input id="c-permission" data-rule="required" class="form-control" v-model="permission.permission" value="permission.permission" name="name" type="permission"  placeholder="请输入权限值 如 manage:sys:add" >
                 </div>
             </div>
             <div class="form-group">
-                <label for="c-name" class="control-label col-xs-12 col-sm-2">图标:</label>
+                <label for="c-icons" class="control-label col-xs-12 col-sm-2">图标:</label>
                 <div class="col-xs-12 col-sm-8">
-                    <input id="c-name" data-rule="required" class="form-control" v-model="permission.icons" value="permission.icons" name="icons" type="text"  placeholder="请输入应用名称" >
+                    <input id="c-icons" data-rule="required" class="form-control" v-model="permission.icons" value="permission.icons" name="icons" type="text"  placeholder="请输入应用名称" width="80%"/><span  @click="selectIcon">查看图标</span>
                 </div>
             </div>
             <div class="form-group">
-                <label for="c-name" class="control-label col-xs-12 col-sm-2">是否展开:</label>
-                <div class="col-xs-12 col-sm-8">
-                    <input id="c-name" data-rule="required" class="form-control" v-model="permission.isopen" value="permission.isopen" name="isopen" type="text"  placeholder="请输入应用名称" >
+                <label for="c-isopen" class="control-label col-xs-12 col-sm-2">是否展开:</label>
+                <div id="c-isopen" class="col-xs-12 col-sm-8">
+                    <div class="col-xs-12 col-sm-8"  prop="isopen">
+                        <input type="radio" id="open" value="0"  v-model="permission.isopen">是
+                        <input type="radio" id="lock" value="1"  v-model="permission.isopen">否
+                    </div>
                 </div>
             </div>
             <div class="form-group">
-                <label for="c-name" class="control-label col-xs-12 col-sm-2">排序:</label>
+                <label for="c-sort" class="control-label col-xs-12 col-sm-2">排序:</label>
                 <div class="col-xs-12 col-sm-8">
-                    <input id="c-name" data-rule="required" class="form-control" v-model="permission.sort" value="permission.sort" name="sort" type="text"  placeholder="请输入应用名称" >
+                    <input id="c-sort" data-rule="required" class="form-control" v-model="permission.sort" value="permission.sort" name="sort" type="text"  placeholder="请输入应用名称" >
                 </div>
             </div>
             <div class="form-group">
-                <label for="c-name" class="control-label col-xs-12 col-sm-2">状态:</label>
-                <div class="col-xs-12 col-sm-8">
-                    <input id="c-name" data-rule="required" class="form-control" v-model="permission.status" value="permission.status" name="status" type="text"  placeholder="请输入应用名称" >
+                <label for="c-status" class="control-label col-xs-12 col-sm-2">状态:</label>
+                <div id="c-status" class="col-xs-12 col-sm-8">
+                    <div class="col-xs-12 col-sm-8"  prop="status">
+                        <input type="radio"  value="0"  v-model="permission.status">启用
+                        <input type="radio"  value="1"  v-model="permission.status">禁用
+                    </div>
                 </div>
             </div>
             <div class="form-group">
-                <label for="c-name" class="control-label col-xs-12 col-sm-2">权限简介:</label>
+                <label for="c-description" class="control-label col-xs-12 col-sm-2">权限简介:</label>
                 <div class="col-xs-12 col-sm-8">
-                    <textarea id="c-description" class="form-control"  v-model="permission.description"    value="permission.description"  placeholder="请输入权限简介" name="description"></textarea>
+                    <textarea id="c-description" class="form-control"  v-model="permission.description"    value="permission.description"  placeholder="请输入权限简介" name="description">
+                    </textarea>
                 </div>
             </div>
         </form>
@@ -181,6 +207,15 @@
 <script src="/static/libs/bootstrap-table/dist/locale/bootstrap-table-zh-CN.js"></script>
 <script src="/static/libs/jquery-treegrid/jquery.treegrid.min.js"></script>
 <script src="/static/libs/jqueryui/jquery-fixed.js"></script>
+
+<!-- 表单插件 -->
+<script src="/static/libs/select2/select2.full.min.js"></script>
+<!-- InputMask -->
+<script src="/static/libs/input-mask/jquery.inputmask.js"></script>
+<script src="/static/libs/input-mask/jquery.inputmask.date.extensions.js"></script>
+<script src="/static/libs/input-mask/jquery.inputmask.extensions.js"></script>
+<!-- iCheck 1.0.1 -->
+<script src="/static/libs/iCheck/icheck.min.js"></script>
 <!--提示插件-->
 <script src="/static/libs/toastr/toastr.min.js"></script>
 <script src="/static/libs/layer/layer.js"></script>
