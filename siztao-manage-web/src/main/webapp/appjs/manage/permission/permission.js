@@ -202,7 +202,7 @@ let vm = new Vue({
         addAction:function () {
             var rows =  $("#treeGrid").bootstrapTable('getSelections');
             var parentid = 0;
-            if(rows[0].len()!=0){
+            if(rows.length!=0){
                 parentid = rows[0].id;
             }
             vm.permission={parentid:parentid,type:1,status:0};
