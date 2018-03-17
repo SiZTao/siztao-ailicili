@@ -29,7 +29,7 @@ public class DeptServiceImpl extends ServiceImpl<DeptMapper, Dept> implements De
 
 
     @Override
-    public List<ZtreeVo> selectAllDeptWithZtre(boolean isShowTopParent, List<Dept> vos) {
+    public List<ZtreeVo> selectAllDeptWithZtree(boolean isShowTopParent, List<Dept> vos) {
         List<ZtreeVo>   results = new ArrayList<ZtreeVo>();
         if (isShowTopParent){
             ZtreeVo result = new ZtreeVo();

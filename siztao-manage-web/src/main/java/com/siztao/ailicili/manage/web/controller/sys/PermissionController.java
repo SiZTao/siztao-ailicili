@@ -4,14 +4,17 @@ package com.siztao.ailicili.manage.web.controller.sys;
 import com.baomidou.mybatisplus.mapper.EntityWrapper;
 import com.siztao.ailicili.service.manage.api.sys.PermissionService;
 import com.siztao.ailicili.service.manage.entity.sys.Application;
+import com.siztao.ailicili.service.manage.entity.sys.Dept;
 import com.siztao.ailicili.service.manage.entity.sys.Permission;
 import com.siztao.framework.constants.GlobalConstants;
 import com.siztao.framework.model.AjaxResult;
+import com.siztao.framework.model.ZtreeVo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import org.springframework.stereotype.Controller;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -95,5 +98,22 @@ public class PermissionController extends AbstractController{
             appId = GlobalConstants.APPID;
         }
         return permissionService.selectList(new EntityWrapper<Permission>().eq("appid",appId));
+    }
+
+    @RequestMapping(value = "/tree",method = RequestMethod.GET)
+    @ResponseBody
+    public  List<ZtreeVo> getDeptTree(@RequestParam(required = false, defaultValue = "false", value = "showTopParent")Boolean showTopParent,
+                                      @RequestParam(required = false, defaultValue = "true", value = "open") Boolean open,
+                                      @RequestParam(required = false, defaultValue = "true", value = "enable")  Boolean enable,
+                                      @RequestParam(required = false)Integer appId){
+        if(appId == null){
+            appId = GlobalConstants.APPID;
+        }
+        List<Permission>    vos = new ArrayList<Permission>();
+        if(getUserId()==0){
+                vos = permissionService.selectList(new EntityWrapper<Permission>().eq("appid",appId));
+        }
+        List<ZtreeVo> perTree = permissionService.selectPermissionWithZtree(showTopParent,vos);
+        return perTree;
     }
 }

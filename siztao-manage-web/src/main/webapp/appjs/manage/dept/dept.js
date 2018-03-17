@@ -57,7 +57,6 @@ $(function (){
     });
     dataTables.on('check.bs.table uncheck.bs.table check-all.bs.table uncheck-all.bs.table fa.event.check', function () {
         var ids = 	$("#Table").bootstrapTable('getSelections');
-        console.log(ids)
         $(".btn-disabled").toggleClass("disabled",!ids.length);
     });
 
@@ -121,7 +120,6 @@ $(function (){
                     success : function(result) {
                         if(result.code==200){
                             alert('操作成功', function (index) {
-
                             });
                         }else {
                             toastr.error(result.msg);
@@ -131,7 +129,33 @@ $(function (){
             });
         }
     }
+    var setting = {
+        data: {
+            simpleData: {
+                enable: true
+            }
+        }
+        ,
+        callback:{
+            onClick:zTreeOnCheck
+        }
+    };
+    function zTreeOnCheck(event, treeId, treeNode) {
+        console.log(treeNode.id);
+        let url ="";
 
+    };
+    let url ="/manage/dept/tree";
+    $.ajax({
+        type : "get",
+        url :url,
+        dataType: 'json',
+        contentType:'application/json;charset=UTF-8',
+        success:function (result) {
+            vm.deptTree = result;
+            $.fn.zTree.init($("#treeDemo"), setting,  result );
+        }
+    });
 });
 
 let vm = new Vue({
@@ -139,7 +163,7 @@ let vm = new Vue({
     data:{
         queryShow:true,
         dept:{},
-        deptTree:"",
+        deptTree:[],
         showForm:true,
         queryParams:{
             name:''
@@ -148,34 +172,10 @@ let vm = new Vue({
             name: [
                 {required: true, message: '名称不能为空', trigger: 'blur'}
             ]
-        },
+        }
+
     },
     methods:{
-        Init:function () {
-        },
-        getDeptTree:function(){
-            let setting = {
-                data: {
-                    simpleData: {
-                        enable: true
-                    }
-                }
-            };
-            let url ="/manage/dept/tree";
-            $.ajax({
-                type : "get",
-                url :url,
-                dataType: 'json',
-                contentType:'application/json;charset=UTF-8',
-                success:function (result) {
-                    this.deptTree = result;
-                    $.fn.zTree.init($("#treeDemo"), setting,  result );
-                }
-            });
-        },
-        getDeptList(){
-
-        },
         saveOrUpdate:function (event) {
             console.log(JSON.stringify(vm.dept));
             var url="/manage/dept/saveOrUpdate";
@@ -266,7 +266,6 @@ let vm = new Vue({
         }
     },
     created:function () {
-       this.getDeptTree();
     }
 
 });

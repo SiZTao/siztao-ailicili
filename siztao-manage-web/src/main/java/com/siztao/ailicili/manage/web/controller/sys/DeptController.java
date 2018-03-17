@@ -2,6 +2,8 @@ package com.siztao.ailicili.manage.web.controller.sys;
 
 
 import com.alibaba.fastjson.JSON;
+import com.baomidou.mybatisplus.mapper.EntityWrapper;
+import com.baomidou.mybatisplus.plugins.Page;
 import com.siztao.ailicili.service.manage.api.sys.DeptService;
 import com.siztao.ailicili.service.manage.entity.sys.Application;
 import com.siztao.ailicili.service.manage.entity.sys.Dept;
@@ -17,6 +19,7 @@ import org.springframework.web.bind.annotation.*;
 
 import org.springframework.stereotype.Controller;
 
+import javax.swing.text.html.parser.Entity;
 import java.util.List;
 
 /**
@@ -83,13 +86,16 @@ public class DeptController extends AbstractController{
 
     @RequestMapping(value = "/list",method = RequestMethod.GET)
     @ResponseBody
-    public AjaxResult list(@RequestParam(required = false, defaultValue = "0", value = "offset") int offset,
-                           @RequestParam(required = false, defaultValue = "10", value = "limit") int limit,
+    public AjaxResult list(@RequestParam(required = false, defaultValue = "0", value = "pageNumber") int pageNumber,
+                           @RequestParam(required = false, defaultValue = "10", value = "pageSize") int pageSize,
                            @RequestParam(required = false, defaultValue = "", value = "search") String search,
                            @RequestParam(required = false, value = "sort") String sort,
-                           @RequestParam(required = false, value = "order") String order){
-        List<Dept> list = deptService.selectList(null);
-        return AjaxResult.ok("查询成功").put("rows",list).put("total",list.size());
+                           @RequestParam(required = false, value = "sortOrder") String sortOrder){
+        EntityWrapper<Dept> wrapper = new EntityWrapper<>();
+        Page<Dept>  page = new Page<Dept>(pageNumber,pageSize);
+        Page<Dept>  result = deptService.selectPage(page,wrapper);
+      //  List<Dept> list = deptService.selectList(null);
+        return AjaxResult.ok("查询成功").put("rows",result.getRecords()).put("total",result.getTotal());
     }
 
     @RequestMapping(value = "/tree",method = RequestMethod.GET)
@@ -98,7 +104,7 @@ public class DeptController extends AbstractController{
                               @RequestParam(required = false, defaultValue = "true", value = "open") Boolean open,
                               @RequestParam(required = false, defaultValue = "true", value = "enable")  Boolean enable){
         List<Dept>  vos = deptService.selectList(null);
-        List<ZtreeVo> deptTree = deptService.selectAllDeptWithZtre(showTopParent,vos);
+        List<ZtreeVo> deptTree = deptService.selectAllDeptWithZtree(showTopParent,vos);
         return deptTree;
     }
 

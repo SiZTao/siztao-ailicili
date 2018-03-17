@@ -1,9 +1,10 @@
 package com.siztao.ailicili.manage.web.controller.sys;
 
 
+import com.baomidou.mybatisplus.mapper.EntityWrapper;
+import com.baomidou.mybatisplus.plugins.Page;
 import com.siztao.ailicili.service.manage.api.sys.ApplicationService;
 import com.siztao.ailicili.service.manage.api.sys.UserService;
-import com.siztao.ailicili.service.manage.entity.sys.Role;
 import com.siztao.ailicili.service.manage.entity.sys.User;
 import com.siztao.framework.model.AjaxResult;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -69,13 +70,16 @@ public class UserController extends AbstractController{
     }
     @RequestMapping(value = "/list",method = RequestMethod.GET)
     @ResponseBody
-    public AjaxResult list(@RequestParam(required = false, defaultValue = "0", value = "offset") int offset,
-                           @RequestParam(required = false, defaultValue = "10", value = "limit") int limit,
+    public AjaxResult list(@RequestParam(required = false, defaultValue = "0", value = "pageNumber") int pageNumber,
+                           @RequestParam(required = false, defaultValue = "10", value = "pageSize") int pageSize,
                            @RequestParam(required = false, defaultValue = "", value = "search") String search,
                            @RequestParam(required = false, value = "sort") String sort,
-                           @RequestParam(required = false, value = "order") String order){
-        List<User> list = userService.selectList(null);
-        return AjaxResult.ok("查询成功").put("rows",list).put("total",list.size());
+                           @RequestParam(required = false, value = "sortOrder") String sortOrder){
+        EntityWrapper<User> wrapper = new EntityWrapper<>();
+        Page<User>  page = new Page<User>(pageNumber,pageSize);
+        Page<User> result = userService.selectPage(page,wrapper);
+        //  List<Dept> list = deptService.selectList(null);
+        return AjaxResult.ok("查询成功").put("rows",result.getRecords()).put("total",result.getTotal());
     }
     @RequestMapping("/info")
     public AjaxResult info(){

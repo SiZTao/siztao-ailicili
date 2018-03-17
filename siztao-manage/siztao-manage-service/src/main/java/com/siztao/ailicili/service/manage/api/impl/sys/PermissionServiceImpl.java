@@ -6,9 +6,12 @@ import com.siztao.ailicili.service.manage.api.sys.PermissionService;
 import com.siztao.ailicili.service.manage.api.sys.UserService;
 import com.siztao.ailicili.service.manage.dao.sys.PermissionMapper;
 import com.siztao.ailicili.service.manage.dao.sys.UserMapper;
+import com.siztao.ailicili.service.manage.entity.sys.Dept;
 import com.siztao.ailicili.service.manage.entity.sys.Permission;
 import com.siztao.framework.constants.GlobalConstants;
 import com.siztao.framework.model.AjaxResult;
+import com.siztao.framework.model.ZtreeVo;
+import com.siztao.framework.utils.CollectionUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -63,6 +66,28 @@ public class PermissionServiceImpl extends ServiceImpl<PermissionMapper, Permiss
         }
         List<Integer>   menuIdList =    userService.queryAllMenuId(userId);
         return  getAllMenuList(menuIdList,appId);
+    }
+
+    @Override
+    public List<ZtreeVo> selectPermissionWithZtree(boolean isShowTopParent, List<Permission> vos) {
+        List<ZtreeVo>   results = new ArrayList<ZtreeVo>();
+        if (isShowTopParent){
+            ZtreeVo result = new ZtreeVo();
+            result.setId("0");
+            result.setpId("-1");
+            result.setName("全部");
+            results.add(result);
+        }
+        if(CollectionUtil.isNotEmpty(vos)){
+            for(Permission per:vos){
+                ZtreeVo foo = new ZtreeVo();
+                foo.setId(String.valueOf(per.getId()));
+                foo.setpId(String.valueOf(per.getParentid()));
+                foo.setName(per.getName());
+                results.add(foo);
+            }
+        }
+        return results;
     }
 
 

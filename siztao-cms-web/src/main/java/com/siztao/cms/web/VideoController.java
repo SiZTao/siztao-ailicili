@@ -42,16 +42,5 @@ public class VideoController {
 
         return "success";
     }
-    class Danmuku{
-        private String _id;
-        private String  author;
-        private String time;
-        private String text;
-        private String color;
-        private String type;
-        private String ip;
-        private String referer;
-        private Integer _v;
-        private String player;
-    }
+
 }

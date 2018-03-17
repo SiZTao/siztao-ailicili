@@ -24,6 +24,7 @@
         <module>siztao-queue</module>
         <module>siztao-vms</module>
         <module>siztao-cms-admin</module>
+        <module>siztao-solr</module>
     </modules>
 
     <!--统一依赖版本配置-->
@@ -556,6 +557,12 @@
                 <artifactId>fastdfs</artifactId>
                 <version>1.24</version>
             </dependency>
+            <!--solr全文搜索-->
+            <dependency>
+                <groupId>org.apache.solr</groupId>
+                <artifactId>solr-solrj</artifactId>
+                <version>${solr.version}</version>
+            </dependency>
             <!-- 工具包-->
             <dependency>
                 <groupId>commons-lang</groupId>
@@ -668,15 +675,6 @@
     <!--构建配置信息-->
 
     <build>
-        <finalName>${artifactId}-${version}</finalName>
-        <resources>
-            <resource>
-                <directory>src/main/resources</directory>
-            </resource>
-            <resource>
-                <directory>src/main/conf/${profiles.active}</directory>
-            </resource>
-        </resources>
 
         <plugins>
             <!-- compiler插件, 设定JDK版本 -->

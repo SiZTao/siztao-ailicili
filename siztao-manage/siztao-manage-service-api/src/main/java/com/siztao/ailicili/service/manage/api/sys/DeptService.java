@@ -17,5 +17,5 @@ import java.util.List;
 public interface DeptService extends IService<Dept> {
 
     //机构Tree
-    List<ZtreeVo>   selectAllDeptWithZtre(boolean isShowTopParent,List<Dept> vos);
+    List<ZtreeVo>   selectAllDeptWithZtree(boolean isShowTopParent,List<Dept> vos);
 }

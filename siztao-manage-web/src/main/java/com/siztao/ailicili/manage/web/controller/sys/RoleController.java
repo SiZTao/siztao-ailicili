@@ -1,6 +1,8 @@
 package com.siztao.ailicili.manage.web.controller.sys;
 
 
+import com.baomidou.mybatisplus.mapper.EntityWrapper;
+import com.baomidou.mybatisplus.plugins.Page;
 import com.siztao.ailicili.service.manage.api.sys.RoleService;
 import com.siztao.ailicili.service.manage.api.sys.UserService;
 import com.siztao.ailicili.service.manage.entity.sys.Application;
@@ -42,13 +44,16 @@ public class RoleController {
 	}
 	@RequestMapping(value = "/list",method = RequestMethod.GET)
 	@ResponseBody
-	public AjaxResult list(@RequestParam(required = false, defaultValue = "0", value = "offset") int offset,
-						   @RequestParam(required = false, defaultValue = "10", value = "limit") int limit,
+	public AjaxResult list(@RequestParam(required = false, defaultValue = "0", value = "pageNumber") int pageNumber,
+						   @RequestParam(required = false, defaultValue = "10", value = "pageSize") int pageSize,
 						   @RequestParam(required = false, defaultValue = "", value = "search") String search,
 						   @RequestParam(required = false, value = "sort") String sort,
-						   @RequestParam(required = false, value = "order") String order){
-		List<Role>   list = roleService.selectList(null);
-		return AjaxResult.ok("查询成功").put("rows",list).put("total",list.size());
+						   @RequestParam(required = false, value = "sortOrder") String sortOrder){
+		EntityWrapper<Role> wrapper = new EntityWrapper<>();
+		Page<Role>  page = new Page<Role>(pageNumber,pageSize);
+		Page<Role> result = roleService.selectPage(page,wrapper);
+		//  List<Dept> list = deptService.selectList(null);
+		return AjaxResult.ok("查询成功").put("rows",result.getRecords()).put("total",result.getTotal());
 	}
 
 

@@ -15,23 +15,23 @@ initPlayers();
 
 function initPlayers () {
     // dp1
-    window.dp1 = new DPlayer({
-        container: document.getElementById('dplayer1'),
-        preload: 'none',
-        screenshot: true,
-        video: {
-            url: 'https://moeplayer.b0.upaiyun.com/dplayer/hikarunara.mp4',
-            pic: 'https://moeplayer.b0.upaiyun.com/dplayer/hikarunara.png',
-            thumbnails: 'https://moeplayer.b0.upaiyun.com/dplayer/hikarunara_thumbnails.jpg'
-        },
-        subtitle: {
-            url: 'https://moeplayer.b0.upaiyun.com/dplayer/hikarunara.vtt'
-        },
-        danmaku: {
-            id: '9E2E3368B56CDBB4',
-            api: '/send/api'
-        }
-    });
+    // window.dp1 = new DPlayer({
+    //     container: document.getElementById('dplayer1'),
+    //     preload: 'none',
+    //     screenshot: true,
+    //     video: {
+    //         url: 'https://moeplayer.b0.upaiyun.com/dplayer/hikarunara.mp4',
+    //         pic: 'https://moeplayer.b0.upaiyun.com/dplayer/hikarunara.png',
+    //         thumbnails: 'https://moeplayer.b0.upaiyun.com/dplayer/hikarunara_thumbnails.jpg'
+    //     },
+    //     subtitle: {
+    //         url: 'https://moeplayer.b0.upaiyun.com/dplayer/hikarunara.vtt'
+    //     },
+    //     danmaku: {
+    //         id: '9E2E3368B56CDBB4',
+    //         api: '/send/api'
+    //     }
+    // });
 
     // // dp2
     // window.dp2 = new DPlayer({

@@ -147,7 +147,8 @@ let vm = new Vue({
     data:{
         permission:{},
         title:null,
-        appList:[]
+        appList:[],
+        permissionTree:[]
     },
     methods:{
         selectIcon:function () {
@@ -174,6 +175,26 @@ let vm = new Vue({
         getMenu:function (permissionId) {
             //加载菜单树
         },
+        getPerTree:function(){
+            let setting = {
+                data: {
+                    simpleData: {
+                        enable: true
+                    }
+                }
+            };
+            let url ="/manage/permission/tree";
+            $.ajax({
+                type : "get",
+                url :url,
+                dataType: 'json',
+                contentType:'application/json;charset=UTF-8',
+                success:function (result) {
+                    this.permissionTree = result;
+                    $.fn.zTree.init($("#menuTree"), setting,  result );
+                }
+            });
+        },
         saveOrUpdate:function (event){
             let url ="/manage/permission/saveOrUpdate";
             $.ajax({
@@ -194,16 +215,24 @@ let vm = new Vue({
             });
         },
         menuTree:function () {
-            openWindow({
-                title: "选择菜单",
+            vm.getPerTree();
+            layer.open({
+                type: 1,
+                title: '选择菜单', //不显示标题
+                skin: 'layui-layer-molv',//皮肤
                 area: ['300px', '450px'],
-                content: jQuery("#menuLayer"),
-                btn: ['确定', '取消'],
+                shadeClose: true, //开启遮罩关闭
+                shade: 0.5,
+                content: $('#menuLayer'), //捕获的元素，注意：最好该指定的元素要存放在body最外层，否则可能被其它的相对元素所影响
+                btn: ['保存', '取消'],
+                anim: 2,
+                top: true, //窗口弹出是否在iframe上层
+                btnAlign: 'c',
                 btn1: function (index) {
-                    // var node = ztree.getSelectedNodes();
-                    // //选择上级菜单
-                    // vm.menu.parentId = node[0].menuId;
-                    // vm.menu.parentName = node[0].name;
+                    var node = ztree.getSelectedNodes();
+                    //选择上级菜单
+                    vm.permission.parentid = node[0].id;
+                    vm.permission.name = node[0].name;
                     layer.close(index);
                 }
             });
@@ -301,7 +330,7 @@ let vm = new Vue({
         }
     },
     created:function () {
-
+        this.getAppList();
     },
     updated:function (event) {
         console.log(vm.permission);
