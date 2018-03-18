@@ -7,6 +7,7 @@ import com.siztao.framework.model.AjaxResult;
 import com.siztao.framework.model.ZtreeVo;
 
 import java.util.List;
+import java.util.Map;
 
 /**
  * <p>
@@ -25,10 +26,17 @@ public interface PermissionService extends IService<Permission> {
     List<Permission>   queryNotButtonList();
 
     //获取用户菜单列表
+
     List<Permission>   getUserMenuList(Integer userId,Integer appId);
+
+    //查询权限数据
+    List<Permission>   listPermissionWithUID(Map<String,Object> queryMap);
     //获取菜单列表
 
     List<ZtreeVo>      selectPermissionWithZtree(boolean isShowTopParent,List<Permission> vos);
+
+
+
     /**
      * 单表操作
      */

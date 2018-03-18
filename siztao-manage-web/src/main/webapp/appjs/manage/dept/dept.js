@@ -197,6 +197,11 @@ let vm = new Vue({
             });
         },
         addAction:function () {
+            var rows =  $("#Table").bootstrapTable('getSelections');
+            console.log(rows);
+            if(rows.length==1){
+                vm.permission.parentid = rows[0].id;
+            }
             layer.open({
                 type: 1,
                 title: '编辑应用信息', //不显示标题

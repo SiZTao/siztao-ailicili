@@ -69,6 +69,11 @@ public class PermissionServiceImpl extends ServiceImpl<PermissionMapper, Permiss
     }
 
     @Override
+    public List<Permission> listPermissionWithUID(Map<String, Object> queryMap) {
+        return permissionMapper.listPermissionWithUID(queryMap);
+    }
+
+    @Override
     public List<ZtreeVo> selectPermissionWithZtree(boolean isShowTopParent, List<Permission> vos) {
         List<ZtreeVo>   results = new ArrayList<ZtreeVo>();
         if (isShowTopParent){

@@ -48,7 +48,6 @@
 		SELECT DISTINCT  rp.permissionid FROM user_re_role ur
 		LEFT JOIN role_re_permission rp on ur.roleid = rp.roleid
 		where ur.userid =#{userId}
-
 	</select>
 
 </mapper>

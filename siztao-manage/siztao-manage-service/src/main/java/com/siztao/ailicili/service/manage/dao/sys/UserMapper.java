@@ -2,6 +2,7 @@ package com.siztao.ailicili.service.manage.dao.sys;
 
 import com.baomidou.mybatisplus.mapper.BaseMapper;
 import com.siztao.ailicili.service.manage.entity.sys.User;
+import org.springframework.stereotype.Repository;
 
 import java.util.List;
 
@@ -13,6 +14,7 @@ import java.util.List;
  * @author SiZhenTao
  * @since 2018-03-02
  */
+@Repository
 public interface UserMapper extends BaseMapper<User> {
     List<String>    queryAllPerms(Integer   userId);
     List<Integer>   queryAllMenuId(Integer  userId);

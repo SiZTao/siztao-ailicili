@@ -148,7 +148,15 @@ let vm = new Vue({
         permission:{},
         title:null,
         appList:[],
-        permissionTree:[]
+        permissionTree:[],
+        appId:1,
+         setting : {
+            data: {
+                simpleData: {
+                    enable: true
+                }
+            }
+        }
     },
     methods:{
         selectIcon:function () {
@@ -175,11 +183,26 @@ let vm = new Vue({
         getMenu:function (permissionId) {
             //加载菜单树
         },
+        getPermissionList(appid){
+            vm.appId = appid;
+            console.log(vm.appId);
+        },
         getPerTree:function(){
+            //权限树菜单
             let setting = {
                 data: {
+                    check:{
+                        enable:true
+                    },
+                    view: {
+                        showLine: true,//显示节点之间的连线。
+                        selectedMulti: false  //允许同时选中多个节点。
+                    },
                     simpleData: {
-                        enable: true
+                        enable: true,
+                        idKey: "id",//节点数据中保存唯一标识的属性名称
+                        pIdKey: "pId",//节点数据中保存其父节点唯一标识的属性名称
+                        rootPId: "" //用于修正根节点父节点数据 默认值：null
                     }
                 }
             };
@@ -190,8 +213,9 @@ let vm = new Vue({
                 dataType: 'json',
                 contentType:'application/json;charset=UTF-8',
                 success:function (result) {
-                    this.permissionTree = result;
-                    $.fn.zTree.init($("#menuTree"), setting,  result );
+                    vm.permissionTree = result;
+                    console.log(vm.permissionTree);
+                    $.fn.zTree.init($("#treeDemo"), vm.setting,   vm.permissionTree );
                 }
             });
         },

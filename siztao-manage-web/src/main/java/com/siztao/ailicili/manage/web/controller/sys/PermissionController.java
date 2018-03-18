@@ -16,10 +16,11 @@ import org.springframework.stereotype.Controller;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 /**
  * <p>
- *  前端控制器
+ *  权限管理
  * </p>
  *
  * @author SiZhenTao
@@ -91,13 +92,23 @@ public class PermissionController extends AbstractController{
         return AjaxResult.ok().put("menuList",menuList);
     }
 
+
+    /**
+     * 权限数据管理
+     * @param appId
+     * @return
+     */
     @RequestMapping("/list")
     @ResponseBody
-    public List<Permission> list(@RequestParam(required = false)Integer appId){
+    public List<Permission> list(@RequestParam(required = false)Integer appId,@RequestParam Map<String,Object> map){
+        Integer userId = getUserId();       //取得用户ID
+        map.put("userid",userId);
         if(appId == null){
             appId = GlobalConstants.APPID;
+            map.put("appid",appId);
         }
-        return permissionService.selectList(new EntityWrapper<Permission>().eq("appid",appId));
+                                            //查询用户权限
+        return permissionService.listPermissionWithUID(map);
     }
 
     @RequestMapping(value = "/tree",method = RequestMethod.GET)
@@ -105,13 +116,18 @@ public class PermissionController extends AbstractController{
     public  List<ZtreeVo> getDeptTree(@RequestParam(required = false, defaultValue = "false", value = "showTopParent")Boolean showTopParent,
                                       @RequestParam(required = false, defaultValue = "true", value = "open") Boolean open,
                                       @RequestParam(required = false, defaultValue = "true", value = "enable")  Boolean enable,
-                                      @RequestParam(required = false)Integer appId){
+                                      @RequestParam(required = false)Integer appId,
+                                      @RequestParam Map<String,Object> map){
         if(appId == null){
             appId = GlobalConstants.APPID;
         }
         List<Permission>    vos = new ArrayList<Permission>();
         if(getUserId()==0){
                 vos = permissionService.selectList(new EntityWrapper<Permission>().eq("appid",appId));
+        }else {
+                map.put("userid",getUserId());
+                map.put("appid",appId);
+                vos= permissionService.listPermissionWithUID(map);
         }
         List<ZtreeVo> perTree = permissionService.selectPermissionWithZtree(showTopParent,vos);
         return perTree;

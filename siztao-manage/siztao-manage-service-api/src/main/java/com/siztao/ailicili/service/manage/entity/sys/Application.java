@@ -11,7 +11,8 @@ import java.io.Serializable;
 
 /**
  * <p>
- * 
+ * 		系统应用实体
+ * 		数据表:tab_sys_application
  * </p>
  *
  * @author SiZhenTao
@@ -23,22 +24,22 @@ public class Application extends Model<Application> {
     private static final long serialVersionUID = 1L;
 
 	private Integer id;
-	private String name;
-	private String code;
-	private String href;
-	private Integer sort;
-	private String theme;
-	private String bgimg;
-	private String title;
-	private String description;
-	private String keyword;
-	private String status;
-	private String delflag;
+	private String name;			//应用名称
+	private String code;			//应用编码
+	private String href;			//应用链接
+	private Integer sort;			//排序
+	private String theme;			//应用主题
+	private String bgimg;			//背景图
+	private String title;			//标题
+	private String description;		//简介
+	private String keyword;			//关键词
+	private String status;			//状态		启用 0 冻结 1 -1删除
+	private String delflag;			//逻辑删除	未删除 0	删除 1
 	@DateTimeFormat(pattern = "yyyy-MM-dd")
-	private Date createtime;
-	private Integer createuser;
-	private Date updatetime;
-	private Integer updateuser;
+	private Date createtime;		//创建时间
+	private Integer createuser;		//创建用户
+	private Date updatetime;		//更新时间
+	private Integer updateuser;		//更新用户
 
 
 	public Integer getId() {

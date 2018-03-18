@@ -8,6 +8,9 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 
+import java.util.HashMap;
+import java.util.Map;
+
 /**
  * @项目名称: siztao-ailicili
  * @模块名称:
@@ -33,6 +36,14 @@ public class PermissionServiceTest  extends BaseTest {
     @Test
     public void testList(){
         LOG.info("AppList:{}", JSON.toJSON(permissionService.selectList(null)));
+
+    }
+    @Test
+    public void testUP(){
+        Map<String,Object> queryMap = new HashMap<String, Object>();
+            queryMap.put("userid",2);
+            queryMap.put("appid",1);
+        LOG.info("PermissionList:{}", JSON.toJSON(permissionService.listPermissionWithUID(queryMap)));
 
     }
 }

@@ -46,7 +46,7 @@ public class UserController extends AbstractController{
     }
 
     /**
-     * 添加应用数据
+     * 添加用户数据
      * @param
      * @return
      */
@@ -62,12 +62,28 @@ public class UserController extends AbstractController{
         }
 
     }
+
+    /**
+     * 编辑用户信息
+     * @param userId
+     * @return
+     */
     @RequestMapping(value = "/editView",method = RequestMethod.GET)
     @ResponseBody
     public AjaxResult editView(@RequestParam("userId") Integer  userId){
         User user = userService.selectById(userId);
         return AjaxResult.ok("查询数据").put("user",user);
     }
+
+    /**
+     * 用户数据列表
+     * @param pageNumber
+     * @param pageSize
+     * @param search
+     * @param sort
+     * @param sortOrder
+     * @return
+     */
     @RequestMapping(value = "/list",method = RequestMethod.GET)
     @ResponseBody
     public AjaxResult list(@RequestParam(required = false, defaultValue = "0", value = "pageNumber") int pageNumber,
@@ -81,6 +97,8 @@ public class UserController extends AbstractController{
         //  List<Dept> list = deptService.selectList(null);
         return AjaxResult.ok("查询成功").put("rows",result.getRecords()).put("total",result.getTotal());
     }
+
+
     @RequestMapping("/info")
     public AjaxResult info(){
 	    return AjaxResult.ok().put("user",getUser());

@@ -8,9 +8,17 @@ import java.util.List;
 
 /**
  * <p>
- *  服务类
- * </p>
+ *  管理员用户服务接口
+ *      命名规范    Service
+ *      获取单个对象        get 做前缀
+ *      获取多个对象        list 做前缀
+ *      获取统计值的方法    count做前缀
+ *      插入的方法          save/insert做前缀
+ *      删除的方法          remove/delete做前缀
+ *      修改的方法          update做前缀
  *
+ * </p>
+ *      数据对象_DO     数据传输对象 DTO
  * @author SiZhenTao
  * @since 2018-03-02
  */
@@ -28,4 +36,5 @@ public interface UserService extends IService<User> {
     AjaxResult    queryObject(Integer userId);
 
     AjaxResult    updatePassword(Integer userId,String password,String newPassword);
+
 }

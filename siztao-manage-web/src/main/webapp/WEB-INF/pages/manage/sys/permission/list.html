@@ -9,6 +9,7 @@
     <link rel="stylesheet" href="/static/style/css/skins/_all-skins.css"/>
     <link rel="stylesheet" href="/static/libs/pace-master/themes/pink/pace-theme-flash.css">
     <link rel="stylesheet" href="/static/libs/toastr/toastr.min.css"/>
+    <link rel="stylesheet" href="/static/libs/ztree/css/zTreeStyle/zTreeStyle.css" type="text/css">
 
     <style type="text/css">
 
@@ -68,7 +69,7 @@
                                     <div class="dropdown btn-group ">
                                         <a class="btn btn-primary btn-more dropdown-toggle  " data-toggle="dropdown"><i class="fa fa-cog"></i> 选择系统</a>
                                         <ul class="dropdown-menu text-left" role="menu">
-                                            <li><a class="btn btn-link btn-multi" v-for="app in appList"  :value="app.id" :key="app.id"  href="javascript:;" data-params="status=normal"><i class="fa fa-eye"></i> {{app.name}}</a></li>
+                                            <li><a class="btn btn-link btn-multi" v-for="app in appList" @click="getPermissionList(app.id)"  :value="app.id" :key="app.id"  href="javascript:;" data-params="status=normal"><i class="fa fa-eye"></i> {{app.name}}</a></li>
                                         </ul>
                                     </div>
                                 </div>
@@ -187,8 +188,12 @@
     </div>
 
     <!-- 选择菜单 -->
-    <div id="menuLayer" style="display: none;padding:10px;">
-        <ul id="menuTree" class="ztree"></ul>
+    <div id="menuLayer" hidden>
+        <div class="form-group">
+           <div class="col-md-6 col-lg-offset-2">
+               <ul id="treeDemo" class="ztree"></ul>
+           </div>
+        </div>
     </div>
 </div>
 </body>

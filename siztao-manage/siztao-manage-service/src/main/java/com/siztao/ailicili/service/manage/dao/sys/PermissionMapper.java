@@ -2,6 +2,7 @@ package com.siztao.ailicili.service.manage.dao.sys;
 
 import com.baomidou.mybatisplus.mapper.BaseMapper;
 import com.siztao.ailicili.service.manage.entity.sys.Permission;
+import org.springframework.stereotype.Repository;
 
 import java.util.List;
 import java.util.Map;
@@ -14,6 +15,7 @@ import java.util.Map;
  * @author SiZhenTao
  * @since 2018-03-02
  */
+@Repository
 public interface PermissionMapper extends BaseMapper<Permission> {
 
     /**
@@ -29,6 +31,7 @@ public interface PermissionMapper extends BaseMapper<Permission> {
      */
     List<Permission>    queryNotButtonList();
 
+    List<Permission>    listPermissionWithUID(Map<String,Object> map);
     /**
      * 查询用户权限列表
      * @param userId

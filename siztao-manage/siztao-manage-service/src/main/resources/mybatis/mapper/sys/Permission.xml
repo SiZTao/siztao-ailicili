@@ -29,6 +29,11 @@
     <sql id="Base_Column_List">
         id, parentid, parentids, code, name, href, appid, isopen, type, icons, permission, sort, createtime, createuser,description, updatetime, updateuser, status, delflag
     </sql>
+
+	<sql id="Pre_Column_List">
+		p.id, p.parentid, p.parentids, p.code, p.name, p.href, p.appid, p.isopen, p.type, p.icons, p.permission, p.sort, p.createtime, p.createuser,p.description, p.updatetime,
+		p.updateuser, p.status, p.delflag
+	</sql>
     <select id="queryListParentId"  resultType="com.siztao.ailicili.service.manage.entity.sys.Permission" parameterType="map">
 		SELECT
 		<include refid="Base_Column_List"/>
@@ -52,7 +57,22 @@
 	</select>
 	<select id="queryMaxIdByParentId" resultType="java.lang.Integer">
 		SELECT max(id) FROM tab_sys_permission WHERE parentid =#{parentId}
-
+	</select>
+	<!--查询用户所见权限数据-->
+    <select id="listPermissionWithUID" resultType="com.siztao.ailicili.service.manage.entity.sys.Permission" parameterType="map">
+		  		SELECT DISTINCT
+		  			<include refid="Pre_Column_List"/>
+					FROM user_re_role ur
+					LEFT JOIN role_re_permission rp on ur.roleid = rp.roleid
+					LEFT JOIN tab_sys_permission p on rp.permissionid = p.id
+				<where>
+					<if test="userid !=null">
+						ur.userid =#{userid}
+					</if>
+					<if test="appid !=null">
+						 AND	p.appid =#{appid}
+					</if>
+				</where>
 	</select>
 
 </mapper>

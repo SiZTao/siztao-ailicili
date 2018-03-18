@@ -27,7 +27,7 @@ import java.util.List;
 
 /**
  * <p>
- *  前端控制器
+ *  应用控制器
  * </p>
  *
  * @author SiZhenTao
@@ -44,6 +44,10 @@ public class ApplicationController extends AbstractController{
     private ApplicationService  applicationService;
 
 
+    /**
+     * 进入应用管理界面
+     * @return
+     */
     @RequestMapping(method = RequestMethod.GET)
     public String page(){
         return APP_VIEW+"/list";
@@ -56,6 +60,11 @@ public class ApplicationController extends AbstractController{
         return APP_VIEW+"/add";
     }
 
+    /**
+     * 应用信息编辑
+     * @param appId
+     * @return
+     */
     @RequestMapping(value = "/editView",method = RequestMethod.GET)
     @ResponseBody
     public AjaxResult editView(Integer  appId){
@@ -64,7 +73,15 @@ public class ApplicationController extends AbstractController{
         return AjaxResult.ok("查询数据").put("app",application);
     }
 
-
+    /**
+     * 应用数据列表
+     * @param pageNumber
+     * @param pageSize
+     * @param search
+     * @param sort
+     * @param sortOrder
+     * @return
+     */
     @RequestMapping(value = "/list",method = RequestMethod.GET)
     @ResponseBody
     public AjaxResult list(@RequestParam(required = false, defaultValue = "0", value = "pageNumber") int pageNumber,
@@ -108,7 +125,6 @@ public class ApplicationController extends AbstractController{
         boolean flag = applicationService.deleteById(appId);
         return AjaxResult.ok("删除成功");
     }
-
 
     /**
      * 查询数据
