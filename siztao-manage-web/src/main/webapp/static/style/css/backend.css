@@ -8,14 +8,14 @@
 @import url("../../libs/jquery-treegrid/jquery.treegrid.min.css");
 @import url("../../libs/nice-validator/dist/jquery.validator.css");
 @import url("../../libs/selectpage/selectpage.css");
+@import url("/static/libs/nice-validator/dist/jquery.validator.css");
 @import url("/static/libs/daterangepicker/daterangepicker.css");
 @import url("/static/libs/datepicker/datepicker3.css");
 @import url("/static/libs/iCheck/all.css");
 @import url("/static/libs/colorpicker/bootstrap-colorpicker.min.css");
 @import url("/static/libs/timepicker/bootstrap-timepicker.min.css");
-@import url("/static/libs/select2/select2.min.css");
 @import url("../css/backend.min.css");
-
+@import url("/static/libs/bootstrap-select/dist/css/bootstrap-select.min.css");
 
 
 body {

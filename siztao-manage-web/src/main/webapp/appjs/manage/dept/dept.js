@@ -271,6 +271,7 @@ let vm = new Vue({
         }
     },
     created:function () {
+
     }
 
 });

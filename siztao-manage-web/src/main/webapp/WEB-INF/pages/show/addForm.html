@@ -1,0 +1,401 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+<head>
+    <meta charset="utf-8">
+    <title>表单验证</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <meta name="renderer" content="webkit">
+    <!--通用样式-->
+    <link rel="stylesheet" href="/static/style/css/backend.css"/>
+    <link rel="stylesheet" href="/static/style/css/skins/_all-skins.css"/>
+    <link rel="stylesheet" href="/static/libs/pace-master/themes/pink/pace-theme-flash.css">
+    <link rel="stylesheet" href="/static/libs/toastr/toastr.min.css">
+    <link rel="stylesheet" href="/static/libs/toastr/toastr.min.css">
+    <link rel="stylesheet" href="/static/libs/ztree/css/zTreeStyle/zTreeStyle.css" type="text/css">
+    <link rel="stylesheet" href="/static/style/css/iview.css"/>
+    <style type="text/css">
+
+        [v-cloak] {
+            display: none;
+        }
+        ::-webkit-scrollbar{
+            display:none;
+        }
+        .container-fluid {
+            padding-right: 0px;
+            padding-right: 0px;
+        }
+        .error{
+            color:red;
+        }
+    </style>
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+    <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
+    <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+    <![endif]-->
+    <script type="text/javascript" src="/static/libs/pace-master/pace.min.js"></script>
+</head>
+
+<body class="hold-transition skin-blue sidebar-mini inside-header inside-aside bg-gray-light">
+<div id="addFrom"  v-cloak>
+    <form id="edit-form" class="form-horizontal cmxform" role="form" :model="Entity" data-toggle="validator" method="POST" action="#">
+        <fieldset>
+        <div class="form-group">
+            <label  class="control-label col-xs-12 col-sm-2"></label>
+        </div>
+        <div class="form-group">
+            <label for="username" class="control-label col-xs-12 col-sm-2">用户名:</label>
+            <div class="col-xs-12 col-sm-8">
+                <input type="text" id="username" placeholder="必填项,5~12" class="form-control" v-model="Entity.username" name="username" />
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="c-avatar" class="control-label col-xs-12 col-sm-2">上传头像:</label>
+            <div class="col-xs-12 col-sm-8">
+                <div class="input-group">
+                    <input id="c-avatar" data-rule="" class="form-control" size="50" name="row[avatar]" type="text" value="{$row.avatar}">
+                    <div class="input-group-addon no-border no-padding">
+                        <span>
+                              <upload
+                                      multiple
+                                      action="/upload"
+                                      type="drag"
+                                      :on-success="handleSuccess">
+                        <i-button type="ghost" icon="ios-cloud-upload-outline">Upload files</i-button>
+                    </upload>
+                        </span>
+                    </div>
+                    <span class="msg-box n-right" for="c-avatar"></span>
+                </div>
+                <ul class="row list-inline plupload-preview" id="p-avatar"></ul>
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="password" class="control-label col-xs-12 col-sm-2">密码:</label>
+            <div class="col-xs-12 col-sm-8">
+                <input type="password" id="password" class="form-control" placeholder="请输入密码" v-model="Entity.password" name="password" type="text"/>
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="repassword" class="control-label col-xs-12 col-sm-2">确认密码:</label>
+            <div class="col-xs-12 col-sm-8">
+                <input type="password" id="repassword" placeholder="确认密码" class="form-control" v-model="Entity.repassword" name="repassword" minlength="8" maxlength="32" type="text" />
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="email" class="control-label col-xs-12 col-sm-2">邮箱:</label>
+            <div class="col-xs-12 col-sm-8">
+                <input type="text" id="email" placeholder="请填写正确邮箱" class="form-control" v-model="Entity.email" name="email"  type="email" />
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="email" class="control-label col-xs-12 col-sm-2">权限树:</label>
+            <div class="col-xs-12 col-sm-8">
+                <div class="panel panel-default panel-intro" id="zTreePanel">
+                    <div class="panel-body">
+                        <span class="text-muted"><input type="checkbox" name="" id="checkall" /> <label for="checkall"><small>选中全部</small></label></span>
+                        <span class="text-muted"><input type="checkbox" name="" id="expandall" checked="" /> <label for="expandall"><small>展开全部</small></label></span>
+                        <div id="channeltree">
+                            <ul id="treeDemo" class="ztree"></ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="email" class="control-label col-xs-12 col-sm-2">请选择性别:</label>
+            <div class="col-xs-12 col-sm-8">
+                <select class="form-control selectpicker"  v-model="Entity.sex" autocomplete="off">
+                    <option value="-1" selected="selected">保密</option>
+                    <option value="1">男</option>
+                    <option value="0">女</option>
+                </select>
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="email" class="control-label col-xs-12 col-sm-2" autocomplete="off">选择标签:</label>
+            <div class="col-xs-12 col-sm-8">
+                <select class="form-control selectpicker" multiple data-live-search="true"  v-model="Entity.tag" data-live-search-placeholder="搜索" data-actions-box="true">
+                    　　<optgroup label="filter1">
+                    　　　　<option>option1</option>
+                    　　　　<option>option2</option>
+                    　　　　<option>option3</option>
+                    　　　　<option>option4</option>
+                    　　</optgroup>
+                    　　<optgroup label="filter2">
+                    　　　　<option>option1</option>
+                    　　　　<option>option2</option>
+                    　　　　<option>option3</option>
+                    　　　　<option>option4</option>
+                    　　</optgroup>
+                    　　<optgroup label="filter3">
+                    　　　　<option>option1</option>
+                    　　　　<option>option2</option>
+                    　　　　<option>option3</option>
+                    　　　　<option>option4</option>
+                    　　</optgroup>
+                </select>
+            </div>
+        </div>
+        <div class="form-group">
+            <label  class="control-label col-xs-12 col-sm-2">复选框:</label>
+            <div class="col-xs-12 col-sm-8" >
+                <div v-model="Entity.checkList">
+                    <label class="checkbox-inline">
+                        <input type="checkbox" v-model="Entity.checkedNames" id="inlineCheckbox1" value="option1"> 选项 1
+                    </label>
+                    <label class="checkbox-inline">
+                        <input type="checkbox" v-model="Entity.checkedNames" id="inlineCheckbox2" value="option2"> 选项 2
+                    </label>
+                    <label class="checkbox-inline">
+                        <input type="checkbox" v-model="Entity.checkedNames"  id="inlineCheckbox3" value="option3"> 选项 3
+                    </label>
+                </div>
+            </div>
+        </div>
+            <div class="form-group">
+                <label  class="control-label col-xs-12 col-sm-2">单选框:</label>
+                <div class="col-xs-12 col-sm-8" >
+                    <div v-model="Entity.checkList">
+                        <label class="checkbox-inline">
+                            <input type="radio" v-model="Entity.radioName" id="radio1" value="option1"> 选项 1
+                        </label>
+                        <label class="checkbox-inline">
+                            <input type="radio" v-model="Entity.radioName" id="radio2" value="option2"> 选项 2
+                        </label>
+                    </div>
+                </div>
+            </div>
+        <div class="form-group">
+            <label for="email" class="control-label col-xs-12 col-sm-2">选择图标:</label>
+            <div class="col-xs-12 col-sm-8">
+                <input type="text" class="form-control" id="selectIcon" v-model="Entity.icon" @click="selectIcon"  name="icon">
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="email" class="control-label col-xs-12 col-sm-2">请同意我们的声明:</label>
+            <div class="col-xs-12 col-sm-8">
+                <input type="checkbox" class="checkbox" id="agree" v-model="Entity.agree"  name="agree">
+            </div>
+        </div>
+
+        <div class="form-group" style="position: relative;left: 400px;bottom: 0px;">
+            <div class="col-xs-12">
+                <button type="submit" class="btn btn-success btn-embossed">提交</button>
+                <button type="button" @click="addZtree" class="btn btn-default btn-embossed">取消</button>
+            </div>
+        </div>
+        </fieldset>
+    </form>
+</div>
+</body>
+
+
+<!-- 引入JS -->
+<script src="/static/style/js/jquery-2.2.4.min.js"></script>
+<script src="/static/style/js/bootstrap.min.js"></script>
+<script src="/static/style/js/vue.min.js"></script>
+<script src="/static/style/js/vue-validator.min.js"></script>
+
+<script src="/static/libs/bootstrap-select/dist/js/bootstrap-select.min.js"></script>
+
+
+
+<!-- BootstrapTable 数据表格 -->
+<script src="/static/libs/bootstrap-table/dist/bootstrap-table.js"></script>
+<script src="/static/libs/bootstrap-table/dist/extensions/mobile/bootstrap-table-mobile.min.js"></script>
+<script src="/static/libs/bootstrap-table/dist/locale/bootstrap-table-zh-CN.js"></script>
+<script src="http://static.runoob.com/assets/jquery-validation-1.14.0/dist/jquery.validate.min.js"></script>
+<script src="http://static.runoob.com/assets/jquery-validation-1.14.0/dist/localization/messages_zh.js"></script>
+<!--提示插件-->
+<script src="/static/libs/toastr/toastr.min.js"></script>
+<script src="/static/libs/layer/layer.js"></script>
+<script src="/static/style/js/common.js"></script>
+<script src="/static/style/js/iview.min.js"></script>
+<script type="text/javascript" src="/static/libs/ztree/js/jquery.ztree.core.js"></script>
+<script type="text/javascript" src="/static/libs/ztree/js/jquery.ztree.excheck.js"></script>
+<script>
+    let vm =new Vue({
+        el:'#addFrom',
+        data:{
+            Entity:{
+                username:"admin",
+                sex:1,
+                checkedNames:[]
+            },
+            pTreeIdList:[],
+            checkList:{},
+            fileList:{}
+        },
+        methods:{
+            saveOrUpdate:function () {
+                console.log(vm.Entity);
+            },
+            addZtree:function () {
+                layer.open({
+                    type: 1,
+                    title: '编辑权限信息', //不显示标题
+                    skin: 'layui-layer-molv',//皮肤
+                    area: ['250px', '450px'],
+                    shadeClose: true, //开启遮罩关闭
+                    shade: 0.5,
+                    content: $('#add-form'), //捕获的元素，注意：最好该指定的元素要存放在body最外层，否则可能被其它的相对元素所影响
+                    btn: ['保存', '重置'],
+                    anim: 2,
+                    top: true, //窗口弹出是否在iframe上层
+                    btnAlign: 'c',
+                    btn1:function () {
+                        getCheckNode();
+                    },
+                    btn2:function () {
+                    },
+                    end: function () {
+                        location.reload();
+                    }
+                });
+            },
+            selectIcon:function () {
+
+            },
+            handleSuccess:function () {
+            }
+        }
+    });
+</script>
+<script type="text/javascript">
+    $(function () {
+        function initZtree(){
+            var setting = {
+                check: {
+                    enable: true,
+                    chkboxType:{ "Y" : "ps", "N" : "s" }
+                },
+                data: {
+                    simpleData: {
+                        enable: true
+                    }
+                },
+                callback: {
+                    beforeClick: zTreeBeforeClick
+                }
+            };
+            var zNodes =[
+                { id:1, pId:0, name:"展开、折叠 自定义图标不同", open:true},
+                { id:11, pId:1, name:"叶子节点1"},
+                { id:12, pId:1, name:"叶子节点2"},
+                { id:13, pId:1, name:"叶子节点3"},
+                { id:2, pId:0, name:"展开、折叠 自定义图标相同"},
+                { id:21, pId:2, name:"叶子节点1"},
+                { id:22, pId:2, name:"叶子节点2"},
+                { id:23, pId:2, name:"叶子节点3"},
+                { id:3, pId:0, name:"不使用自定义图标", open:true },
+                { id:31, pId:3, name:"叶子节点1"},
+                { id:32, pId:3, name:"叶子节点2"},
+                { id:33, pId:3, name:"叶子节点3"}
+            ];
+            $(document).ready(function(){
+                $.fn.zTree.init($("#treeDemo"), setting, zNodes);
+            });
+            function zTreeBeforeClick(treeId, treeNode, clickFlag) {
+                var id=treeNode.id;
+                console.log("Click节点"+id)
+                vm.pTreeIdList.push(id);
+            };
+        }
+        initZtree();
+        $("#btn_save").bind("click",function(){
+            var zTree = $.fn.zTree.getZTreeObj("treeDemo");
+            var nodes=zTree.getCheckedNodes();
+            var ids="";
+            for (var i=0, l=nodes.length; i<l; i++) {
+                ids+=","+nodes[i].id;
+            }
+            ids=ids.substring(1);
+            if(ids.length == 0){
+                layer.msg("权限不能为空", {shift: 6});
+                return false;
+            }
+            checkList=ids;
+        });
+        $("#checkall").change(function() {
+            var zTree = $.fn.zTree.getZTreeObj("treeDemo");
+            if($("#checkall").is(':checked')){
+                zTree.checkAllNodes(true);
+            }else {
+                zTree.checkAllNodes(false);
+            }
+        });
+        $("#expandall").change(function() {
+            var zTree = $.fn.zTree.getZTreeObj("treeDemo");
+            if($("#expandall").is(':checked')){
+                zTree.expandAll(true);
+            }else {
+                zTree.expandAll(false);
+            }
+        });
+        $("#getCheck").bind("click",function () {
+
+        });
+        getCheckNode=function () {
+            var zTree = $.fn.zTree.getZTreeObj("treeDemo");
+            var nodes = zTree.getCheckedNodes(true);//在提交表单之前将选中的checkbox收集
+            var array = new Array();
+            for(var i=0;i<nodes.length;i++){
+                array.push(nodes[i].id);
+            }
+            console.log(array);
+        }
+    });
+</script>
+<script>
+    $.validator.setDefaults({
+        submitHandler: function() {
+            vm.saveOrUpdate();
+        }
+    });
+    $().ready(function() {
+        $("#edit-form").validate({
+            rules:{
+                username:{
+                    required:true,
+                    minlength:8
+                },
+                password:{
+                    required:true,
+                    minlength:8
+                },
+                repassword:{
+                    required:true,
+                    minlength:8,
+                    equalTo:"#password"
+                },
+                email: {
+                    required: true,
+                    email: true
+                },
+                agree:"required"
+            },
+            messages:{
+                username:{
+                    required:"请输入用户名",
+                    minlength:"用户名至少由8位字母组成"
+                },
+                password: {
+                    required: "请输入密码",
+                    minlength: "密码长度不能小于 8 个字母"
+                },
+                repassword:{
+                    required: "请输入密码",
+                    minlength: "密码长度不能小于 8 个字母",
+                    equalTo: "两次密码输入不一致"
+                },
+                email: "请输入一个正确的邮箱",
+                agree: "请接受我们的声明"
+            }
+        });
+    });
+</script>
+
+</html>

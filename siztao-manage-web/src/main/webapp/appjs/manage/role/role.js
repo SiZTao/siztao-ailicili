@@ -128,8 +128,6 @@ $(function (){
             });
         }
     }
-
-
 });
 
 let vm = new Vue({
@@ -141,6 +139,8 @@ let vm = new Vue({
         queryParams:{
             name:''
         },
+        pTreeIdList:[],
+        checkList:"",
         ruleValidate: {
             name: [
                 {required: true, message: '名称不能为空', trigger: 'blur'}
@@ -229,6 +229,29 @@ let vm = new Vue({
 
                 });
             }
+        },
+        setPermission:function(){
+            layer.open({
+                type: 1,
+                title: '编辑权限信息', //不显示标题
+                skin: 'layui-layer-molv',//皮肤
+                area: ['250px', '450px'],
+                shadeClose: true, //开启遮罩关闭
+                shade: 0.5,
+                content: $('#tree-form'), //捕获的元素，注意：最好该指定的元素要存放在body最外层，否则可能被其它的相对元素所影响
+                btn: ['保存', '重置'],
+                anim: 2,
+                top: true, //窗口弹出是否在iframe上层
+                btnAlign: 'c',
+                btn1:function () {
+                    getCheckNode();
+                },
+                btn2:function () {
+                },
+                end: function () {
+                    location.reload();
+                }
+            });
         },
         reload:function (event) {
 

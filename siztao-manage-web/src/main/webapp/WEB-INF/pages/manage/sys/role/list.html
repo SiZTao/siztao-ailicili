@@ -10,6 +10,8 @@
     <link rel="stylesheet" href="/static/style/css/skins/_all-skins.css"/>
     <link rel="stylesheet" href="/static/libs/pace-master/themes/pink/pace-theme-flash.css">
     <link rel="stylesheet" href="/static/libs/toastr/toastr.min.css">
+    <link rel="stylesheet" href="/static/libs/ztree/css/zTreeStyle/zTreeStyle.css" type="text/css">
+    <link rel="stylesheet" href="/static/style/css/iview.css"/>
     <style type="text/css">
 
         [v-cloak] {
@@ -65,7 +67,7 @@
                                 <div id="toolbar" class="toolbar" style="position: relative;">
                                     <a href="javascript:;" class="btn btn-success" @click="addAction" title="添加"><i class="fa fa-plus"></i> 添加</a>
                                     <a href="javascript:;" class="btn btn-success btn-edit btn-disabled disabled" @click="editAction"  title="编辑"><i class="fa fa-pencil"></i> 编辑</a>
-                                    <a href="javascript:;" class="btn btn-info btn-move dropdown-toggle btn-disabled disabled"><i class="fa fa-arrow-right"></i> 权限分配</a>
+                                    <a href="javascript:;" class="btn btn-info btn-move dropdown-toggle  btn-disabled disabled" @click="setPermission" ><i class="fa fa-arrow-right"></i> 权限分配</a>
 
                                     <a href="javascript:;" class="btn btn-info btn-move dropdown-toggle btn-disabled disabled"><i class="fa fa-arrow-right"></i> 移动</a>
                                     <a href="javascript:;" class="btn btn-danger btn-del btn-disabled disabled" @click="delAction"  title="删除"><i class="fa fa-trash"></i> 删除</a>
@@ -141,8 +143,18 @@
                     <textarea id="c-description" class="form-control"  v-model="role.description"  value="role.description"  placeholder="请输入角色简介" name="description"></textarea>
                 </div>
             </div>
-
         </form>
+    </div>
+    <div id="tree-form"  hidden >
+        <div class="panel panel-default panel-intro" id="zTreePanel">
+            <div class="panel-body">
+                <span class="text-muted"><input type="checkbox" name="" id="checkall" /> <label for="checkall"><small>选中全部</small></label></span>
+                <span class="text-muted"><input type="checkbox" name="" id="expandall"  /> <label for="expandall"><small>展开全部</small></label></span>
+                <div id="channeltree">
+                    <ul id="treeDemo" class="ztree"></ul>
+                </div>
+            </div>
+        </div>
     </div>
 </div>
 </body>
@@ -152,18 +164,103 @@
 <script src="/static/style/js/jquery-2.2.4.min.js"></script>
 <script src="/static/style/js/bootstrap.min.js"></script>
 <script src="/static/style/js/vue.min.js"></script>
-<script src="/static/style/js/vue-validator.min.js"></script>
 
 <!-- BootstrapTable 数据表格 -->
 <script src="/static/libs/bootstrap-table/dist/bootstrap-table.js"></script>
 <script src="/static/libs/bootstrap-table/dist/extensions/mobile/bootstrap-table-mobile.min.js"></script>
 <script src="/static/libs/bootstrap-table/dist/locale/bootstrap-table-zh-CN.js"></script>
 
+
+<script type="text/javascript" src="/static/libs/ztree/js/jquery.ztree.core.js"></script>
+<script type="text/javascript" src="/static/libs/ztree/js/jquery.ztree.excheck.js"></script>
 <!--提示插件-->
 <script src="/static/libs/toastr/toastr.min.js"></script>
 <script src="/static/libs/layer/layer.js"></script>
 <script src="/static/style/js/common.js"></script>
 <script src="/static/style/js/app.js"></script>
 <script src="/static/style/js/app_iframe.js"></script>
+<script type="text/javascript">
+    $(function () {
+        function initZtree(){
+            var setting = {
+                check: {
+                    enable: true,
+                    chkboxType:{ "Y" : "ps", "N" : "s" }
+                },
+                data: {
+                    simpleData: {
+                        enable: true
+                    }
+                },
+                callback: {
+                    beforeClick: zTreeBeforeClick
+                }
+            };
+            var zNodes =[
+                { id:1, pId:0, name:"展开、折叠 自定义图标不同"},
+                { id:11, pId:1, name:"叶子节点1"},
+                { id:12, pId:1, name:"叶子节点2"},
+                { id:13, pId:1, name:"叶子节点3"},
+                { id:2, pId:0, name:"展开、折叠 自定义图标相同"},
+                { id:21, pId:2, name:"叶子节点1"},
+                { id:22, pId:2, name:"叶子节点2"},
+                { id:23, pId:2, name:"叶子节点3"},
+                { id:3, pId:0, name:"不使用自定义图标"},
+                { id:31, pId:3, name:"叶子节点1"},
+                { id:32, pId:3, name:"叶子节点2"},
+                { id:33, pId:3, name:"叶子节点3"}
+            ];
+            $(document).ready(function(){
+                $.fn.zTree.init($("#treeDemo"), setting, zNodes);
+            });
+            function zTreeBeforeClick(treeId, treeNode, clickFlag) {
+                var id=treeNode.id;
+                console.log("Click节点"+id)
+                vm.pTreeIdList.push(id);
+            };
+        }
+        initZtree();
+        $("#btn_save").bind("click",function(){
+            var zTree = $.fn.zTree.getZTreeObj("treeDemo");
+            var nodes=zTree.getCheckedNodes();
+            var ids="";
+            for (var i=0, l=nodes.length; i<l; i++) {
+                ids+=","+nodes[i].id;
+            }
+            ids=ids.substring(1);
+            if(ids.length == 0){
+                layer.msg("权限不能为空", {shift: 6});
+                return false;
+            }
+            checkList=ids;
+        });
+        $("#checkall").change(function() {
+            var zTree = $.fn.zTree.getZTreeObj("treeDemo");
+            if($("#checkall").is(':checked')){
+                zTree.checkAllNodes(true);
+            }else {
+                zTree.checkAllNodes(false);
+            }
+        });
+        $("#expandall").change(function() {
+            var zTree = $.fn.zTree.getZTreeObj("treeDemo");
+            if($("#expandall").is(':checked')){
+                zTree.expandAll(true);
+            }else {
+                zTree.expandAll(false);
+            }
+        });
+
+        getCheckNode=function () {
+            var zTree = $.fn.zTree.getZTreeObj("treeDemo");
+            var nodes = zTree.getCheckedNodes(true);//在提交表单之前将选中的checkbox收集
+            var array = new Array();
+            for(var i=0;i<nodes.length;i++){
+                array.push(nodes[i].id);
+            }
+            console.log(array);
+        }
+    });
+</script>
 <script src="/appjs/manage/role/role.js"></script>
 </html>

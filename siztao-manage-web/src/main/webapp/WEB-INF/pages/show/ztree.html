@@ -1,0 +1,287 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+<head>
+    <meta charset="utf-8">
+    <title>系统应用管理</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <meta name="renderer" content="webkit">
+    <!--通用样式-->
+    <link rel="stylesheet" href="/static/style/css/backend.css"/>
+    <link rel="stylesheet" href="/static/style/css/skins/_all-skins.css"/>
+    <link rel="stylesheet" href="/static/libs/pace-master/themes/green/pace-theme-flash.css">
+    <link rel="stylesheet" href="/static/libs/toastr/toastr.min.css">
+    <link rel="stylesheet" href="/static/libs/ztree/css/zTreeStyle/zTreeStyle.css" type="text/css">
+    <style type="text/css">
+
+        [v-cloak] {
+            display: none;
+        }
+        ::-webkit-scrollbar{
+            display:none;
+        }
+        .container-fluid {
+            padding-right: 0px;
+            padding-right: 0px;
+        }
+    </style>
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+    <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
+    <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+    <![endif]-->
+    <script type="text/javascript" src="/static/libs/pace-master/pace.min.js"></script>
+</head>
+<body class="inside-header inside-aside ">
+<div id="zTree" role="main">
+    <div class="tab-content tab-addtabs">
+        <div id="content">
+            <div class="row">
+                <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+                    <section class="content-header hide">
+                        <h1>
+                            控制台<small>Control panel</small>
+                        </h1>
+                    </section>
+                    <!-- RIBBON -->
+                    <div id="ribbon">
+                        <ol class="breadcrumb pull-left">
+                            <li><a href="dashboard" class="addtabsit"><i class="fa fa-dashboard"></i> 控制台</a></li>
+                        </ol>
+                        <ol class="breadcrumb pull-right">
+                            <li><a href="javascript:;" data-url="/admin/cms.archives/cms">示例演示</a></li>
+                            <li><a href="javascript:;" data-url="/admin/cms/archives">树形结构</a></li>
+                        </ol>
+                    </div>
+                    <!-- END RIBBON -->
+                    <div class="content">
+                        <div class="row">
+                            <div class="col-md-2 hidden-xs hidden-sm">
+                                <div class="panel panel-default panel-intro" >
+                                    <div class="panel-heading">
+                                        <div class="panel-lead"><em>机构列表</em></div>
+                                    </div>
+                                    <div class="panel-body">
+                                        <div >
+                                            <ul id="detpTree" class="ztree"></ul>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-10">
+                                <div class="panel panel-default panel-intro" style="background: #f1f4f6;padding-top: 0;padding-bottom: 0;box-shadow: none;">
+                                    <div id="myTabContent" class="tab-content" style="background:#fff;padding:15px;">
+                                        <div class="tab-pane fade active in" id="one">
+                                            <div class="widget-body no-padding">
+                                                <div id="toolbar" class="toolbar">
+
+                                                    <a href="javascript:;" class="btn btn-success" @click="addZtree" title="添加"><i class="fa fa-plus"></i> 添加</a>
+                                                    <a href="javascript:;" class="btn btn-success btn-edit btn-disabled disabled"   title="编辑"><i class="fa fa-pencil"></i> 编辑</a>
+                                                    <a href="javascript:;" class="btn btn-info btn-move dropdown-toggle btn-disabled disabled"><i class="fa fa-arrow-right"></i> 权限分配</a>
+                                                    <a href="javascript:;" class="btn btn-danger btn-del btn-disabled disabled" title="删除" ><i class="fa fa-trash"></i> 删除</a>
+                                                    <a href="javascript:;" class="btn btn-info btn-move dropdown-toggle btn-disabled disabled"><i class="fa fa-arrow-right"></i> 移动</a>
+                                                </div>
+                                                <table id="Table">
+                                                </table>
+                                            </div>
+                                        </div>
+
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="add-form"  hidden >
+        <div class="panel panel-default panel-intro" id="zTreePanel">
+            <div class="panel-body">
+                <span class="text-muted"><input type="checkbox" name="" id="checkall" /> <label for="checkall"><small>选中全部</small></label></span>
+                <span class="text-muted"><input type="checkbox" name="" id="expandall" checked="" /> <label for="expandall"><small>展开全部</small></label></span>
+                <div id="channeltree">
+                    <ul id="treeDemo" class="ztree"></ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
+</body>
+<!-- 引入JS -->
+<script src="/static/style/js/jquery-2.2.4.min.js"></script>
+<script src="/static/style/js/bootstrap.min.js"></script>
+<script src="/static/style/js/vue.min.js"></script>
+<script src="/static/style/js/vue-validator.min.js"></script>
+
+<script type="text/javascript" src="/static/libs/ztree/js/jquery.ztree.core.js"></script>
+<script type="text/javascript" src="/static/libs/ztree/js/jquery.ztree.excheck.js"></script>
+
+<!-- BootstrapTable 数据表格 -->
+<script src="/static/libs/bootstrap-table/dist/bootstrap-table.js"></script>
+<script src="/static/libs/bootstrap-table/dist/extensions/mobile/bootstrap-table-mobile.min.js"></script>
+<script src="/static/libs/bootstrap-table/dist/locale/bootstrap-table-zh-CN.js"></script>
+<!--提示插件-->
+<script src="/static/libs/toastr/toastr.min.js"></script>
+<script src="/static/libs/layer/layer.js"></script>
+<script src="/static/style/js/common.js"></script>
+<script src="/static/style/js/app_iframe.js"></script>
+
+<script type="text/javascript">
+    $(function () {
+        function initZtree(){
+            var setting = {
+                check: {
+                    enable: true,
+                    chkboxType:{ "Y" : "ps", "N" : "s" }
+                },
+                data: {
+                    simpleData: {
+                        enable: true
+                    }
+                },
+                callback: {
+                    beforeClick: zTreeBeforeClick
+                }
+            };
+            var zNodes =[
+                { id:1, pId:0, name:"展开、折叠 自定义图标不同", open:true},
+                { id:11, pId:1, name:"叶子节点1"},
+                { id:12, pId:1, name:"叶子节点2"},
+                { id:13, pId:1, name:"叶子节点3"},
+                { id:2, pId:0, name:"展开、折叠 自定义图标相同"},
+                { id:21, pId:2, name:"叶子节点1"},
+                { id:22, pId:2, name:"叶子节点2"},
+                { id:23, pId:2, name:"叶子节点3"},
+                { id:3, pId:0, name:"不使用自定义图标", open:true },
+                { id:31, pId:3, name:"叶子节点1"},
+                { id:32, pId:3, name:"叶子节点2"},
+                { id:33, pId:3, name:"叶子节点3"}
+            ];
+            $(document).ready(function(){
+                $.fn.zTree.init($("#treeDemo"), setting, zNodes);
+            });
+            function zTreeBeforeClick(treeId, treeNode, clickFlag) {
+                var id=treeNode.id;
+                console.log("Click节点"+id)
+                vm.pTreeIdList.push(id);
+            };
+        }
+        initZtree();
+
+        function initDeptZtree(){
+            var setting = {
+                data: {
+                    simpleData: {
+                        enable: true
+                    }
+                },
+                callback: {
+                    beforeClick: zTreeBeforeClick
+                }
+            };
+            var zNodes =[
+                { id:1, pId:0, name:"展开、折叠 自定义图标不同", open:true},
+                { id:11, pId:1, name:"叶子节点1"},
+                { id:12, pId:1, name:"叶子节点2"},
+                { id:13, pId:1, name:"叶子节点3"},
+                { id:2, pId:0, name:"展开、折叠 自定义图标相同"},
+                { id:21, pId:2, name:"叶子节点1"},
+                { id:22, pId:2, name:"叶子节点2"},
+                { id:23, pId:2, name:"叶子节点3"},
+                { id:3, pId:0, name:"不使用自定义图标", open:true },
+                { id:31, pId:3, name:"叶子节点1"},
+                { id:32, pId:3, name:"叶子节点2"},
+                { id:33, pId:3, name:"叶子节点3"}
+            ];
+            $(document).ready(function(){
+                $.fn.zTree.init($("#detpTree"), setting, zNodes);
+            });
+            function zTreeBeforeClick(treeId, treeNode, clickFlag) {
+                var id=treeNode.id;
+            };
+        }
+        initDeptZtree();
+        $("#btn_save").bind("click",function(){
+            var zTree = $.fn.zTree.getZTreeObj("treeDemo");
+            var nodes=zTree.getCheckedNodes();
+            var ids="";
+            for (var i=0, l=nodes.length; i<l; i++) {
+                ids+=","+nodes[i].id;
+            }
+            ids=ids.substring(1);
+            if(ids.length == 0){
+                layer.msg("权限不能为空", {shift: 6});
+                return false;
+            }
+            checkList=ids;
+        });
+        $("#checkall").change(function() {
+            var zTree = $.fn.zTree.getZTreeObj("treeDemo");
+            if($("#checkall").is(':checked')){
+                zTree.checkAllNodes(true);
+            }else {
+                zTree.checkAllNodes(false);
+            }
+        });
+        $("#expandall").change(function() {
+            var zTree = $.fn.zTree.getZTreeObj("treeDemo");
+           if($("#expandall").is(':checked')){
+               zTree.expandAll(true);
+           }else {
+               zTree.expandAll(false);
+           }
+        });
+        $("#getCheck").bind("click",function () {
+
+        });
+        getCheckNode=function () {
+            var zTree = $.fn.zTree.getZTreeObj("treeDemo");
+            var nodes = zTree.getCheckedNodes(true);//在提交表单之前将选中的checkbox收集
+            var array = new Array();
+            for(var i=0;i<nodes.length;i++){
+                array.push(nodes[i].id);
+            }
+            console.log(array);
+        }
+    });
+</script>
+<script>
+    let vm = new Vue({
+        el:'#zTree',
+        data:{
+            pTreeIdList:[],
+            checkList:""
+        },
+        methods:{
+            addZtree:function () {
+                layer.open({
+                    type: 1,
+                    title: '编辑权限信息', //不显示标题
+                    skin: 'layui-layer-molv',//皮肤
+                    area: ['250px', '450px'],
+                    shadeClose: true, //开启遮罩关闭
+                    shade: 0.5,
+                    content: $('#add-form'), //捕获的元素，注意：最好该指定的元素要存放在body最外层，否则可能被其它的相对元素所影响
+                    btn: ['保存', '重置'],
+                    anim: 2,
+                    top: true, //窗口弹出是否在iframe上层
+                    btnAlign: 'c',
+                    btn1:function () {
+                        getCheckNode();
+                    },
+                    btn2:function () {
+                    },
+                    end: function () {
+                        location.reload();
+                    }
+                });
+            }
+        }
+    })
+</script>
+</html>

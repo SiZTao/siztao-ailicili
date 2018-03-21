@@ -24,7 +24,7 @@
         <module>siztao-queue</module>
         <module>siztao-vms</module>
         <module>siztao-cms-admin</module>
-        <module>siztao-solr</module>
+        <!--<module>siztao-solr</module>-->
     </modules>
 
     <!--统一依赖版本配置-->
